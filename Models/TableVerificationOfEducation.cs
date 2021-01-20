@@ -14,7 +14,7 @@ namespace WebApplicationDiplom.Models
         public DateTime DateOfVerification { get; set; }
         public int WorkerId { get; set; }
         public int PositionId { get; set; }
-        public int OrganizationId { get; set; }
+        public int TableOrganizationsId { get; set; }
         public Worker Worker { get; set; }
         public TableOrganizations Organizations { get; set; }
         public Position Position { get; set; }

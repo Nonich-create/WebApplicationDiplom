@@ -11,6 +11,7 @@ namespace WebApplicationDiplom.Enumeration
          Учреждения_образования,
          Унитарная_предприятия,
          Филиал,
+         Заготторг
 
     }
 }

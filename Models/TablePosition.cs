@@ -12,8 +12,9 @@ namespace WebApplicationDiplom.Models
         public int TablePositionId { get; set; }
         public DateTime DateOfJobRegistration { get; set; }
         public int CountPosition { get; set; }
+        public string JobResponsibilities { get; set; }
         public int PositionId { get; set; }
-        public int OrganizationId { get; set; }
+        public int TableOrganizationsId { get; set; }
         public TableOrganizations Organizations { get; set; }
         public Position Position { get; set; }
         public List<TableHistoryOfAppointments> HistoryOfAppointments { get; set; }

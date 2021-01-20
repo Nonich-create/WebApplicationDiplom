@@ -22,7 +22,36 @@ namespace WebApplicationDiplom.Models
         {
           HistoryOfAppointments = new List<TableHistoryOfAppointments>();
           Educational = new List<TableEducational>();
-          VerificationOfEducation = new List<TableVerificationOfEducation>();
+      
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            VerificationOfEducation = new List<TableVerificationOfEducation>();
         }
     }
 }

@@ -11,8 +11,8 @@ namespace WebApplicationDiplom.Models
         [Key]
         public int HistoryOfAppointmentsId { get; set; }
         public DateTime DateOfAppointment { get; set; }
-        public DateTime DateOfDismissal { get; set; }
-        public string TheReasonForTheDismissal { get; set; }
+        public DateTime? DateOfDismissal { get; set; }
+        public string? TheReasonForTheDismissal { get; set; }
         public int TablePositionId { get; set; }
         public int WorkerId { get; set; }
         public Worker Worker { get; set; }
