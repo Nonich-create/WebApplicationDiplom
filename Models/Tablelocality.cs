@@ -12,8 +12,8 @@ namespace WebApplicationDiplom.Models
         public int localityId { get; set; }
         public string Typelocality { get; set; }
         public string Namelocality { get; set; }
-        public int AreaId { get; set; }
-        public TableArea Area { get; set; }
+        public int DistrictId { get; set; }
+        public TableDistrict District { get; set; }
         public List<TableAddress> Address { get; set; }
         public Tablelocality()
         {

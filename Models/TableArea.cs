@@ -11,10 +11,10 @@ namespace WebApplicationDiplom.Models
         [Key]
         public int AreaId { get; set; }
         public string NameArea { get; set; }
-        public List<Tablelocality> locality { get; set; }
+        public List<TableDistrict>  District { get; set; }
         public TableArea()
         {
-            locality = new List<Tablelocality>();
+            District = new List<TableDistrict>();
         }
     }
 }
