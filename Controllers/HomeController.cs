@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -37,14 +38,31 @@ namespace WebApplicationDiplom.Controllers
          [HttpGet]
          public async Task<IActionResult> Index()
          {
+            int selectedIndex = 1;
+
             area = _context.TableArea.ToList();
             districts = _context.TableDistrict.ToList();
             locations = _context.Tablelocality.ToList();
             addresses = _context.PersTableAddresson.ToList();
+
+            SelectList areaes = new SelectList(_context.TableArea, "AreaId", "NameArea", selectedIndex);
+            ViewBag.TableArea = areaes;
+            SelectList districtes = new SelectList(_context.TableDistrict.Where(c => c.AreaId==selectedIndex), "DistrictId", "NameDistrict");
+            ViewBag.TableDistrict = districtes;
+
+            ViewBag.AreaId = new SelectList(_context.TableDistrict, "AreaId", "NameArea");
+
+            ViewBag.DistrictId = new SelectList(_context.TableDistrict, "DistrictId", "NameDistrict");
+
+
             AddressViewModel avm = new AddressViewModel { areas = area, districts = districts, localities = locations, addresses = addresses };
             return View(avm);  
          }
 
+         public ActionResult GetItems(int id)
+         {
+            return PartialView(_context.TableDistrict.Where(c => c.AreaId == id).ToList());
+         }
     
         //  [HttpPost]
         //  public async Task<IActionResult> Index(Person[] people)

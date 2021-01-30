@@ -1,0 +1,8 @@
+﻿@model IEnumerable<WebApplicationDiplom.Models.TableDistrict>
+
+<select id="district" name="TableDistrict">
+    @foreach (var item in Model)
+    {
+        <option value="@item.DistrictId">@item.NameDistrict</option>
+    }
+</select>

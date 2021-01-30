@@ -1,6 +1,7 @@
-﻿@model IEnumerable<WebApplicationDiplom.Models.TableArea>
+﻿@model WebApplicationDiplom.ViewModels.AddressViewModel
 @{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @if (User.Identity.IsAuthenticated)
@@ -18,10 +19,54 @@ else
     <a asp-controller="Account" asp-action="Register">Регистрация</a>
 
 }
+
+
+
+<select>
+    @foreach (var item in Model.areas)
+    {
+        <option>@item.NameArea</option>
+    }
+</select>
+<select>
+    @foreach (var item in Model.districts)
+    {
+        <option>@item.NameDistrict</option>
+    }
+</select>
+
 <table class="table">
     <tr><td>Имя</td><td>Возраст</td></tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.localities)
     {
-        <tr><td>@item.AreaId</td><td>@item.NameArea</td></tr>
+        <tr><td>@item.District.Area.NameArea</td><td>@item.District.NameDistrict</td></tr>
+
     }
 </table>
+<h3>Выберите область</h3>
+@Html.DropDownList("TableArea", ViewBag.Areaes as SelectList, new { id = "areaes" })
+<h3>Выберите регион</h3>
+@Html.DropDownList("TableDistrict", ViewBag.Districtes as SelectList, new { id = "districtes" })
+
+
+@section scripts{
+    <script type="text/javascript">
+    $(function () {
+
+        $('#areaes').change(function()
+        {
+            // получаем выбранный id
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetItems")/' + id,
+                success: function (data) {
+
+                    // заменяем содержимое присланным частичным представлением
+                    $('#districtes').replaceWith(data);
+                }
+            });
+        });
+    })
+    </script>
+}
