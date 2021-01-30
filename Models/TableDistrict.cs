@@ -11,7 +11,7 @@ namespace WebApplicationDiplom.Models
         [Key]
         public int DistrictId { get; set; }
         public string NameDistrict { get; set; }
-        public int AreaId { get; set; }
+        public int? AreaId { get; set; }
         public TableArea Area { get; set; }
         public List<Tablelocality> locality { get; set; }
         public TableDistrict()

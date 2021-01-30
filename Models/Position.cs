@@ -13,10 +13,12 @@ namespace WebApplicationDiplom.Models
         public string JobTitle { get; set; }
         public List<TableVerificationOfEducation> VerificationOfEducation { get; set; }
         public List<TablePosition> TablePosition { get; set; }
+        public List<TableEducational> Educational { get; set; }
         public Position()
         {
             VerificationOfEducation = new List<TableVerificationOfEducation>();
             TablePosition = new List<TablePosition>();
+            Educational = new List<TableEducational>();
         }
     }
 }

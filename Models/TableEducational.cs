@@ -15,12 +15,12 @@ namespace WebApplicationDiplom.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int EducationalInstitutionsId { get; set; }
-        public int SpecialtyId { get; set; }
+        public int PositionId { get; set; }
         public int WorkerId { get; set; }
         public int QualificationId { get; set; }
         public Worker Worker { get; set; }
         public TableQualification Qualification { get; set; }
-        public TableSpecialty Specialty { get; set; }
+        public Position position  { get; set; }
         public EducationalInstitutions EducationalInstitutions { get; set; }
     }
 }
