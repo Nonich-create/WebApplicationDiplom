@@ -63,13 +63,31 @@ namespace WebApplicationDiplom.Controllers
          {
             return PartialView(_context.TableDistrict.Where(c => c.AreaId == id).ToList());
          }
-    
-        //  [HttpPost]
-        //  public async Task<IActionResult> Index(Person[] people)
-        //  {
-        //       return View(await _context.Person.ToListAsync());
-        //  }
-        //
+ 
+    //     [HttpPost]
+    //     public async Task<IActionResult> Organizations(TableOrganizations model)
+    //     {
+     
+    //          var user = _context.Users.Include(i => i.tableOrganizations).FirstOrDefault(i => i.UserName == User.Identity.Name);
+    //        if (user.tableOrganizations != null)
+    //        {
+    //            return RedirectToAction("Index", "Home");
+    //        }
+    //        _context.TableOrganizations.Add(model);
+    //        await _context.SaveChangesAsync();
+
+    //        model.Users = model.;
+
+    //        _context.Update(user);
+
+    //        await _context.SaveChangesAsync();
+
+    //        return RedirectToAction("Index", "Home");
+    //    }
+    //        return View(model);
+
+    //}
+       
         public IActionResult Privacy()
         {
             return View();
