@@ -78,6 +78,18 @@ namespace WebApplicationDiplom.Controllers
                 if (result.Succeeded)
                 {
                     // установка куки
+                    TableOrganizations organizations = new TableOrganizations
+                    {
+                        NameOfOrganization = model.OrganizationName,
+                        UserId = user.Id,
+                        TypeOrganization = model.TypeOrganization,
+                        Email = model.Email,
+                        Subordination = model.Subordination,
+                        //AddressId = model.AddressId,
+                    };
+
+                    _context.TableOrganizations.Add(organizations);
+                    await _context.SaveChangesAsync();
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }

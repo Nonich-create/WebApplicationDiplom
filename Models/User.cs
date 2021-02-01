@@ -11,7 +11,11 @@ namespace WebApplicationDiplom.Models
     public class User : IdentityUser
     {
         public string Identifier { get; set; }
-        public int? TableOrganizationsId { get; set; }
-        public virtual TableOrganizations TableOrganizations { get; set; }
+        public List<TableOrganizations> tableOrganizations { get; set; }
+        public User()
+        {
+            tableOrganizations = new List<TableOrganizations>();
+        }
+
     }
 }

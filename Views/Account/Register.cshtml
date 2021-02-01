@@ -3,8 +3,8 @@
 <h2>Регистрация нового пользователя</h2>
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
-      
-    
+
+
     <div>
         <label asp-for="Identifier"></label><br />
         <input asp-for="Identifier" />
@@ -19,6 +19,21 @@
         <label asp-for="PasswordConfirm"></label><br />
         <input asp-for="PasswordConfirm" />
         <span asp-validation-for="PasswordConfirm"></span>
+    </div>
+    <div>
+        <label asp-for="OrganizationName">Название организации</label><br />
+        <input asp-for="OrganizationName" />
+        <span asp-validation-for="OrganizationName"></span>
+    </div>
+    <div>
+        <label asp-for="TypeOrganization">Тип организации</label><br />
+        <input asp-for="TypeOrganization" />
+        <span asp-validation-for="TypeOrganization"></span>
+    </div>
+    <div>
+        <label asp-for="Email">Электронный адрес организации</label><br />
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
     </div>
     <div>
         <input type="submit" value="Регистрация" />
