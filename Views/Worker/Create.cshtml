@@ -1,0 +1,40 @@
+﻿@model WebApplicationDiplom.ViewModels.RegisterWorkerViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Добавление модели</h2>
+<form method="post" asp-controller="Worker" asp-action="Create" style="width: 50%; margin: 0 auto; text-align: center;">
+    <div asp-validation-summary="ModelOnly"></div>
+
+
+    <div>
+        <label asp-for="Surname" style="width: 50%; margin: 0 auto; text-align: start;">Фамилия</label><br />
+        <input asp-for="Surname" style="width: 50%; margin: 0 auto; text-align: start;" />
+        <span asp-validation-for="Surname"></span>
+    </div>
+    <br />
+    <div>
+        <label asp-for="Name" style="width: 50%; margin: 0 auto; text-align: start;">Имя</label><br />
+        <input asp-for="Name" style="width: 50%; margin: 0 auto; text-align: start;" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <br />
+    <div>
+        <label asp-for="DoubleName" style="width: 50%; margin: 0 auto; text-align: start;">Отчёство</label><br />
+        <input asp-for="DoubleName" style="width: 50%; margin: 0 auto; text-align: start;" />
+        <span asp-validation-for="DoubleName"></span>
+    </div>
+    <br />
+    <div>
+        <label asp-for="DateOfBirth" style="width: 50%; margin: 0 auto; text-align: start;">Дата рождения</label><br />
+        <input asp-for="DateOfBirth" style="width: 50%; margin: 0 auto; text-align: start;" />
+        <span asp-validation-for="DateOfBirth"></span>
+    </div>
+   
+    <br /><br /><br />
+    <div>
+        <input type="submit" value="Регистрация" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />
+    </div>
+</form>

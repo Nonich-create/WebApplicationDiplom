@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,8 +18,8 @@ namespace WebApplicationDiplom.Controllers
    //  [Authorize] 
     public class HomeController : Controller
     {
-        List<TableArea> area = new List<TableArea>();
-        List<TableDistrict> districts = new List<TableDistrict>();
+        ObservableCollection<TableArea> area = new ObservableCollection<TableArea>();
+        ObservableCollection<TableDistrict> districts = new ObservableCollection<TableDistrict>();
         List<Tablelocality> locations = new List<Tablelocality>();
         List<TableAddress> addresses = new List<TableAddress>();
         private readonly ILogger<HomeController> _logger;
@@ -39,12 +41,13 @@ namespace WebApplicationDiplom.Controllers
          public async Task<IActionResult> Index()
          {
             int selectedIndex = 1;
-
-            area = _context.TableArea.ToList();
-            districts = _context.TableDistrict.ToList();
+            foreach (var item in _context.TableArea.ToList())
+                area.Add(item);
+       //     districts = _context.TableDistrict.ToList();
+        
             locations = _context.Tablelocality.ToList();
             addresses = _context.PersTableAddresson.ToList();
-
+            //area.CollectionChanged += Users_CollectionChanged;
             SelectList areaes = new SelectList(_context.TableArea, "AreaId", "NameArea", selectedIndex);
             ViewBag.TableArea = areaes;
             SelectList districtes = new SelectList(_context.TableDistrict.Where(c => c.AreaId==selectedIndex), "DistrictId", "NameDistrict");
@@ -98,5 +101,7 @@ namespace WebApplicationDiplom.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        
     }
 }

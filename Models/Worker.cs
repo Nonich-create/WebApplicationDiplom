@@ -8,7 +8,7 @@ namespace WebApplicationDiplom.Models
 {
     public class Worker
     {
-        
+
         [Key]
         public int WorkerId { get; set; }
         public string Surname { get; set; }

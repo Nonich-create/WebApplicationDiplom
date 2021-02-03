@@ -1,41 +1,48 @@
-﻿@model WebApplicationDiplom.ViewModels.RegisterViewModel
+﻿@using WebApplicationDiplom.Enumeration
+@model WebApplicationDiplom.ViewModels.RegisterViewModel
 
-<h2>Регистрация нового пользователя</h2>
-<form method="post" asp-controller="Account" asp-action="Register">
+<h2>Регистрация организцаии</h2>
+<form method="post" asp-controller="Account" asp-action="Register" style="width: 50%; margin: 0 auto; text-align: center;">
     <div asp-validation-summary="ModelOnly"></div>
 
 
     <div>
-        <label asp-for="Identifier"></label><br />
-        <input asp-for="Identifier" />
+        <label asp-for="Identifier" style="width: 50%; margin: 0 auto; text-align: start;">Идентификатор</label><br />
+        <input asp-for="Identifier" style="width: 50%; margin: 0 auto; text-align: start;" />
         <span asp-validation-for="Identifier"></span>
     </div>
+    <br />
     <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
+        <label asp-for="Password" style="width: 50%; margin: 0 auto; text-align: start;">Пароль</label><br />
+        <input asp-for="Password" style="width: 50%; margin: 0 auto; text-align: start;"/>
         <span asp-validation-for="Password"></span>
     </div>
+    <br />
     <div>
-        <label asp-for="PasswordConfirm"></label><br />
-        <input asp-for="PasswordConfirm" />
+        <label asp-for="PasswordConfirm" style="width: 50%; margin: 0 auto; text-align: start;">Повторный пароль</label><br />
+        <input asp-for="PasswordConfirm" style="width: 50%; margin: 0 auto; text-align: start;"/>
         <span asp-validation-for="PasswordConfirm"></span>
     </div>
+    <br />
     <div>
-        <label asp-for="OrganizationName">Название организации</label><br />
-        <input asp-for="OrganizationName" />
+        <label asp-for="OrganizationName" style="width: 50%; margin: 0 auto; text-align: start;">Название организации</label><br />
+        <input asp-for="OrganizationName" style="width: 50%; margin: 0 auto; text-align: start;"/>
         <span asp-validation-for="OrganizationName"></span>
     </div>
+    <br />
     <div>
-        <label asp-for="TypeOrganization">Тип организации</label><br />
-        <input asp-for="TypeOrganization" />
-        <span asp-validation-for="TypeOrganization"></span>
+        <label asp-for="Businesses" style="width: 50%; margin: 0 auto; text-align: start;">Тип организации</label><br />
+        <select asp-for="Businesses" asp-items="Html.GetEnumSelectList<TypesOfBusinesses>()" style="width: 50%; margin: 0 auto; text-align: start;"></select>
+        <span asp-validation-for="Businesses"></span>
     </div>
+    <br />
     <div>
-        <label asp-for="Email">Электронный адрес организации</label><br />
-        <input asp-for="Email" />
+        <label asp-for="Email" style="width: 50%; margin: 0 auto; text-align: start;">Электронный адрес организации</label><br />
+        <input asp-for="Email" style="width: 50%; margin: 0 auto; text-align: start;"/>
         <span asp-validation-for="Email"></span>
     </div>
+    <br /><br /><br />
     <div>
-        <input type="submit" value="Регистрация" />
+        <input type="submit" value="Регистрация"  style="width: 50%; margin: 0 auto; text-align: start, "text-align: center;"/>
     </div>
 </form>

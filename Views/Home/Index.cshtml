@@ -17,6 +17,8 @@ else
 {
     <a asp-controller="Account" asp-action="Login">Вход</a>
     <a asp-controller="Account" asp-action="Register">Регистрация</a>
+    <br />
+    <a asp-controller="Worker" asp-action="Index">Работники</a>
 
 }
 
@@ -50,23 +52,23 @@ else
 
 
 @*@section scripts{
-    <script type="text/javascript">
-    $(function () {
+        <script type="text/javascript">
+        $(function () {
 
-        $('#areaes').change(function()
-        {
-            // получаем выбранный id
-            var id = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("GetItems")/' + id,
-                success: function (data) {
+            $('#areaes').change(function()
+            {
+                // получаем выбранный id
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetItems")/' + id,
+                    success: function (data) {
 
-                    // заменяем содержимое присланным частичным представлением
-                    $('#districtes').replaceWith(data);
-                }
+                        // заменяем содержимое присланным частичным представлением
+                        $('#districtes').replaceWith(data);
+                    }
+                });
             });
-        });
-    })
-    </script>
-}*@
+        })
+        </script>
+    }*@

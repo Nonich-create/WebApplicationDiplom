@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApplicationDiplom.Enumeration
 {
    public enum TypesOfBusinesses
    {
-         Райпо,
-         Учреждения_образования,
-         Унитарная_предприятия,
-         Филиал,
-         Заготторг
+
+        [Display(Name = "Райпо")]
+        Райпо,
+        [Display(Name = "Учреждения образования")]
+        Учреждения_образования,
+        [Display(Name = "Унитарная предприятия")]
+        Унитарная_предприятия,
+        [Display(Name = "Филиал")]
+        Филиал,
+        [Display(Name = "Заготторг")]
+        Заготторг
 
     }
 }

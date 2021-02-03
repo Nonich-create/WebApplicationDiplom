@@ -77,17 +77,17 @@ namespace WebApplicationDiplom.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // установка куки
+
                     TableOrganizations organizations = new TableOrganizations
                     {
                         NameOfOrganization = model.OrganizationName,
                         UserId = user.Id,
-                        TypeOrganization = model.TypeOrganization,
+                        TypeOrganization = model.Businesses.ToString(),  //model.TypeOrganization,
                         Email = model.Email,
                         Subordination = model.Subordination,
                         //AddressId = model.AddressId,
                     };
-
+                    // установка куки
                     _context.TableOrganizations.Add(organizations);
                     await _context.SaveChangesAsync();
                     await _signInManager.SignInAsync(user, false);
