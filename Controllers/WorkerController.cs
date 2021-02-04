@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 using WebApplicationDiplom.ViewModels;
@@ -45,6 +42,7 @@ namespace WebApplicationDiplom.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id != null)

@@ -3,6 +3,7 @@
     ViewBag.Title = "Редактирование работника";
 }
 <form asp-action="Edit" asp-controller="Worker" asp-route-id="@Model.WorkerId">
+    <input type="hidden" asp-for="WorkerId" class="form-control" />
     <div class="form-group">
         <label asp-for="Name" class="control-label">Имя</label>
         <input type="text" asp-for="Name" class="form-control" />

@@ -18,9 +18,10 @@ namespace WebApplicationDiplom.Models
         public int PositionId { get; set; }
         public int WorkerId { get; set; }
         public int QualificationId { get; set; }
-        public Worker Worker { get; set; }
         public TableQualification Qualification { get; set; }
+        public Worker Worker { get; set; }
         public Position position  { get; set; }
         public EducationalInstitutions EducationalInstitutions { get; set; }
+ 
     }
 }
