@@ -1,0 +1,33 @@
+﻿@model WebApplicationDiplom.ViewModels.PositionViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Добавление должности в организацию</h2>
+<form method="post" asp-controller="Position" asp-action="Create" style="width: 50%; text-align: left;">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <label>Должность</label><br />
+        @Html.DropDownListFor(Model => Model.PositionId, ViewBag.PositionId as SelectList)
+    </div>
+    <br />
+    <br />
+    <div>
+        <label asp-for="JobResponsibilities" style="width: 50%; margin: 0 auto; text-align: start;">Описания</label><br />
+        <input asp-for="JobResponsibilities" style="width: 50%; margin: 0 auto; text-align: start;" />
+        <span asp-validation-for="JobResponsibilities"></span>
+    </div>
+    <br />
+    <div>
+        <label asp-for="CountPosition" style="width: 50%; margin: 0 auto; text-align: start;">Количество мест на должность</label><br />
+        <input asp-for="CountPosition" style="width: 50%; margin: 0 auto; text-align: start;" />
+        <span asp-validation-for="CountPosition"></span>
+    </div>
+ 
+    <br /><br /><br />
+    <div>
+        <input type="submit" value="Регистрация" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />
+    </div>
+</form>

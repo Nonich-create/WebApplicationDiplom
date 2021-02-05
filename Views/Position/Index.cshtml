@@ -1,0 +1,25 @@
+﻿@model IEnumerable<TablePosition>
+@{
+    ViewData["Title"] = "Должности";
+}
+<a asp-action="Create">Добавить должность</a>
+ |
+<table class="table">
+    <tr>
+        <td>Должность</td>
+        <td>Описания должности</td>
+        <td>Количество мест</td>
+        <td>Дата регистрации должности</td>
+
+    </tr>
+    @foreach (TablePosition position in Model)
+    {
+     <tr>
+        <td>@position.Position.JobTitle</td>
+        <td>@position.JobResponsibilities</td>
+        <td>@position.CountPosition</td>
+        <td>@position.DateOfJobRegistration.ToString().Remove(10)</td>
+     </tr>
+    }
+</table>
+

@@ -12,7 +12,7 @@ namespace WebApplicationDiplom.Models
     public class TableOrganizations
     {
         [Key]
-        public int? TableOrganizationsId { get; set; }
+        public int TableOrganizationsId { get; set; }
 
         
         public string NameOfOrganization { get; set; }

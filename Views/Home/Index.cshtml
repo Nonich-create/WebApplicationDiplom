@@ -11,6 +11,11 @@
     <form method="post" asp-controller="Account" asp-action="Logout">
         <input type="submit" value="Выход" />
         <a asp-controller="Account" asp-action="Register">Регистрация</a>
+        <br />
+        <a asp-controller="Worker" asp-action="Index">Работники</a>
+        <br />
+        <a asp-controller="Educational" asp-action="Index">Образования</a>
+        <a asp-controller="Position" asp-action="Index">Новые должности</a>
     </form>
 }
 else
@@ -18,9 +23,9 @@ else
     <a asp-controller="Account" asp-action="Login">Вход</a>
     <a asp-controller="Account" asp-action="Register">Регистрация</a>
     <br />
-    <a asp-controller="Worker" asp-action="Index">Работники</a>
-    <br />
-    <a asp-controller="Educational" asp-action="Index">Образования</a>
+
+
+ 
 
 }
 

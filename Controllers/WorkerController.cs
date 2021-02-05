@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 using WebApplicationDiplom.ViewModels;
@@ -18,7 +20,12 @@ namespace WebApplicationDiplom.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Worker.ToListAsync());
+            //return View(await _context.Worker.ToListAsync());
+            var employee = _context.employeeRegistrationLogs
+           .Include(p => p.Worker).Include(p =>p.Organizations)
+
+           ;
+            return View(await employee.ToListAsync());
         }
         public IActionResult Create()
         {
@@ -29,6 +36,9 @@ namespace WebApplicationDiplom.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+               (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
                 Worker worker = new Worker
                 {
                     Surname = model.Surname,
@@ -37,6 +47,14 @@ namespace WebApplicationDiplom.Controllers
                     DateOfBirth = model.DateOfBirth,
                 };
                  _context.Worker.Add(worker);
+                await _context.SaveChangesAsync();
+                EmployeeRegistrationLog employee = new EmployeeRegistrationLog
+                {
+                    EmployeeRegistrationDate = DateTime.Now,
+                    WorkerId = worker.WorkerId,
+                    TableOrganizationsId = TableOrganizations,
+                };
+                _context.employeeRegistrationLogs.Add(employee);
                 await _context.SaveChangesAsync();
 
             }

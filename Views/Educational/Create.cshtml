@@ -5,37 +5,50 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Добавление модели</h2>
-<form method="post" asp-controller="Educational" asp-action="Create" style="width: 50%; margin: 0 auto; text-align: center;">
+<h2>Добавление образования</h2>
+<form method="post" asp-controller="Educational" asp-action="Create" style="width: 50%; text-align: left;">
     <div asp-validation-summary="ModelOnly"></div>
 
-
-    @Html.DropDownListFor(Model => Model.WorkerId, ViewBag.WorkerId as SelectList)
     <div>
-        <label asp-for="EducationType" style="width: 50%; margin: 0 auto; text-align: start;">Тип организации</label><br />
+        <label>Фамилия работника</label><br />
+        @Html.DropDownListFor(Model => Model.WorkerId, ViewBag.WorkerId as SelectList)
+    </div>
+    <br />
+    <div>
+        <label asp-for="EducationType" style="width: 50%; margin: 0 auto; text-align: start;">Образования</label><br />
         <select asp-for="EducationType" asp-items="Html.GetEnumSelectList<TypeOfEducation>()" style="width: 50%; margin: 0 auto; text-align: start;"></select>
         <span asp-validation-for="EducationType"></span>
     </div>
     <br />
     <div>
-        <label asp-for="QualificationEducation" style="width: 50%; margin: 0 auto; text-align: start;">Тип организации</label><br />
+        <label asp-for="QualificationEducation" style="width: 50%; margin: 0 auto; text-align: start;">Вид образования</label><br />
         <select asp-for="QualificationEducation" asp-items="Html.GetEnumSelectList<QualificationEducation>()" style="width: 50%; margin: 0 auto; text-align: start;"></select>
         <span asp-validation-for="QualificationEducation"></span>
     </div>
     <br />
-
-    @Html.DropDownListFor(model => model.EducationalInstitutionsId, ViewBag.EducationalInstitutionsId as SelectList)
-    <br />
-    @Html.DropDownListFor(model => model.PositionId, ViewBag.PositionId as SelectList)
-    <br>
-    @Html.DropDownListFor(model => model.QualificationId, ViewBag.QualificationId as SelectList)
     <div>
-        <label asp-for="StartDate" style="width: 50%; margin: 0 auto; text-align: start;">Дата рождения</label><br />
+    <label>Учреждения образования</label>
+    @Html.DropDownListFor(model => model.EducationalInstitutionsId, ViewBag.EducationalInstitutionsId as SelectList)
+    </div>
+    <br />
+    <div>
+        <label>Специальность</label>
+        @Html.DropDownListFor(model => model.PositionId, ViewBag.PositionId as SelectList)
+    </div>
+        <br>
+        <div>
+            <label>Квалификация</label>
+            @Html.DropDownListFor(model => model.QualificationId, ViewBag.QualificationId as SelectList)
+        </div>
+        <br />
+    <div>
+        <label asp-for="StartDate" style="width: 50%; margin: 0 auto; text-align: start;">Дата поступления</label><br />
         <input asp-for="StartDate" style="width: 50%; margin: 0 auto; text-align: start;" />
         <span asp-validation-for="StartDate"></span>
     </div>
+    <br />
     <div>
-        <label asp-for="EndDate" style="width: 50%; margin: 0 auto; text-align: start;">Дата рождения</label><br />
+        <label asp-for="EndDate" style="width: 50%; margin: 0 auto; text-align: start;">Дата окончания</label><br />
         <input asp-for="EndDate" style="width: 50%; margin: 0 auto; text-align: start;" />
         <span asp-validation-for="EndDate"></span>
     </div>
