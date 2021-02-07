@@ -35,9 +35,16 @@ namespace WebApplicationDiplom.ViewModels
         public string Surname { get; set; }
         public SelectList DropDownList { get; set; }
 
-        public IEnumerable<Worker> workers { get; set; }
-        public IEnumerable<TablePosition> positions { get; set; }
+        public List<Worker> workers { get; set; }
+        public List<TablePosition> positions { get; set; }
+ 
+        public HistoryOfAppointmentsViewModel()
+        {
+       
+            workers = new List<Worker>();
+            positions = new List<TablePosition>();
+        }
 
-        
+
     }
 }

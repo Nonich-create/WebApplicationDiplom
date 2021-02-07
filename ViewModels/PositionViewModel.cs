@@ -36,6 +36,7 @@ namespace WebApplicationDiplom.ViewModels
         [Display(Name = "Организация")]
         public int TableOrganizationsId { get; set; }
 
+
         public IEnumerable<TableOrganizations> organizations { get; set; }
         public IEnumerable<Position> positions { get; set; }
  
