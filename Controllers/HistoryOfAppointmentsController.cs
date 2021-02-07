@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,16 +24,25 @@ namespace WebApplicationDiplom.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+     (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
             var historyofappointments = _context.TableHistoryOfAppointments
                 .Include(p => p.Position)
                 .Include(p => p.Worker)
-                .Include(p => p.Position.Position);
+                .Include(p => p.Position.Position).Where(p => p.Position.TableOrganizationsId == TableOrganizations);
             return View(await historyofappointments.ToListAsync());
         }
-        public IActionResult Create()
+        [HttpGet]
+        public IActionResult Create( )
         {
-            ViewBag.WorkerId = new SelectList(_context.Worker, "WorkerId", "Surname");
-            ViewBag.TablePositionId = new SelectList(_context.TablePosition, "TablePositionId", "PositionId");
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+                 (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+
+
+            ViewBag.WorkerId = new SelectList(_context.employeeRegistrationLogs.Include(
+                i => i.Worker).Where(i => i.TableOrganizationsId == TableOrganizations), "WorkerId", "Surname");
+            ViewBag.EducationalInstitutions = new SelectList(_context.employeeRegistrationLogs);
+             ViewBag.TablePositionId = new SelectList(_context.TablePosition, "TablePositionId", "PositionId");
             ViewBag.PositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
             return View();
         }

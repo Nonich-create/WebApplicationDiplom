@@ -14,6 +14,7 @@
     </tr>
     @foreach (EmployeeRegistrationLog worker in Model)
     {
+      
 <tr>
     <td>@worker.Worker.Name</td>
     <td>@worker.Worker.Surname</td>
@@ -22,5 +23,7 @@
     <td>@worker.EmployeeRegistrationDate.ToString().Remove(10)</td>
     <td> <a asp-action="Edit" asp-controller="Worker" asp-route-id="@worker.WorkerId">Изменить</a></td>
 </tr>
+        
+     
     }
 </table>

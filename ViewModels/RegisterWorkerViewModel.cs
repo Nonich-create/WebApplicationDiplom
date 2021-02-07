@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace WebApplicationDiplom.ViewModels
     public class RegisterWorkerViewModel
     {
 
+ 
+         
         [Required]
         [Display(Name = "Фамилия")]
         public string Surname { get; set; }
@@ -22,5 +25,6 @@ namespace WebApplicationDiplom.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата рождения")]
         public DateTime DateOfBirth { get; set; }
+     
     }
 }

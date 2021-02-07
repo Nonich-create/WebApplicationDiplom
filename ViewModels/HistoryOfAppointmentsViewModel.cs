@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebApplicationDiplom.Models;
@@ -7,7 +8,7 @@ namespace WebApplicationDiplom.ViewModels
 {
     public class HistoryOfAppointmentsViewModel
     {
-
+       
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата приема на работу")]
@@ -31,8 +32,12 @@ namespace WebApplicationDiplom.ViewModels
         [DataType(DataType.Text)]
         [Display(Name = "Работник")]
         public int WorkerId { get; set; }
+        public string Surname { get; set; }
+        public SelectList DropDownList { get; set; }
 
         public IEnumerable<Worker> workers { get; set; }
         public IEnumerable<TablePosition> positions { get; set; }
+
+        
     }
 }

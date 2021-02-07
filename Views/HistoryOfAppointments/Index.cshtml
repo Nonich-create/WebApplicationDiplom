@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TableHistoryOfAppointments>
+@{
+    ViewData["Title"] = "Назначения на должность";
+}
+<a asp-action="Create">Назначить на должность</a>
+ |
+<table class="table">
+    <tr>
+        <td>ФИО</td>
+        <td>Дата назначения</td>
+        <td>Должность</td>
+    </tr>
+    @foreach (TableHistoryOfAppointments item in Model)
+    {
+        <tr>
+            <td>@item.Worker.Name @item.Worker.Name @item.Worker.DoubleName</td>
+            <td>@item.DateOfAppointment.ToString().Remove(10))</td>
+            <td>@item.Position.Position.JobTitle</td>
+            <td> <a asp-action="Edit" asp-controller="Worker" asp-route-id="@item.HistoryOfAppointmentsId">Изменить</a></td>
+        </tr>
+    }
+</table>
+

@@ -1,0 +1,26 @@
+﻿@using WebApplicationDiplom.Enumeration
+@model WebApplicationDiplom.ViewModels.HistoryOfAppointmentsViewModel 
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Назначения на должность</h2>
+<form method="post" asp-controller="HistoryOfAppointments" asp-action="Create" style="width: 50%; text-align: left;">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="editor-field">
+        <label>Фамилия работника</label><br />
+        @Html.DropDownListFor(Model => Model.WorkerId, ViewBag.WorkerId as SelectList)
+     
+    </div>
+    <br />
+    <div>
+        <label>Должность</label><br />
+        @Html.DropDownListFor(Model => Model.TablePositionId, ViewBag.TablePositionId as SelectList)
+    </div>
+    <br /><br /><br />
+    <div>
+        <input type="submit" value="Регистрация" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />
+    </div>
+</form>

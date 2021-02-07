@@ -16,7 +16,6 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Validator\" />
-    <Folder Include="Views\HistoryOfAppointments\" />
   </ItemGroup>
 
 </Project>

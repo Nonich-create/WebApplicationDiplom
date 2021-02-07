@@ -20,9 +20,11 @@ namespace WebApplicationDiplom.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+                (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
             //return View(await _context.Worker.ToListAsync());
-            var employee = _context.employeeRegistrationLogs
-           .Include(p => p.Worker).Include(p =>p.Organizations)
+            var employee = _context.employeeRegistrationLogs 
+           .Include(p => p.Worker).Include(p =>p.Organizations).Where(p => p.TableOrganizationsId == TableOrganizations)
 
            ;
             return View(await employee.ToListAsync());

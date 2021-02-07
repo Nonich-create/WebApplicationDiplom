@@ -23,8 +23,9 @@ namespace WebApplicationDiplom.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-        
-            var positiones = _context.TablePosition.Include(p => p.Position);
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+              (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+            var positiones = _context.TablePosition.Include(p => p.Position).Where(p => p.TableOrganizationsId == TableOrganizations);
             return View(await positiones.ToListAsync());
         }
         public IActionResult Create()
