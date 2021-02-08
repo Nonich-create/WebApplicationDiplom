@@ -33,47 +33,28 @@ namespace WebApplicationDiplom.Controllers
             return View(await historyofappointments.ToListAsync());
         }
         [HttpGet]
-        public IActionResult Create( )
+        public  IActionResult Create( )
         {
             HistoryOfAppointmentsViewModel historyOfAppointmentsViewModel = new HistoryOfAppointmentsViewModel();
-            PositionViewModel positionViewModels = new PositionViewModel();
-          //  TablePosition tablePosition = new TablePosition();
             int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
                  (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
 
             var workers = _context.employeeRegistrationLogs.Include(
              i => i.Worker).Where(i => i.TableOrganizationsId == TableOrganizations).ToList();
 
+
+
+            var position = _context.TablePosition.Include(i => i.Position)
+               .Where(i => i.TableOrganizationsId == TableOrganizations)
+               .Select(i => new { TablePositionId = i.TablePositionId, JobTitle = i.Position.JobTitle }).ToList();
+         
             workers.ForEach(i => historyOfAppointmentsViewModel.workers.Add(i.Worker));
-            var position = _context.Position.ToList();
-            var tablepositon = _context.TablePosition.Include(p => p.Position).ToList(); //.Where(i => i.TableOrganizationsId == TableOrganizations);
 
-
-            IEnumerable<TablePosition> query = from emp in tablepositon
-                        join prod in position
-                        on emp.PositionId equals prod.PositionId
-                        where emp.TableOrganizationsId == TableOrganizations
-                        select emp;
-  
-
-
-            // var result = from itemTP in tablepositon
-            //              join itemP in position on itemTP.PositionId equals itemP.PositionId
-            //              select new { itemTP.TablePositionId, itemP.JobTitle };
-            // IEnumerable<TablePosition> positions = from itemTP in tablepositon
-            //                                        join itemP in position on itemTP equals itemP.PositionId
-            //                                        select new { itemP.JobTitle };              
-            //                                         
+            // сделать  когда добовляю запись изменялось количество доступных мест в должностях
 
             ViewBag.WorkerId = new SelectList(historyOfAppointmentsViewModel.workers, "WorkerId", "Surname");
-            ViewBag.TablePositionId = new SelectList(query, "TablePositionId", "TablePositionId");
-
-            //        ViewBag.WorkerId = new SelectList(_context.employeeRegistrationLogs.Include(
-            //i => i.Worker).Where(i => i.TableOrganizationsId == TableOrganizations), "WorkerId", "Surname");
-            //ViewBag.WorkerId = new SelectList(_context.Worker, "WorkerId", "Surname");
-            // ViewBag.EducationalInstitutions = new SelectList(_context.employeeRegistrationLogs);
-
-            // ViewBag.PositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
+            ViewBag.TablePositionId = new SelectList(position, "TablePositionId", "JobTitle");
+ 
             return View(historyOfAppointmentsViewModel);
         }
         [HttpPost]

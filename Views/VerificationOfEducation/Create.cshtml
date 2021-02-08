@@ -1,22 +1,27 @@
-﻿@model WebApplicationDiplom.ViewModels.HistoryOfAppointmentsViewModel 
+﻿@model WebApplicationDiplom.ViewModels.VerificationOfEducationViewModel
 
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Назначения на должность</h2>
-<form method="post" asp-controller="HistoryOfAppointments" asp-action="Create" style="width: 50%; text-align: left;">
+<h2>Аттестация</h2>
+<form method="post" asp-controller="VerificationOfEducation" asp-action="Create" style="width: 50%; text-align: left;">
     <div asp-validation-summary="ModelOnly"></div>
 
     <div class="editor-field">
         <label>Фамилия работника</label><br />
         @Html.DropDownListFor(Model => Model.WorkerId, ViewBag.WorkerId as SelectList)
-     
+
     </div>
     <br />
     <div>
         <label>Должность</label><br />
-        @Html.DropDownListFor(Model => Model.TablePositionId, ViewBag.TablePositionId as SelectList)
+        @Html.DropDownListFor(Model => Model.PositionId, ViewBag.TablePositionId as SelectList)
+    </div>
+    <br />
+    <div>
+        <label>Организация</label><br />
+        @Html.DropDownListFor(Model => Model.TableOrganizationsId, ViewBag.TableOrganizationsId as SelectList)
     </div>
     <br /><br /><br />
     <div>

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TableVerificationOfEducation>
+@{
+    ViewData["Title"] = "Аттестации";
+}
+<a asp-action="Create">Назначить аттестацию</a>
+ |
+<table class="table">
+    <tr>
+        <td>ФИО</td>
+        <td>Статус аттестации</td>
+        <td>Должность</td>
+        <td>Дата регистрация аттестации</td>
+        <td>Организация в который проходилась аттестация</td>
+    </tr>
+    @foreach (TableVerificationOfEducation item in Model)
+    {
+<tr>
+    <td>@item.Worker.Name @item.Worker.Name @item.Worker.DoubleName</td>
+    <td>@item.VerificationStatus</td>
+    <td>@item.Position.JobTitle</td>
+    <td>@item.DateOfVerification.ToString().Remove(10)</td>
+    <td>@item.Organizations.NameOfOrganization</td>
+    <td> <a method="post" asp-route-id="@item.VerificationOfEducationId" asp-action="Edit" asp-controller="VerificationOfEducation">Потдвержедния прохода аттестации</a></td>
+</tr>
+    }
+</table>
+
