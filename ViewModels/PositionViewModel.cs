@@ -18,7 +18,7 @@ namespace WebApplicationDiplom.ViewModels
         [Required(ErrorMessage = "Не указана количество мест")]
         [DataType(DataType.Text)]
         [Display(Name = "Количество мест")]
-        public int CountPosition { get; set; }  
+        public int CountPosition { get; set; }
 
 
         [DataType(DataType.Text)]
@@ -37,9 +37,13 @@ namespace WebApplicationDiplom.ViewModels
         public int TableOrganizationsId { get; set; }
 
 
-        public IEnumerable<TableOrganizations> organizations { get; set; }
-        public IEnumerable<Position> positions { get; set; }
- 
-    
+        public List<TableOrganizations> organizations { get; set; }
+        public List<Position> positions { get; set; }
+
+        public PositionViewModel()
+        {
+            positions = new List<Position>();
+            organizations = new List<TableOrganizations>();
+        }
     }
 }

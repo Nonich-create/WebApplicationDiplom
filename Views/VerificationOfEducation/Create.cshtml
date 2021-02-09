@@ -23,6 +23,11 @@
         <label>Организация</label><br />
         @Html.DropDownListFor(Model => Model.TableOrganizationsId, ViewBag.TableOrganizationsId as SelectList)
     </div>
+    <br />
+    <div>
+        <label>Тип аттестации</label><br />
+        @Html.DropDownListFor(Model => Model.verificationOfTypesId, ViewBag.verificationOfTypesId as SelectList)
+    </div>
     <br /><br /><br />
     <div>
         <input type="submit" value="Регистрация" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />

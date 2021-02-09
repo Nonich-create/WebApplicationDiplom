@@ -46,7 +46,7 @@ namespace WebApplicationDiplom.ViewModels
         public string Email { get; set; }
 
         //[DataType(DataType.Text)]
-        //[Display(Name = "Подченность организации")]
+        //[Display(Name = "под организации")]
         public string Subordination { get; set; }
         public TypesOfBusinesses Businesses { get; set; }
         //[Required(ErrorMessage = "Не указана Адрес организации")]

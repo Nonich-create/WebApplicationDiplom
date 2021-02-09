@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using WebApplicationDiplom.Enumeration;
 using WebApplicationDiplom.Models;
 
 namespace WebApplicationDiplom.ViewModels
@@ -32,19 +33,25 @@ namespace WebApplicationDiplom.ViewModels
         [DataType(DataType.Text)]
         [Display(Name = "Организация")]
         public int TableOrganizationsId { get; set; }
+       
+        [Required(ErrorMessage = "Не указан тип аттестации ")]
+        [DataType(DataType.Text)]
+        [Display(Name = "Тип аттестации")]
+        public int verificationOfTypesId { get; set; }
 
-
+        public RecommendationsAfterCertification Recommendations { get; set; }
         public List<Worker> workers { get; set; }
         public List<Position> positions { get; set; }
         public List<TableOrganizations> organizations { get; set; }
-       
+        public List<VerificationOfType> verificationOfTypes { get; set; }
         public VerificationOfEducationViewModel()
         {
-
+            verificationOfTypes = new List<VerificationOfType>();
             workers = new List<Worker>();
             positions = new List<Position>();
             organizations = new List<TableOrganizations>();
         }
+        public VerificationOfType verificationOfType { get; set; }
         public Worker Worker { get; set; }
         public TableOrganizations Organizations { get; set; }
         public Position Position { get; set; }
