@@ -99,44 +99,40 @@ namespace WebApplicationDiplom.Controllers
             int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
    (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
             VerificationOfEducationViewModel verificationOfEducationViewModel = new VerificationOfEducationViewModel();
-            
+
             if (id != null)
             {
                 TableVerificationOfEducation verificationOfEducation = await _context.TableVerificationOfEducation
                     .Include(p => p.Worker)
                     .Include(p => p.Position)
                     .Include(p => p.VerificationOfType)
-                    .Include(p => p.Organizations)
                     .FirstOrDefaultAsync(p => p.VerificationOfEducationId == id);
+                VerificationOfEducationViewModel verificationOfEducationView = new VerificationOfEducationViewModel
+                {
+                    Id = verificationOfEducation.VerificationOfEducationId,
+                    VerificationStatus = verificationOfEducation.VerificationStatus,
+                    DateOfVerification           = verificationOfEducation.DateOfVerification,
+                    WorkerId                 = verificationOfEducation.WorkerId,
+                    PositionId               = verificationOfEducation.PositionId,
+                    TableOrganizationsId     = verificationOfEducation.TableOrganizationsId,
+                    verificationOfTypesId    = verificationOfEducation.VerificationOfTypeId,
+                    Recommendations          =  verificationOfEducation.Recommendations
+                };
                 if (verificationOfEducation != null)
                 {
 
-                    return View(verificationOfEducation);
+                    return View(verificationOfEducationView);
                 }
             }
             return NotFound();
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(TableVerificationOfEducation model )
+        public async Task<IActionResult> Edit(VerificationOfEducationViewModel model )
         {
-             
-            VerificationOfEducationViewModel verificationOfEducationViewModel = new VerificationOfEducationViewModel();
+        TableVerificationOfEducation tableVerificationOfEducation = _context.TableVerificationOfEducation.Find(model.Id);
+         tableVerificationOfEducation.Recommendations = model.EnumerationRecommendations.ToString();
+         tableVerificationOfEducation.VerificationStatus = model.EnumerationStatus.ToString();
 
-            // model.VerificationStatus = verificationOfEducationViewModel.ToString();
-            // model.Recommendations = verificationOfEducationViewModel.ToString();
-            TableVerificationOfEducation tableVerificationOfEducation = _context.TableVerificationOfEducation.Find(model.VerificationOfEducationId);
-            tableVerificationOfEducation.Recommendations = verificationOfEducationViewModel.EnumerationRecommendations.ToString();
-            tableVerificationOfEducation.VerificationStatus = verificationOfEducationViewModel.EnumerationStatus.ToString();
-           // {
-           //     Recommendations = verificationOfEducationViewModel.ToString(),
-           //     VerificationStatus = verificationOfEducationViewModel.ToString(),
-           //     DateOfVerification = model.DateOfVerification,
-           //     WorkerId = model.WorkerId,
-           //     PositionId = model.PositionId,
-           //     TableOrganizationsId = model.TableOrganizationsId,
-           //      VerificationOfTypeId = model.VerificationOfTypeId,
-           //
-           // };
             _context.TableVerificationOfEducation.Update(tableVerificationOfEducation);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");

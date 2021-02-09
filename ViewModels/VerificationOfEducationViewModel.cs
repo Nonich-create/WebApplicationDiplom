@@ -39,6 +39,11 @@ namespace WebApplicationDiplom.ViewModels
         [Display(Name = "Тип аттестации")]
         public int verificationOfTypesId { get; set; }
 
+        [DataType(DataType.Text)]
+        [Display(Name = "Рекомендации")]
+        public string Recommendations { get; set; }
+ 
+      
         public RecommendationsAfterCertification EnumerationRecommendations { get; set; }
         public VerificationStatus EnumerationStatus { get; set; }
         public List<Worker> workers { get; set; }

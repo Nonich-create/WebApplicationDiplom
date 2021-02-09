@@ -1,10 +1,12 @@
 ﻿@using WebApplicationDiplom.Enumeration
-@model WebApplicationDiplom.Models.TableVerificationOfEducation
+@model WebApplicationDiplom.ViewModels.VerificationOfEducationViewModel
 @{
     ViewBag.Title = "Аттестация работника";
 }
-<form asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@Model.VerificationOfEducationId">
-    <input type="hidden" asp-for="VerificationOfEducationId" class="form-control" />
+
+<form asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@Model.Id">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="Id" class="form-control" />
     <div class="display-label"><b>фио</b></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Worker.Surname)
@@ -17,18 +19,18 @@
     </div>
     <div class="diыsplay-label"><b>Тип аттестации</b></div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.VerificationOfType.VerificationOfTypeName)
+        @Html.DisplayFor(model => model.verificationOfType.VerificationOfTypeName)
     </div>
     <br />
     <div>
         <label asp-for="VerificationStatus" style="width: 50%; margin: 0 auto; text-align: start;">Статус аттестации</label><br />
-        <select asp-for="VerificationStatus" asp-items="Html.GetEnumSelectList<VerificationStatus>()" style="width: 50%; margin: 0 auto; text-align: start;"></select>
+        <select asp-for="EnumerationStatus" asp-items="Html.GetEnumSelectList<VerificationStatus>()" style="width: 50%; margin: 0 auto; text-align: start;"></select>
         <span asp-validation-for="VerificationStatus"></span>
     </div>
     <div>
-        <label asp-for="Recommendations" style="width: 50%; margin: 0 auto; text-align: start;">Статус аттестации</label><br />
-        <select asp-for="Recommendations" asp-items="Html.GetEnumSelectList<RecommendationsAfterCertification>()"  style="width: 50%; margin: 0 auto; text-align: start;"></select>
-        <span asp-validation-for="Recommendations"></span>
+        <label asp-for="EnumerationRecommendations" style="width: 50%; margin: 0 auto; text-align: start;">Рекомендации</label><br />
+        <select asp-for="EnumerationRecommendations" asp-items="Html.GetEnumSelectList<RecommendationsAfterCertification>()" style="width: 50%; margin: 0 auto; text-align: start;"></select>
+        <span asp-validation-for="EnumerationRecommendations"></span>
     </div>
     <div class="form-group">
         <input type="submit" value="Сохранить" class="btn btn-default" />
