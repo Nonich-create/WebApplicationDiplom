@@ -1,26 +1,43 @@
-﻿@model WebApplicationDiplom.Models.TableVerificationOfEducation
+﻿@using WebApplicationDiplom.Enumeration
+@model WebApplicationDiplom.Models.TableVerificationOfEducation
 @{
     ViewBag.Title = "Аттестация работника";
 }
 <form asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@Model.VerificationOfEducationId">
     <input type="hidden" asp-for="VerificationOfEducationId" class="form-control" />
-    <div class="form-group">
-        <label asp-for="Worker.Name" class="control-label">Имя</label>
-        <label type="text" asp-for="Worker.Name" class="form-control" />
+    <div class="display-label"><b>фио</b></div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Worker.Surname)
+        @Html.DisplayFor(model => model.Worker.Name)
+        @Html.DisplayFor(model => model.Worker.DoubleName)
+    </div>
+    <div class="display-label"><b>Должность</b></div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Position.JobTitle)
+    </div>
+    <div class="diыsplay-label"><b>Тип аттестации</b></div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VerificationOfType.VerificationOfTypeName)
+    </div>
+    <br />
+    <div>
+        <label asp-for="VerificationStatus" style="width: 50%; margin: 0 auto; text-align: start;">Статус аттестации</label><br />
+        <select asp-for="VerificationStatus" asp-items="Html.GetEnumSelectList<VerificationStatus>()" style="width: 50%; margin: 0 auto; text-align: start;"></select>
+        <span asp-validation-for="VerificationStatus"></span>
+    </div>
+    <div>
+        <label asp-for="Recommendations" style="width: 50%; margin: 0 auto; text-align: start;">Статус аттестации</label><br />
+        <select asp-for="Recommendations" asp-items="Html.GetEnumSelectList<RecommendationsAfterCertification>()"  style="width: 50%; margin: 0 auto; text-align: start;"></select>
+        <span asp-validation-for="Recommendations"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Worker.Surname" class="control-label">Фамилия</label>
-        <label type="text" asp-for="Worker.Surname" class="form-control" />
+        <input type="submit" value="Сохранить" class="btn btn-default" />
     </div>
-    <div class="form-group">
-        <label asp-for="Worker.DoubleName" class="control-label">Отчёство</label>
-        <label type="text" asp-for="Worker.DoubleName" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Position.JobTitle" class="control-label">Дата рождения</label>
-        <label type="date" asp-for="Position.JobTitle" class="form-control" />
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Аттестовать" class="btn btn-default" />
-    </div>
+
 </form>
+
+@*<div class="form-group">
+        <label asp-for="Worker.Surname" class="control-label">Рекомендации</label>
+        <input type="text" asp-for="Worker.Surname" class="form-control" />
+
+    </div>*@

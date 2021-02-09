@@ -39,7 +39,8 @@ namespace WebApplicationDiplom.ViewModels
         [Display(Name = "Тип аттестации")]
         public int verificationOfTypesId { get; set; }
 
-        public RecommendationsAfterCertification Recommendations { get; set; }
+        public RecommendationsAfterCertification EnumerationRecommendations { get; set; }
+        public VerificationStatus EnumerationStatus { get; set; }
         public List<Worker> workers { get; set; }
         public List<Position> positions { get; set; }
         public List<TableOrganizations> organizations { get; set; }

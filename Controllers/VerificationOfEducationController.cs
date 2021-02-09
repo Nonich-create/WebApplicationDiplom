@@ -75,7 +75,7 @@ namespace WebApplicationDiplom.Controllers
                 {
                    
                    Recommendations = "",
-                   VerificationStatus = "Не прошёл",
+                   VerificationStatus = "Не аттестован",
                    DateOfVerification = DateTime.Now,
                    WorkerId = model.WorkerId,
                    PositionId = model.PositionId,
@@ -96,18 +96,48 @@ namespace WebApplicationDiplom.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+   (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+            VerificationOfEducationViewModel verificationOfEducationViewModel = new VerificationOfEducationViewModel();
+            
             if (id != null)
             {
-                TableVerificationOfEducation verificationOfEducation = await _context.TableVerificationOfEducation.FirstOrDefaultAsync(p => p.VerificationOfEducationId == id);
+                TableVerificationOfEducation verificationOfEducation = await _context.TableVerificationOfEducation
+                    .Include(p => p.Worker)
+                    .Include(p => p.Position)
+                    .Include(p => p.VerificationOfType)
+                    .Include(p => p.Organizations)
+                    .FirstOrDefaultAsync(p => p.VerificationOfEducationId == id);
                 if (verificationOfEducation != null)
+                {
+
                     return View(verificationOfEducation);
+                }
             }
             return NotFound();
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(TableVerificationOfEducation verificationOfEducation)
+        public async Task<IActionResult> Edit(TableVerificationOfEducation model )
         {
-            _context.TableVerificationOfEducation.Update(verificationOfEducation);
+             
+            VerificationOfEducationViewModel verificationOfEducationViewModel = new VerificationOfEducationViewModel();
+
+            // model.VerificationStatus = verificationOfEducationViewModel.ToString();
+            // model.Recommendations = verificationOfEducationViewModel.ToString();
+            TableVerificationOfEducation tableVerificationOfEducation = _context.TableVerificationOfEducation.Find(model.VerificationOfEducationId);
+            tableVerificationOfEducation.Recommendations = verificationOfEducationViewModel.EnumerationRecommendations.ToString();
+            tableVerificationOfEducation.VerificationStatus = verificationOfEducationViewModel.EnumerationStatus.ToString();
+           // {
+           //     Recommendations = verificationOfEducationViewModel.ToString(),
+           //     VerificationStatus = verificationOfEducationViewModel.ToString(),
+           //     DateOfVerification = model.DateOfVerification,
+           //     WorkerId = model.WorkerId,
+           //     PositionId = model.PositionId,
+           //     TableOrganizationsId = model.TableOrganizationsId,
+           //      VerificationOfTypeId = model.VerificationOfTypeId,
+           //
+           // };
+            _context.TableVerificationOfEducation.Update(tableVerificationOfEducation);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

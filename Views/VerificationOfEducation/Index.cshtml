@@ -11,6 +11,7 @@
         <td>Статус аттестации</td>
         <td>Должность</td>
         <td>Дата регистрация аттестации</td>
+        <td>Рекомендации</td>
         <td>Организация в который проходилась аттестация</td>
     </tr>
     @foreach (TableVerificationOfEducation item in Model)
@@ -21,7 +22,9 @@
     <td>@item.VerificationStatus</td>
     <td>@item.Position.JobTitle</td>
     <td>@item.DateOfVerification.ToString().Remove(10)</td>
+    <td>@item.Recommendations</td>
     <td>@item.Organizations.NameOfOrganization</td>
+
     <td> <a asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@item.VerificationOfEducationId">Аттестация</a></td>
 </tr>
     }
