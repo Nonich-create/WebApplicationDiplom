@@ -1,0 +1,24 @@
+﻿@model WebApplicationDiplom.ViewModels.ReserveOfPersonnelViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Добавления в резерв</h2>
+<form method="post" asp-controller="ReserveOfPersonnel" asp-action="Create" style="width: 50%; text-align: left;">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <label>Фамилия работника</label><br />
+        @Html.DropDownListFor(Model => Model.WorkerId, ViewBag.WorkerId as SelectList)
+    </div>
+    <br />
+    <div>
+        <label>Должность</label><br />
+        @Html.DropDownListFor(model => model.TablePositionId, ViewBag.TablePositionId as SelectList)
+    </div>
+    <br /><br /><br />
+    <div>
+        <input type="submit" value="Добавить" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />
+    </div>
+</form>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -25,12 +26,14 @@ namespace WebApplicationDiplom.Controllers
             //return View(await _context.Worker.ToListAsync());
             var employee = _context.employeeRegistrationLogs 
            .Include(p => p.Worker).Include(p =>p.Organizations).Where(p => p.TableOrganizationsId == TableOrganizations)
+           .Include(p => p.Worker.positon)
 
            ;
             return View(await employee.ToListAsync());
         }
         public IActionResult Create()
         {
+            ViewBag.TablePositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
             return View();
         }
         [HttpPost]
@@ -47,6 +50,7 @@ namespace WebApplicationDiplom.Controllers
                     Name = model.Name,
                     DoubleName = model.DoubleName,
                     DateOfBirth = model.DateOfBirth,
+                    PositionId = model.PositionId
                 };
                  _context.Worker.Add(worker);
                 await _context.SaveChangesAsync();

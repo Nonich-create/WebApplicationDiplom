@@ -23,10 +23,10 @@
         <label>Организация</label><br />
         @Html.DropDownListFor(Model => Model.TableOrganizationsId, ViewBag.TableOrganizationsId as SelectList)
     </div>
-    <br />
     <div>
-        <label>Тип аттестации</label><br />
-        @Html.DropDownListFor(Model => Model.verificationOfTypesId, ViewBag.verificationOfTypesId as SelectList)
+        <label asp-for="DateOfCertificationCompletion">Дата прохождении аттестации</label><br />
+        <input asp-for="DateOfCertificationCompletion" />
+        <span asp-validation-for="DateOfCertificationCompletion"></span>
     </div>
     <br /><br /><br />
     <div>

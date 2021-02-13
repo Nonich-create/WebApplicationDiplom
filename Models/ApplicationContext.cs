@@ -21,12 +21,12 @@ namespace WebApplicationDiplom.Models
         public DbSet<EmployeeRegistrationLog> employeeRegistrationLogs { get; set; }
         public DbSet<TableVerificationOfEducation> TableVerificationOfEducation { get; set; }
         public DbSet<Worker> Worker { get; set; }
-        public DbSet<VerificationOfType> verificationOfTypes { get; set; }
+        public DbSet<ReserveOfPersonnel> reserveOfPersonnels { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
          : base(options)
         {
-          // Database.EnsureDeleted();
-            Database.EnsureCreated();
+        //   Database.EnsureDeleted();
+           Database.EnsureCreated();
         }
     }
 }

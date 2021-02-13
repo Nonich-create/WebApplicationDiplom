@@ -6,6 +6,7 @@
  |
 <table class="table">
     <tr>
+        <td>Должность</td>
         <td>Имя</td>
         <td>Фамилия</td>
         <td>Отчёство</td>
@@ -14,8 +15,8 @@
     </tr>
     @foreach (EmployeeRegistrationLog worker in Model)
     {
-      
 <tr>
+    <td>@worker.Worker.positon.JobTitle</td>
     <td>@worker.Worker.Name</td>
     <td>@worker.Worker.Surname</td>
     <td>@worker.Worker.DoubleName</td>

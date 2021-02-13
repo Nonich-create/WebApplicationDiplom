@@ -9,7 +9,8 @@
     <div asp-validation-summary="ModelOnly"></div>
 
     <div>
-        <label>Должность</label><br />
+        <label>Должность    </label>
+        <a asp-controller="Position" asp-action="CreateJob">Добавить должность в справочник</a><br />
         @Html.DropDownListFor(Model => Model.PositionId, ViewBag.PositionId as SelectList)
     </div>
     <br />

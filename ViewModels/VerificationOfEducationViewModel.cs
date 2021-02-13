@@ -19,6 +19,11 @@ namespace WebApplicationDiplom.ViewModels
         [Display(Name = "Дата регистрирование аттестации")]
         public DateTime DateOfVerification { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Дата прохождение аттестации")]
+        public DateTime DateOfCertificationCompletion { get; set; }
+
         [Required(ErrorMessage = "Не указан работник")]
         [DataType(DataType.Text)]
         [Display(Name = "Тип организации")]
@@ -49,15 +54,12 @@ namespace WebApplicationDiplom.ViewModels
         public List<Worker> workers { get; set; }
         public List<Position> positions { get; set; }
         public List<TableOrganizations> organizations { get; set; }
-        public List<VerificationOfType> verificationOfTypes { get; set; }
         public VerificationOfEducationViewModel()
         {
-            verificationOfTypes = new List<VerificationOfType>();
             workers = new List<Worker>();
             positions = new List<Position>();
             organizations = new List<TableOrganizations>();
         }
-        public VerificationOfType verificationOfType { get; set; }
         public Worker Worker { get; set; }
         public TableOrganizations Organizations { get; set; }
         public Position Position { get; set; }

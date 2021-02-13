@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 using WebApplicationDiplom.ViewModels;
-
+ 
 namespace WebApplicationDiplom.Controllers
 {
     public class PositionController : Controller
@@ -57,6 +56,30 @@ namespace WebApplicationDiplom.Controllers
 
             return View();
             }
-}
+        [HttpGet]
+        public IActionResult CreateJob()
+        {
+       
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateJob(Position model)
+        {
+            if (ModelState.IsValid)
+            {
+                Position position = await _context.Position.FirstOrDefaultAsync
+                    (i => i.JobTitle == model.JobTitle);
+                if (position == null)
+                {
+                    await _context.Position.AddAsync(model);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Create");
+                }
+           
+              
+            }
+            return View();
+        }
+    }
 }
     

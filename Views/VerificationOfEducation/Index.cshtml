@@ -7,10 +7,10 @@
 <table class="table">
     <tr>
         <td>ФИО</td>
-        <td>Тип аттестации</td>
         <td>Статус аттестации</td>
         <td>Должность</td>
         <td>Дата регистрация аттестации</td>
+        <td>Дата прохождении аттестации</td>
         <td>Рекомендации</td>
         <td>Организация в который проходилась аттестация</td>
     </tr>
@@ -18,10 +18,10 @@
     {
 <tr>
     <td>@item.Worker.Name @item.Worker.Name @item.Worker.DoubleName</td>
-    <td>@item.VerificationOfType.VerificationOfTypeName</td>
     <td>@item.VerificationStatus.Replace("_", " ")</td>
     <td>@item.Position.JobTitle</td>
     <td>@item.DateOfVerification.ToString().Remove(10)</td>
+    <td>@item.DateOfCertificationCompletion.ToString().Remove(10)</td>
     <td>@item.Recommendations.Replace("_", " ")</td>
     <td>@item.Organizations.NameOfOrganization</td>
 

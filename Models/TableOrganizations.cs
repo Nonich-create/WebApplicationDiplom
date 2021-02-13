@@ -23,20 +23,21 @@ namespace WebApplicationDiplom.Models
 
         public string Subordination { get; set; }
 
-        public int? AddressId { get; set; }
+
         
         public string UserId { get; set; }
         public User? users { get; set; }
-        public TableAddress? Address { get; set; }
+ 
 
 
         public List<TableVerificationOfEducation> VerificationOfEducation { get; set; }
         public List<TablePosition> TablePosition { get; set; }
         public List<EmployeeRegistrationLog>  employeeRegistrationLogs{ get; set; }
- 
+        public List<TableAddress> tableAddresses { get; set; }
        
         public TableOrganizations()
         {
+            tableAddresses = new List<TableAddress>();
             employeeRegistrationLogs = new List<EmployeeRegistrationLog>();
             VerificationOfEducation = new List<TableVerificationOfEducation>();
             TablePosition = new List<TablePosition>();

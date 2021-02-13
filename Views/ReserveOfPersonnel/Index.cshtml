@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ReserveOfPersonnel>
+@{
+    ViewData["Title"] = "Резерев кадров";
+}
+<a asp-action="Create">Добавить в резерв</a>
+ |
+<table class="table">
+    <tr>
+        <td>ФИО</td>
+        <td>Должность работника</td>
+        <td>Статус в резерва</td>
+        <td>Назначенный на должность резерве</td>
+        <td>Дата назначения</td>
+        <td>Дата снятия с резерва</td>
+
+    </tr>
+    @foreach (ReserveOfPersonnel item in Model)
+    {
+<tr>
+    <td>@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName</td>
+    <td>@item.Worker.positon.JobTitle</td>
+    <td>@item.StatusReserve</td>
+    <td>@item.tablePosition.Position.JobTitle</td>
+    <td>@item.StartDateReserve.ToString().Remove(10)</td>
+    @if (item.EndDateReserve != null)
+    {
+        <td>@item.EndDateReserve.ToString().Remove(10)</td>
+    }
+    else
+    {
+<td>@item.EndDateReserve</td>}
+        <td> <a asp-action="Edit" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId">Изменить</a></td>
+    </tr>
+    }
+</table>
+

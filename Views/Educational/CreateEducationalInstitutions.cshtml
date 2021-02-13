@@ -1,0 +1,19 @@
+﻿@model WebApplicationDiplom.ViewModels.EducationalInstitutionsViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Добавление  учреждения образования в справчоник</h2>
+<form method="post" asp-controller="Educational" asp-action="CreateEducationalInstitutions">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="NameEducationalInstitutions">Название учреждения образования</label><br />
+        <input asp-for="NameEducationalInstitutions" />
+        <span asp-validation-for="NameEducationalInstitutions"></span>
+    </div>
+    <br />
+    <div>
+        <input type="submit" value="Сохранить" />
+    </div>
+</form>

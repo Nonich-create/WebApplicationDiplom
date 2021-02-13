@@ -46,7 +46,7 @@ namespace WebApplicationDiplom.Controllers
         public async Task<IActionResult> Create(EducationalViewModel model)
         {
             if (ModelState.IsValid)
-            {
+             {
                 TableEducational educational = new TableEducational
                 {
                     EducationType = model.EducationType.ToString(),
@@ -73,5 +73,50 @@ namespace WebApplicationDiplom.Controllers
 
                 return View();
             }
+        [HttpGet]
+        public IActionResult CreateEducationalInstitutions()
+        {
+ 
+            return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateEducationalInstitutions(EducationalInstitutions model)
+        {
+            if (ModelState.IsValid)
+            {
+                EducationalInstitutions educational = await _context.EducationalInstitutions.FirstOrDefaultAsync
+                    (i => i.NameEducationalInstitutions == model.NameEducationalInstitutions);
+                if (educational == null)
+                {
+                    await _context.EducationalInstitutions.AddAsync(model);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Create");
+                    }
+            }
+            return View();
+        }
+        [HttpGet]
+        public IActionResult CreateQualification()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateQualification(TableQualification model)
+        {
+            if (ModelState.IsValid)
+            {
+                TableQualification qualification = await _context.TableQualification.FirstOrDefaultAsync
+                    (i => i.Qualification == model.Qualification);
+                if (qualification == null)
+                {
+                    await _context.TableQualification.AddAsync(model);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Create");
+                }
+            }
+            return View();
+        }
+    }
+
 }

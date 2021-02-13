@@ -27,8 +27,9 @@
     </div>
     <br />
     <div>
-    <label>Учреждения образования</label>
-    @Html.DropDownListFor(model => model.EducationalInstitutionsId, ViewBag.EducationalInstitutionsId as SelectList)
+        <label>Учреждения образования</label>
+        <a asp-controller="Educational" asp-action="CreateEducationalInstitutions">Добавить учреждения образования в справочник</a><br />
+        @Html.DropDownListFor(model => model.EducationalInstitutionsId, ViewBag.EducationalInstitutionsId as SelectList)
     </div>
     <br />
     <div>
@@ -38,6 +39,7 @@
         <br>
         <div>
             <label>Квалификация</label>
+            <a asp-controller="Educational" asp-action="CreateQualification">Добавить квалификацию в справочник</a><br />
             @Html.DropDownListFor(model => model.QualificationId, ViewBag.QualificationId as SelectList)
         </div>
         <br />

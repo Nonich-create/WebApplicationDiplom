@@ -25,6 +25,11 @@ namespace WebApplicationDiplom.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата рождения")]
         public DateTime DateOfBirth { get; set; }
-     
+        [DataType(DataType.Text)]
+        [Display(Name = "Должность")]
+        public int PositionId { get; set; }
+
+
+            
     }
 }

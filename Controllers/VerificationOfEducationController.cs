@@ -31,7 +31,7 @@ namespace WebApplicationDiplom.Controllers
                 .Include(p => p.Position)
                 .Include(p => p.Worker)
                 .Include(p => p.Organizations)
-                .Include(p => p.VerificationOfType).Where(p => p.Organizations.TableOrganizationsId == TableOrganizations);
+                .Where(p => p.Organizations.TableOrganizationsId == TableOrganizations);
             return View(await verificationofeducation.ToListAsync());
         }
        [HttpGet]
@@ -55,7 +55,7 @@ namespace WebApplicationDiplom.Controllers
             position.ForEach(i => tablePositionViewModel.positions.Add(i.Position));
 
 
-            ViewBag.verificationOfTypesId = new SelectList(_context.verificationOfTypes, "VerificationOfTypeId", "VerificationOfTypeName");
+            //ViewBag.verificationOfTypesId = new SelectList(_context.verificationOfTypes, "VerificationOfTypeId", "VerificationOfTypeName");
 
 
            ViewBag.WorkerId = new SelectList(verificationOfEducationViewModel.workers, "WorkerId", "Surname");
@@ -73,15 +73,14 @@ namespace WebApplicationDiplom.Controllers
            {
                 TableVerificationOfEducation verificationOfEducation = new TableVerificationOfEducation
                 {
-                   
-                   Recommendations = "",
-                   VerificationStatus = "Не аттестован",
-                   DateOfVerification = DateTime.Now,
+
+                    Recommendations = "",
+                    VerificationStatus = "Не аттестован",
+                    DateOfVerification = DateTime.Now,
+                    DateOfCertificationCompletion = model.DateOfCertificationCompletion,
                    WorkerId = model.WorkerId,
                    PositionId = model.PositionId,
                    TableOrganizationsId = model.TableOrganizationsId,
- 
-                   VerificationOfTypeId = model.verificationOfTypesId,
                 };
        
                _context.TableVerificationOfEducation.Add(verificationOfEducation);
@@ -105,7 +104,6 @@ namespace WebApplicationDiplom.Controllers
                 TableVerificationOfEducation verificationOfEducation = await _context.TableVerificationOfEducation
                     .Include(p => p.Worker)
                     .Include(p => p.Position)
-                    .Include(p => p.VerificationOfType)
                     .FirstOrDefaultAsync(p => p.VerificationOfEducationId == id);
                 VerificationOfEducationViewModel verificationOfEducationView = new VerificationOfEducationViewModel
                 {
@@ -115,7 +113,6 @@ namespace WebApplicationDiplom.Controllers
                     WorkerId                 = verificationOfEducation.WorkerId,
                     PositionId               = verificationOfEducation.PositionId,
                     TableOrganizationsId     = verificationOfEducation.TableOrganizationsId,
-                    verificationOfTypesId    = verificationOfEducation.VerificationOfTypeId,
                     Recommendations          =  verificationOfEducation.Recommendations
                 };
                 if (verificationOfEducation != null)

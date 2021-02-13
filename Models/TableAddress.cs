@@ -13,11 +13,9 @@ namespace WebApplicationDiplom.Models
         public string Adress { get; set; }
         public string PostalCode { get; set; }
         public int localityId { get; set; }
+        public int TableOrganizationsId { get; set; }
         public Tablelocality locality { get; set; }
-        public List<TableOrganizations> Organizations { get; set; }
-        public TableAddress()
-        {
-            Organizations = new List<TableOrganizations>();
-        }
+        public TableOrganizations Organizations {get;set;}
+
     }
 }

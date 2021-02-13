@@ -1,0 +1,19 @@
+﻿@model WebApplicationDiplom.ViewModels.QualificationViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Добавление квалификации в справчоник</h2>
+<form method="post" asp-controller="Educational" asp-action="CreateQualification">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Qualification">Квалификация</label><br />
+        <input asp-for="Qualification" />
+        <span asp-validation-for="Qualification"></span>
+    </div>
+    <br />
+    <div>
+        <input type="submit" value="Сохранить" />
+    </div>
+</form>

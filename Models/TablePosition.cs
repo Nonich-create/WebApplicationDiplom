@@ -18,9 +18,10 @@ namespace WebApplicationDiplom.Models
         public TableOrganizations Organizations { get; set; }
         public Position Position { get; set; }
         public List<TableHistoryOfAppointments> HistoryOfAppointments { get; set; }
- 
+        public List<ReserveOfPersonnel> reserveOfPersonnels { get; set; }
         public TablePosition()
         {
+            reserveOfPersonnels = new List<ReserveOfPersonnel>();
             HistoryOfAppointments = new List<TableHistoryOfAppointments>();
              
         }

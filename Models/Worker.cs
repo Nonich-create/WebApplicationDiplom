@@ -19,8 +19,12 @@ namespace WebApplicationDiplom.Models
         public List<TableEducational> Educational{ get; set; }
         public List<TableVerificationOfEducation> VerificationOfEducation { get; set; }
         public List<EmployeeRegistrationLog> employeeRegistrationLogs { get; set; }
+        public List<ReserveOfPersonnel> reserveOfPersonnels { get; set; }
+        public int? PositionId { get; set; }
+        public Position? positon { get; set; }
         public Worker()
-        { 
+        {
+            reserveOfPersonnels = new List<ReserveOfPersonnel>();
           HistoryOfAppointments = new List<TableHistoryOfAppointments>();
           Educational = new List<TableEducational>();        
             VerificationOfEducation = new List<TableVerificationOfEducation>();

@@ -32,8 +32,12 @@
         <input asp-for="DateOfBirth" style="width: 50%; margin: 0 auto; text-align: start;" />
         <span asp-validation-for="DateOfBirth"></span>
     </div>
+    <br />
+    <div>  
+        <label>Должность</label>
+        @Html.DropDownListFor(model => model.PositionId, ViewBag.TablePositionId as SelectList)
+    </div>
 
-   
     <br /><br /><br />
     <div>
         <input type="submit" value="Регистрация" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />

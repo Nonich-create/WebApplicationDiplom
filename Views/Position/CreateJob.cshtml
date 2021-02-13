@@ -1,0 +1,19 @@
+﻿@model WebApplicationDiplom.ViewModels.JobDirectoryViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Добавление должности в организацию</h2>
+<form method="post" asp-controller="Position" asp-action="CreateJob">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="JobTitle">Название должности</label><br />
+        <input asp-for="JobTitle"/>
+        <span asp-validation-for="JobTitle"></span>
+    </div>
+   <br />
+    <div>
+        <input type="submit" value="Сохранить"/>
+    </div>
+</form>
