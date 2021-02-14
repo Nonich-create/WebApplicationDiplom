@@ -22,18 +22,37 @@ namespace WebApplicationDiplom.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-           
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+             (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+
+            var workers = _context.employeeRegistrationLogs
+                .FirstOrDefault(i =>TableOrganizations == i.TableOrganizationsId).WorkerId;
+                
+ 
+         
             var educationales = _context.TableEducational
                 .Include(p => p.Worker)
                 .Include(p => p.position)
                 .Include(p => p.Qualification)
-                .Include(p => p.EducationalInstitutions) 
+                .Include(p => p.EducationalInstitutions)
+                .Where(p => p.WorkerId == workers)
+               
+
                 ;
             return View( await educationales.ToListAsync());  
         }
+
+        [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.WorkerId = new SelectList(_context.Worker, "WorkerId", "Surname");
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+            (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+
+            var workers = _context.employeeRegistrationLogs
+                .FirstOrDefault(i => TableOrganizations == i.TableOrganizationsId).WorkerId;
+
+
+            ViewBag.WorkerId = new SelectList(_context.Worker.Where(i => i.WorkerId == workers), "WorkerId", "Surname");
 
             ViewBag.EducationalInstitutionsId = new SelectList(_context.EducationalInstitutions, "EducationalInstitutionsId", "NameEducationalInstitutions");
 

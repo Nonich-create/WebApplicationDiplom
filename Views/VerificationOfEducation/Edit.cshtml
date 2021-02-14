@@ -7,20 +7,8 @@
 <form asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@Model.Id">
     <div asp-validation-summary="ModelOnly"></div>
     <input type="hidden" asp-for="Id" class="form-control" />
-    <div class="display-label"><b>фио</b></div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Worker.Surname)
-        @Html.DisplayFor(model => model.Worker.Name)
-        @Html.DisplayFor(model => model.Worker.DoubleName)
-    </div>
-    <div class="display-label"><b>Должность</b></div>
-    <div class="display-field">
         @Html.DisplayFor(model => model.Position.JobTitle)
     </div>
-    @*<div class="diыsplay-label"><b>Тип аттестации</b></div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.verificationOfType.VerificationOfTypeName)
-    </div>*@
     <br />
     <div>
         <label asp-for="VerificationStatus" style="width: 50%; margin: 0 auto; text-align: start;">Статус аттестации</label><br />

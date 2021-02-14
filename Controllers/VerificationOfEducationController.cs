@@ -103,7 +103,7 @@ namespace WebApplicationDiplom.Controllers
             {
                 TableVerificationOfEducation verificationOfEducation = await _context.TableVerificationOfEducation
                     .Include(p => p.Worker)
-                    .Include(p => p.Position)
+                    .Include(p => p.Position)  
                     .FirstOrDefaultAsync(p => p.VerificationOfEducationId == id);
                 VerificationOfEducationViewModel verificationOfEducationView = new VerificationOfEducationViewModel
                 {
@@ -114,6 +114,7 @@ namespace WebApplicationDiplom.Controllers
                     PositionId               = verificationOfEducation.PositionId,
                     TableOrganizationsId     = verificationOfEducation.TableOrganizationsId,
                     Recommendations          =  verificationOfEducation.Recommendations
+                    
                 };
                 if (verificationOfEducation != null)
                 {

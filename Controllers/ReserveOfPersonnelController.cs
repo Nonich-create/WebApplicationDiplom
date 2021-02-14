@@ -27,6 +27,7 @@ namespace WebApplicationDiplom.Controllers
             var reverveofpersonnel = _context.reserveOfPersonnels
                 .Include(p => p.Worker.positon)
                 .Include(p => p.tablePosition.Position)
+                .Where(p =>p.tablePosition.TableOrganizationsId == TableOrganizations)
                 ;
             return View(await reverveofpersonnel.ToListAsync());
         }
@@ -41,17 +42,27 @@ namespace WebApplicationDiplom.Controllers
             var workers =  await _context.employeeRegistrationLogs.Include(
              i => i.Worker).Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
-             var position = await _context.TablePosition
-                .Include(i => i.Position).Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
+            var tablepositionId = _context.TablePosition
+               .FirstOrDefault(i => TableOrganizations == i.TableOrganizationsId).TablePositionId;
 
+            var pp = await _context.TablePosition
+                .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
+            // var position =  _context.TablePosition
+            //   .Include(i => i.Position).Where(i => i.TablePositionId == tableposition).;
+
+            var position = _context.Position
+                .Where(i => i.PositionId == tablepositionId);
+
+            pp.ForEach(i => tablePositionViewModel.positions.Add(i.Position));
             workers.ForEach(i => reserveOfPersonnelViewModel.workers.Add(i.Worker));
-            position.ForEach(i => tablePositionViewModel.positions.Add(i.Position));
-
-
+             
+            //position.ForEach(i => tablePositionViewModel.positions.Add(i.Position));
+          //  tablePositionViewModel.positions
+           
             ViewBag.WorkerId = new SelectList(reserveOfPersonnelViewModel.workers, "WorkerId", "Surname");
-            ViewBag.TablePositionId = new SelectList(tablePositionViewModel.positions, "PositionId", "JobTitle");
+            ViewBag.TablePositionId = new SelectList(position, "PositionId", "JobTitle");
    
-            return View(reserveOfPersonnelViewModel);
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(ReserveOfPersonnelViewModel model)
