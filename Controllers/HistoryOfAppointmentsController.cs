@@ -60,8 +60,6 @@ namespace WebApplicationDiplom.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(HistoryOfAppointmentsViewModel model)
         {
-            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
-                 (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
             if (ModelState.IsValid)
             {
                 TableHistoryOfAppointments historyofappointments = new TableHistoryOfAppointments

@@ -3,12 +3,13 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<label>@Model.SSS      @*@Context.Request.Host@Context.Request.Path*@</label>
 @if (User.Identity.IsAuthenticated)
 {
     <p>@User.Identity.Name</p>
 
     <form method="post" asp-controller="Account" asp-action="Logout">
+        <div asp-validation-summary="ModelOnly"></div>
         <input type="submit" value="Выход" />
         <a asp-controller="Account" asp-action="Register">Регистрация</a>
         <br />
@@ -20,6 +21,8 @@
         <a asp-controller="VerificationOfEducation" asp-action="Index">Аттестация</a>
         <a asp-controller="Position" asp-action="CreateJob">Добавить должность в справочник</a>
         <a asp-controller="ReserveOfPersonnel" asp-action="Index">Резерв</a>
+        <a asp-controller="Home" asp-action="Reser">Отчёт</a>
+
     </form>
 }
 else
@@ -28,13 +31,12 @@ else
     <a asp-controller="Account" asp-action="Register">Регистрация</a>
     <br />
 
-
- 
-
 }
 
 
 
+<input type="submit" value="Выход" />
+ 
 <select>
     @foreach (var item in Model.areas)
     {

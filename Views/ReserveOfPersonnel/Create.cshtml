@@ -10,12 +10,22 @@
 
     <div>
         <label>Фамилия работника</label><br />
-        @Html.DropDownListFor(Model => Model.WorkerId, ViewBag.WorkerId as SelectList)
+        <select asp-for="WorkerId">
+            @foreach (var item in Model.workers)
+            {
+                <option value="@item.WorkerId">@item.Surname @item.Name @item.DoubleName</option>
+            }
+        </select>
     </div>
     <br />
     <div>
         <label>Должность</label><br />
-        @Html.DropDownListFor(model => model.TablePositionId, ViewBag.TablePositionId as SelectList)
+        <select asp-for="TablePositionId">
+            @foreach (var item in Model.positions)
+            {
+                <option value="@item.TablePositionId">@item.Position.JobTitle</option>
+            }
+        </select>
     </div>
     <br /><br /><br />
     <div>

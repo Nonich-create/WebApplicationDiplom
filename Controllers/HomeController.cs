@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.ExtendedProperties;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +13,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 using WebApplicationDiplom.ViewModels;
@@ -58,7 +65,10 @@ namespace WebApplicationDiplom.Controllers
             ViewBag.DistrictId = new SelectList(_context.TableDistrict, "DistrictId", "NameDistrict");
 
 
-            AddressViewModel avm = new AddressViewModel { areas = area, districts = districts, localities = locations, addresses = addresses };
+            var location = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}");
+            string loc = location.ToString();
+    //    https://localhost:44305/
+            AddressViewModel avm = new AddressViewModel {SSS = loc  , areas = area, districts = districts, localities = locations, addresses = addresses };
             return View(avm);  
          }
 
@@ -102,6 +112,35 @@ namespace WebApplicationDiplom.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        
+
+
+        //"https://localhost:44305/"
+      
+        public async Task<IActionResult> Reser()
+        {
+            // @Context.Request.Host @Context.Request.Path
+         
+            Uri location = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}");
+            string loc = location.ToString();
+            WebRequest request = WebRequest.Create(loc);
+            using (WebResponse response = request.GetResponse())
+            {
+                using (StreamReader responseReader =
+                  new StreamReader(response.GetResponseStream()))
+                {
+                    string responseData = responseReader.ReadToEnd();
+                    using (StreamWriter writer =
+                      new StreamWriter(@"S:\\sample.doc"))
+                    {
+                        await writer.WriteAsync(responseData);
+                    }
+                }
+            }
+            return Content("Файл создан");
+        }
+        private void PrintButton()
+        {
+           // await Task.Run(() => PrintButton());
+        }
     }
 }

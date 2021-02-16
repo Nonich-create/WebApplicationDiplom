@@ -9,5 +9,6 @@ namespace WebApplicationDiplom.ViewModels
         public IEnumerable<TableDistrict> districts { get; set; }
         public IEnumerable<Tablelocality> localities { get; set; }
         public IEnumerable<TableAddress> addresses { get; set; }
+        public string SSS { get; set; }
     }
 }
