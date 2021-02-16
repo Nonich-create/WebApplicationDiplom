@@ -21,6 +21,7 @@
         <a asp-controller="VerificationOfEducation" asp-action="Index">Аттестация</a>
         <a asp-controller="Position" asp-action="CreateJob">Добавить должность в справочник</a>
         <a asp-controller="ReserveOfPersonnel" asp-action="Index">Резерв</a>
+        <a asp-controller="AdvancedTraining" asp-action="Index">Повышение квалификации</a>
         <a asp-controller="Home" asp-action="Reser">Отчёт</a>
 
     </form>
@@ -34,8 +35,7 @@ else
 }
 
 
-
-<input type="submit" value="Выход" />
+ 
  
 <select>
     @foreach (var item in Model.areas)

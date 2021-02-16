@@ -1,0 +1,25 @@
+﻿@model IEnumerable<AdvancedTraining>
+@{
+    ViewData["Title"] = "Повышение квалификации";
+}
+<a asp-action="Create">Добавить работнику повышение квалификации</a>
+ 
+<table class="table">
+    <tr>
+        <td>ФИО</td>
+        <td>Учреждения образования</td>
+        <td>Начала квалификации</td>
+        <td>Завершение квалификации</td>
+    </tr>
+    @foreach (AdvancedTraining item in Model)
+    {
+        <tr>
+            <td>@item.EmployeeRegistrationLog.Worker.Surname @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
+            <td>@item.EducationalInstitutions.NameEducationalInstitutions</td>
+            <td>@item.Start.ToString().Remove(10)</td>
+            <td>@item.End.ToString().Remove(10)</td>
+            <td> <a asp-action="Edit" asp-controller="AdvancedTraining" asp-route-id="@item.AdvancedTrainingId">Изменить</a></td>
+        </tr>
+    }
+</table>
+

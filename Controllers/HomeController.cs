@@ -1,9 +1,4 @@
-﻿using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.ExtendedProperties;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -114,13 +108,10 @@ namespace WebApplicationDiplom.Controllers
 
 
 
-        //"https://localhost:44305/"
-      
+
         public async Task<IActionResult> Reser()
         {
-            // @Context.Request.Host @Context.Request.Path
-         
-            Uri location = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}");
+            Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Home/Index{Request.QueryString}");
             string loc = location.ToString();
             WebRequest request = WebRequest.Create(loc);
             using (WebResponse response = request.GetResponse())
@@ -130,13 +121,14 @@ namespace WebApplicationDiplom.Controllers
                 {
                     string responseData = responseReader.ReadToEnd();
                     using (StreamWriter writer =
-                      new StreamWriter(@"S:\\sample.doc"))
+                      new StreamWriter(@"S:\sample.doc"))
                     {
                         await writer.WriteAsync(responseData);
                     }
                 }
             }
-            return Content("Файл создан");
+
+            return RedirectToAction("Index");
         }
         private void PrintButton()
         {

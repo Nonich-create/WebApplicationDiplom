@@ -16,7 +16,6 @@ namespace WebApplicationDiplom.Models
         public string DoubleName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public List<TableHistoryOfAppointments> HistoryOfAppointments { get; set; }
-        public List<TableEducational> Educational{ get; set; }
         public List<TableVerificationOfEducation> VerificationOfEducation { get; set; }
         public List<EmployeeRegistrationLog> employeeRegistrationLogs { get; set; }
         public List<ReserveOfPersonnel> reserveOfPersonnels { get; set; }
@@ -25,10 +24,11 @@ namespace WebApplicationDiplom.Models
         public Worker()
         {
             reserveOfPersonnels = new List<ReserveOfPersonnel>();
-          HistoryOfAppointments = new List<TableHistoryOfAppointments>();
-          Educational = new List<TableEducational>();        
+            HistoryOfAppointments = new List<TableHistoryOfAppointments>();
             VerificationOfEducation = new List<TableVerificationOfEducation>();
             employeeRegistrationLogs = new List<EmployeeRegistrationLog>();
         }
+     
+      
     }
 }

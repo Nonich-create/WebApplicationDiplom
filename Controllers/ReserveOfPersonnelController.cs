@@ -42,7 +42,7 @@ namespace WebApplicationDiplom.Controllers
         (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
 
            
-            var Workers = await _context.Worker.ToListAsync();
+      
 
             var workers = await _context.employeeRegistrationLogs.Include(
             i => i.Worker).Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();

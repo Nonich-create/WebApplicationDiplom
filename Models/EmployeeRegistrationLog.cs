@@ -15,5 +15,12 @@ namespace WebApplicationDiplom.Models
         public Worker Worker { get; set; }
         public int TableOrganizationsId { get; set; }
         public TableOrganizations Organizations { get; set; }
+        public List<TableEducational> tableEducationals { get; set; }
+        public List<AdvancedTraining> advancedTrainings { get; set; }
+        public EmployeeRegistrationLog()
+        {
+            advancedTrainings = new List<AdvancedTraining>();
+            tableEducationals = new List<TableEducational>();
+        }
     }
 }

@@ -18,7 +18,7 @@
     @foreach (TableEducational educational in Model)
     {
 <tr>
-    <td>@educational.Worker.Surname @educational.Worker.Name @educational.Worker.DoubleName</td>
+    <td>@educational.Worker.Worker.Surname @educational.Worker.Worker.Name @educational.Worker.Worker.DoubleName</td>
     <td>@educational.EducationType.Replace("_"," ")</td>
     <td>@educational.QualificationEducation.Replace("_", " ")</td>
     <td>@educational.EducationalInstitutions.NameEducationalInstitutions</td>

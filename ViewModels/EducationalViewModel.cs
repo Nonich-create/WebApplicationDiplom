@@ -34,16 +34,16 @@ namespace WebApplicationDiplom.ViewModels
         [Required(ErrorMessage = "Не указан работник ")]
         [DataType(DataType.Text)]
         [Display(Name = "Работник")]
-        public int WorkerId { get; set; }
+        public int EmployeeRegistrationLogId { get; set; }
 
         [Required(ErrorMessage = "Не указана квалификация")]
         [DataType(DataType.Text)]
         [Display(Name = "Квалификация")]
         public int QualificationId { get; set; }
-        
+        public List<EmployeeRegistrationLog> workers { get; set; }
         public IEnumerable<EducationalInstitutions> educationals { get; set; }
         public IEnumerable<TableQualification> qualifications { get; set; }
-        public IEnumerable<Worker> workers { get; set; }
+      
         public IEnumerable<Position> positions { get; set; }
 
     }

@@ -11,7 +11,12 @@
 
     <div>
         <label>Фамилия работника</label><br />
-        @Html.DropDownListFor(Model => Model.WorkerId, ViewBag.WorkerId as SelectList)
+        <select asp-for="EmployeeRegistrationLogId">
+            @foreach (var item in Model.workers)
+            {
+                <option value="@item.EmployeeRegistrationId">@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName</option>
+            }
+        </select>
     </div>
     <br />
     <div>
@@ -36,13 +41,13 @@
         <label>Специальность</label>
         @Html.DropDownListFor(model => model.PositionId, ViewBag.PositionId as SelectList)
     </div>
-        <br>
-        <div>
-            <label>Квалификация</label>
-            <a asp-controller="Educational" asp-action="CreateQualification">Добавить квалификацию в справочник</a><br />
-            @Html.DropDownListFor(model => model.QualificationId, ViewBag.QualificationId as SelectList)
-        </div>
-        <br />
+    <br>
+    <div>
+        <label>Квалификация</label>
+        <a asp-controller="Educational" asp-action="CreateQualification">Добавить квалификацию в справочник</a><br />
+        @Html.DropDownListFor(model => model.QualificationId, ViewBag.QualificationId as SelectList)
+    </div>
+    <br />
     <div>
         <label asp-for="StartDate" style="width: 50%; margin: 0 auto; text-align: start;">Дата поступления</label><br />
         <input asp-for="StartDate" style="width: 50%; margin: 0 auto; text-align: start;" />
