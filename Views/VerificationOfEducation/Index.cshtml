@@ -17,13 +17,13 @@
     @foreach (TableVerificationOfEducation item in Model)
     {
 <tr>
-    <td>@item.Worker.Name @item.Worker.Name @item.Worker.DoubleName</td>
+    <td>@item.employeeRegistrationLog.Worker.Name @item.employeeRegistrationLog.Worker.Name @item.employeeRegistrationLog.Worker.DoubleName</td>
     <td>@item.VerificationStatus.Replace("_", " ")</td>
     <td>@item.Position.JobTitle</td>
     <td>@item.DateOfVerification.ToString().Remove(10)</td>
     <td>@item.DateOfCertificationCompletion.ToString().Remove(10)</td>
     <td>@item.Recommendations.Replace("_", " ")</td>
-    <td>@item.Organizations.NameOfOrganization</td>
+    <td>@item.employeeRegistrationLog.Organizations.NameOfOrganization</td>
 
     <td> <a asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@item.VerificationOfEducationId">Аттестация</a></td>
 </tr>

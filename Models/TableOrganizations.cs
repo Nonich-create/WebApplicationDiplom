@@ -16,21 +16,11 @@ namespace WebApplicationDiplom.Models
 
         
         public string NameOfOrganization { get; set; }
-
         public string TypeOrganization { get; set; }
-
         public string Email { get; set; }
-
         public string Subordination { get; set; }
-
-
-        
         public string UserId { get; set; }
         public User? users { get; set; }
- 
-
-
-        public List<TableVerificationOfEducation> VerificationOfEducation { get; set; }
         public List<TablePosition> TablePosition { get; set; }
         public List<EmployeeRegistrationLog>  employeeRegistrationLogs{ get; set; }
         public List<TableAddress> tableAddresses { get; set; }
@@ -39,7 +29,6 @@ namespace WebApplicationDiplom.Models
         {
             tableAddresses = new List<TableAddress>();
             employeeRegistrationLogs = new List<EmployeeRegistrationLog>();
-            VerificationOfEducation = new List<TableVerificationOfEducation>();
             TablePosition = new List<TablePosition>();
         }
     }

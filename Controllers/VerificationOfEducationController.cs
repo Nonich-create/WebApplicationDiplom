@@ -25,50 +25,47 @@ namespace WebApplicationDiplom.Controllers
         {
             int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
      (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
-          
-            
+
+
             var verificationofeducation = _context.TableVerificationOfEducation
                 .Include(p => p.Position)
-                .Include(p => p.Worker)
-                .Include(p => p.Organizations)
-                .Where(p => p.Organizations.TableOrganizationsId == TableOrganizations);
+                .Include(p => p.employeeRegistrationLog)
+                .Include(p => p.employeeRegistrationLog.Organizations)
+                .Include(p => p.employeeRegistrationLog.Worker)
+                .Include(p => p.employeeRegistrationLog.Worker.positon)
+                .Where(p => p.employeeRegistrationLog.TableOrganizationsId == TableOrganizations);
+            
             return View(await verificationofeducation.ToListAsync());
         }
+
+
        [HttpGet]
-       public IActionResult Create()
+       public async Task<IActionResult> Create()
        {
-            PositionViewModel tablePositionViewModel = new PositionViewModel();
-            VerificationOfEducationViewModel verificationOfEducationViewModel = new VerificationOfEducationViewModel();
            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
                 (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
-     
-           var workers = _context.employeeRegistrationLogs.Include(
-            i => i.Worker).Where(i => i.TableOrganizationsId == TableOrganizations).ToList();
+
+            var employees = await _context.employeeRegistrationLogs
+                .Include(i => i.Worker)
+                .Include(i => i.Organizations)
+                .Include(i => i.Worker.positon)
+                .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
+
+            var position = await _context.Position.ToListAsync();
 
 
-
-            var position = _context.TablePosition.Include(
-                i => i.Position).Where(i => i.TableOrganizationsId == TableOrganizations).ToList();
-              //.Select(i => new { TablePositionId = i.TablePositionId, JobTitle = i.Position.JobTitle }).ToList();
-           
-           workers.ForEach(i => verificationOfEducationViewModel.workers.Add(i.Worker));
-            position.ForEach(i => tablePositionViewModel.positions.Add(i.Position));
-
-
-            //ViewBag.verificationOfTypesId = new SelectList(_context.verificationOfTypes, "VerificationOfTypeId", "VerificationOfTypeName");
-
-
-           ViewBag.WorkerId = new SelectList(verificationOfEducationViewModel.workers, "WorkerId", "Surname");
-           ViewBag.TablePositionId = new SelectList(tablePositionViewModel.positions, "PositionId", "JobTitle");
-           ViewBag.TableOrganizationsId = new SelectList(_context.TableOrganizations.Where(p => 
-           p.TableOrganizationsId == TableOrganizations), "TableOrganizationsId", "NameOfOrganization");
-            return View(verificationOfEducationViewModel);
+            VerificationOfEducationViewModel model = new VerificationOfEducationViewModel
+            {
+                employeeRegistrationLogs = employees,
+                positions = position
+            };
+            return View(model);
        }
+
+
        [HttpPost]
        public async Task<IActionResult> Create(VerificationOfEducationViewModel model)
        {
-           int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
-                (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
            if (ModelState.IsValid)
            {
                 TableVerificationOfEducation verificationOfEducation = new TableVerificationOfEducation
@@ -78,43 +75,35 @@ namespace WebApplicationDiplom.Controllers
                     VerificationStatus = "Не аттестован",
                     DateOfVerification = DateTime.Now,
                     DateOfCertificationCompletion = model.DateOfCertificationCompletion,
-                   WorkerId = model.WorkerId,
-                   PositionId = model.PositionId,
-                   TableOrganizationsId = model.TableOrganizationsId,
+                    EmployeeRegistrationLogId = model.EmployeeRegistrationLogId,
+                    PositionId = model.PositionId,
                 };
        
                _context.TableVerificationOfEducation.Add(verificationOfEducation);
                await _context.SaveChangesAsync();
                return RedirectToAction("Index");
            }
-       
-       
            return View();
        }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
-   (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
             VerificationOfEducationViewModel verificationOfEducationViewModel = new VerificationOfEducationViewModel();
 
             if (id != null)
             {
-                TableVerificationOfEducation verificationOfEducation = await _context.TableVerificationOfEducation
-                    .Include(p => p.Worker)
-                    .Include(p => p.Position)  
+                TableVerificationOfEducation verificationOfEducation = await _context.TableVerificationOfEducation 
                     .FirstOrDefaultAsync(p => p.VerificationOfEducationId == id);
+
                 VerificationOfEducationViewModel verificationOfEducationView = new VerificationOfEducationViewModel
                 {
                     Id = verificationOfEducation.VerificationOfEducationId,
                     VerificationStatus = verificationOfEducation.VerificationStatus,
-                    DateOfVerification           = verificationOfEducation.DateOfVerification,
-                    WorkerId                 = verificationOfEducation.WorkerId,
-                    PositionId               = verificationOfEducation.PositionId,
-                    TableOrganizationsId     = verificationOfEducation.TableOrganizationsId,
-                    Recommendations          =  verificationOfEducation.Recommendations
-                    
+                    DateOfVerification = verificationOfEducation.DateOfVerification,
+                    EmployeeRegistrationLogId = verificationOfEducation.EmployeeRegistrationLogId,
+                    PositionId  = verificationOfEducation.PositionId,
+                    Recommendations = verificationOfEducation.Recommendations
                 };
                 if (verificationOfEducation != null)
                 {
@@ -124,6 +113,7 @@ namespace WebApplicationDiplom.Controllers
             }
             return NotFound();
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit(VerificationOfEducationViewModel model )
         {

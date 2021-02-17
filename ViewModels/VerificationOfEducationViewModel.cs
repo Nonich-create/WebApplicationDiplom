@@ -24,26 +24,16 @@ namespace WebApplicationDiplom.ViewModels
         [Display(Name = "Дата прохождение аттестации")]
         public DateTime DateOfCertificationCompletion { get; set; }
 
-        [Required(ErrorMessage = "Не указан работник")]
-        [DataType(DataType.Text)]
-        [Display(Name = "Тип организации")]
-        public int WorkerId { get; set; }
-
         [Required(ErrorMessage = "Не указана должность ")]
         [DataType(DataType.Text)]
         [Display(Name = "Должность")]
         public int PositionId { get; set; }
 
-        [Required(ErrorMessage = "Не указана организация ")]
+        [Required(ErrorMessage = "Не указан работник ")]
         [DataType(DataType.Text)]
-        [Display(Name = "Организация")]
-        public int TableOrganizationsId { get; set; }
+        [Display(Name = "Работник")]
+        public int EmployeeRegistrationLogId { get; set; }
        
-        [Required(ErrorMessage = "Не указан тип аттестации ")]
-        [DataType(DataType.Text)]
-        [Display(Name = "Тип аттестации")]
-        public int verificationOfTypesId { get; set; }
-
         [DataType(DataType.Text)]
         [Display(Name = "Рекомендации")]
         public string Recommendations { get; set; }
@@ -51,17 +41,7 @@ namespace WebApplicationDiplom.ViewModels
       
         public RecommendationsAfterCertification EnumerationRecommendations { get; set; }
         public VerificationStatus EnumerationStatus { get; set; }
-        public List<Worker> workers { get; set; }
+        public List<EmployeeRegistrationLog> employeeRegistrationLogs { get; set; }
         public List<Position> positions { get; set; }
-        public List<TableOrganizations> organizations { get; set; }
-        public VerificationOfEducationViewModel()
-        {
-            workers = new List<Worker>();
-            positions = new List<Position>();
-            organizations = new List<TableOrganizations>();
-        }
-        public Worker Worker { get; set; }
-        public TableOrganizations Organizations { get; set; }
-        public Position Position { get; set; }
     }
 }

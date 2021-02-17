@@ -14,10 +14,9 @@ namespace WebApplicationDiplom.Models
         public string StatusReserve { get; set; }
         public DateTime StartDateReserve { get; set; }
         public DateTime? EndDateReserve { get; set; }
-        public int TablePositionId { get; set; }
-       
-        public int WorkerId { get; set; }
-        public Worker Worker { get; set; }
+        public int? TablePositionId { get; set; }
+        public int EmployeeRegistrationLogId { get; set; }
+        public EmployeeRegistrationLog employeeRegistrationLog { get; set; }
         public TablePosition tablePosition { get; set; }
     }
 }

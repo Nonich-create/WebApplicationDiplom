@@ -15,17 +15,11 @@ namespace WebApplicationDiplom.Models
         public string Name { get; set; }
         public string DoubleName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public List<TableHistoryOfAppointments> HistoryOfAppointments { get; set; }
-        public List<TableVerificationOfEducation> VerificationOfEducation { get; set; }
         public List<EmployeeRegistrationLog> employeeRegistrationLogs { get; set; }
-        public List<ReserveOfPersonnel> reserveOfPersonnels { get; set; }
         public int? PositionId { get; set; }
         public Position? positon { get; set; }
         public Worker()
         {
-            reserveOfPersonnels = new List<ReserveOfPersonnel>();
-            HistoryOfAppointments = new List<TableHistoryOfAppointments>();
-            VerificationOfEducation = new List<TableVerificationOfEducation>();
             employeeRegistrationLogs = new List<EmployeeRegistrationLog>();
         }
      

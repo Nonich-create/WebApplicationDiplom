@@ -8,21 +8,27 @@
 <form method="post" asp-controller="VerificationOfEducation" asp-action="Create" style="width: 50%; text-align: left;">
     <div asp-validation-summary="ModelOnly"></div>
 
-    <div class="editor-field">
-        <label>Фамилия работника</label><br />
-        @Html.DropDownListFor(Model => Model.WorkerId, ViewBag.WorkerId as SelectList)
-
+    <div>
+        <label>Информация о работники</label><br />
+        <select asp-for="EmployeeRegistrationLogId">
+            @foreach (var item in Model.employeeRegistrationLogs)
+            {
+                <option value="@item.EmployeeRegistrationId">@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName, @item.Worker.positon.JobTitle</option>
+            }
+        </select>
     </div>
     <br />
     <div>
-        <label>Должность</label><br />
-        @Html.DropDownListFor(Model => Model.PositionId, ViewBag.TablePositionId as SelectList)
+        <label>Аттестация на должность</label><br />
+        <select asp-for="PositionId">
+            @foreach (var item in Model.positions)
+            {
+                <option value="@item.PositionId">@item.JobTitle</option>
+            }
+        </select>
     </div>
     <br />
-    <div>
-        <label>Организация</label><br />
-        @Html.DropDownListFor(Model => Model.TableOrganizationsId, ViewBag.TableOrganizationsId as SelectList)
-    </div>
+ 
     <div>
         <label asp-for="DateOfCertificationCompletion">Дата прохождении аттестации</label><br />
         <input asp-for="DateOfCertificationCompletion" />

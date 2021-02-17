@@ -26,36 +26,44 @@ namespace WebApplicationDiplom.Controllers
         {
             int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
      (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+          
             var historyofappointments = _context.TableHistoryOfAppointments
                 .Include(p => p.Position)
-                .Include(p => p.Worker)
-                .Include(p => p.Position.Position).Where(p => p.Position.TableOrganizationsId == TableOrganizations);
+                .Include(p => p.EmployeeRegistrationLog)
+                .Include(p => p.EmployeeRegistrationLog.Worker)
+                .Include(p => p.Position.Position)
+                .Where(p => p.EmployeeRegistrationLog.TableOrganizationsId == TableOrganizations);
+          
             return View(await historyofappointments.ToListAsync());
         }
         [HttpGet]
-        public  IActionResult Create( )
+        public async Task<IActionResult>  Create( )
         {
-            HistoryOfAppointmentsViewModel historyOfAppointmentsViewModel = new HistoryOfAppointmentsViewModel();
-            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+           int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
                  (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
 
-            var workers = _context.employeeRegistrationLogs.Include(
-             i => i.Worker).Where(i => i.TableOrganizationsId == TableOrganizations).ToList();
+            var employees = await _context.employeeRegistrationLogs
+               .Include(i => i.Worker)
+               .Include(i => i.Organizations)
+               .Include(i => i.Worker.positon)
+               .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
 
 
-            var position = _context.TablePosition.Include(i => i.Position)
+            var position = await _context.TablePosition.Include(i => i.Position)
                .Where(i => i.TableOrganizationsId == TableOrganizations)
-               .Select(i => new { TablePositionId = i.TablePositionId, JobTitle = i.Position.JobTitle }).ToList();
+               .Select(i => new { TablePositionId = i.TablePositionId, JobTitle = i.Position.JobTitle }).ToListAsync();
          
-            workers.ForEach(i => historyOfAppointmentsViewModel.workers.Add(i.Worker));
-
             // сделать  когда добовляю запись изменялось количество доступных мест в должностях
 
-            ViewBag.WorkerId = new SelectList(historyOfAppointmentsViewModel.workers, "WorkerId", "Surname");
             ViewBag.TablePositionId = new SelectList(position, "TablePositionId", "JobTitle");
- 
-            return View(historyOfAppointmentsViewModel);
+            HistoryOfAppointmentsViewModel model = new HistoryOfAppointmentsViewModel
+            { 
+               employeeRegistrationLogs = employees
+               
+            }
+            ;
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Create(HistoryOfAppointmentsViewModel model)
@@ -66,7 +74,7 @@ namespace WebApplicationDiplom.Controllers
                 {
                     DateOfAppointment = DateTime.Now,
                     TablePositionId = model.TablePositionId,
-                    WorkerId = model.WorkerId,
+                    EmployeeRegistrationLogId = model.EmployeeRegistrationLogId
                 };
 
                 _context.TableHistoryOfAppointments.Add(historyofappointments);

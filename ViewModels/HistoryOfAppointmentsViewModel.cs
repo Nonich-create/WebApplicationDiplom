@@ -31,17 +31,17 @@ namespace WebApplicationDiplom.ViewModels
         [Required(ErrorMessage = "Не указана работник")]
         [DataType(DataType.Text)]
         [Display(Name = "Работник")]
-        public int WorkerId { get; set; }
+        public int EmployeeRegistrationLogId { get; set; }
         public string Surname { get; set; }
         public SelectList DropDownList { get; set; }
 
-        public List<Worker> workers { get; set; }
+        public List<EmployeeRegistrationLog> employeeRegistrationLogs { get; set; }
         public List<TablePosition> positions { get; set; }
  
         public HistoryOfAppointmentsViewModel()
         {
-       
-            workers = new List<Worker>();
+
+            employeeRegistrationLogs = new List<EmployeeRegistrationLog>();
             positions = new List<TablePosition>();
         }
 

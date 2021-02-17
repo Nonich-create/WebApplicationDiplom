@@ -13,10 +13,13 @@
     @foreach (TableHistoryOfAppointments item in Model)
     {
         <tr>
-            <td>@item.Worker.Name @item.Worker.Name @item.Worker.DoubleName</td>
+            <td>@item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
             <td>@item.DateOfAppointment.ToString().Remove(10)</td>
             <td>@item.Position.Position.JobTitle</td>
-            <td> <a asp-action="Edit" asp-controller="Worker" asp-route-id="@item.HistoryOfAppointmentsId">Изменить</a></td>
+            <td>
+                <a asp-action="Edit" asp-controller="Worker" asp-route-id="@item.HistoryOfAppointmentsId">Изменить</a>
+                <a asp-action="Edit" asp-controller="Worker" asp-route-id="@item.HistoryOfAppointmentsId">Изменить</a>
+            </td>
         </tr>
     }
 </table>

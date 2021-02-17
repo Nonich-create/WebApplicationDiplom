@@ -17,8 +17,8 @@
     @foreach (ReserveOfPersonnel item in Model)
     {
 <tr>
-    <td>@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName</td>
-    <td>@item.Worker.positon.JobTitle</td>
+    <td>@item.employeeRegistrationLog.Worker.Surname @item.employeeRegistrationLog.Worker.Name @item.employeeRegistrationLog.Worker.DoubleName</td>
+    <td>@item.employeeRegistrationLog.Worker.positon.JobTitle</td>
     <td>@item.StatusReserve</td>
     <td>@item.tablePosition.Position.JobTitle</td>
     <td>@item.StartDateReserve.ToString().Remove(10)</td>
