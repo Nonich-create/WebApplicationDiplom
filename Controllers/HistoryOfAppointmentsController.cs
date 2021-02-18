@@ -59,8 +59,8 @@ namespace WebApplicationDiplom.Controllers
             ViewBag.TablePositionId = new SelectList(position, "TablePositionId", "JobTitle");
             HistoryOfAppointmentsViewModel model = new HistoryOfAppointmentsViewModel
             { 
-               employeeRegistrationLogs = employees
-               
+               employeeRegistrationLogs = employees,
+                 
             }
             ;
             return View(model);
