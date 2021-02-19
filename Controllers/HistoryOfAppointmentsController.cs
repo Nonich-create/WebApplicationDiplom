@@ -20,12 +20,12 @@ namespace WebApplicationDiplom.Controllers
             _context = context;
         }
 
-
+        #region отображения принятых на должность работников
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
-     (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+            (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
           
             var historyofappointments = _context.TableHistoryOfAppointments
                 .Include(p => p.Position)
@@ -36,8 +36,10 @@ namespace WebApplicationDiplom.Controllers
           
             return View(await historyofappointments.ToListAsync());
         }
+        #endregion
+        #region отображения принятия на должность работника
         [HttpGet]
-        public async Task<IActionResult>  Create( )
+        public async Task<IActionResult>  Create()
         {
            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
                  (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
@@ -65,25 +67,77 @@ namespace WebApplicationDiplom.Controllers
             ;
             return View(model);
         }
+        #endregion
+        #region назначения работника на должность в организации
         [HttpPost]
         public async Task<IActionResult> Create(HistoryOfAppointmentsViewModel model)
         {
-            if (ModelState.IsValid)
+            var tableposition = await _context.TablePosition.FirstOrDefaultAsync(p => p.TablePositionId == model.TablePositionId);
+            if (tableposition.CountPosition > 0)
             {
-                TableHistoryOfAppointments historyofappointments = new TableHistoryOfAppointments
+                if (ModelState.IsValid)
                 {
-                    DateOfAppointment = DateTime.Now,
-                    TablePositionId = model.TablePositionId,
-                    EmployeeRegistrationLogId = model.EmployeeRegistrationLogId
-                };
-
-                _context.TableHistoryOfAppointments.Add(historyofappointments);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                    TableHistoryOfAppointments historyofappointments = new TableHistoryOfAppointments
+                    {
+                        DateOfAppointment = DateTime.Now,
+                        TablePositionId = model.TablePositionId,
+                        EmployeeRegistrationLogId = model.EmployeeRegistrationLogId
+                    };
+                    tableposition.CountPosition = tableposition.CountPosition - 1;
+                    _context.TablePosition.Update(tableposition);
+                    _context.TableHistoryOfAppointments.Add(historyofappointments);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
 
-
-            return View();
+            return RedirectToAction("Create");
         }
+        #endregion
+        #region отображения увольнения работника с должности
+        [HttpGet]
+        public async Task<IActionResult> Layoffs(int? id)
+        { 
+            if (id != null)
+            {
+                TableHistoryOfAppointments historyOfAppointments = await _context.TableHistoryOfAppointments.FirstOrDefaultAsync(p => p.HistoryOfAppointmentsId == id);
+                if (historyOfAppointments.DateOfDismissal == null)
+                {
+                    HistoryOfAppointmentsViewModel model = new HistoryOfAppointmentsViewModel
+                    {
+                        HistoryOfAppointmentsId = historyOfAppointments.HistoryOfAppointmentsId,
+                        DateOfAppointment = historyOfAppointments.DateOfAppointment,
+                        DateOfDismissal = historyOfAppointments.DateOfDismissal,
+                        TablePositionId = historyOfAppointments.TablePositionId,
+                        EmployeeRegistrationLogId = historyOfAppointments.EmployeeRegistrationLogId,
+                        TheReasonForTheDismissal = historyOfAppointments.TheReasonForTheDismissal
+                    };
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
+        }
+        #endregion
+        #region увольнения работника
+        [HttpPost]
+        public async Task<IActionResult> Layoffs(HistoryOfAppointmentsViewModel model)
+        {
+          
+                TableHistoryOfAppointments historyOfAppointments = await _context.TableHistoryOfAppointments.FirstOrDefaultAsync(p => p.HistoryOfAppointmentsId == model.HistoryOfAppointmentsId);
+                var tableposition = await _context.TablePosition.FirstOrDefaultAsync(p => p.TablePositionId == historyOfAppointments.TablePositionId);
+                tableposition.CountPosition = tableposition.CountPosition + 1;
+                historyOfAppointments.TheReasonForTheDismissal = model.GroundsForDismissal.ToString();
+                historyOfAppointments.DateOfDismissal = DateTime.Now;
+                _context.TableHistoryOfAppointments.Update(historyOfAppointments);
+                _context.TablePosition.Update(tableposition);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            
+        }
+        #endregion
     }
 }

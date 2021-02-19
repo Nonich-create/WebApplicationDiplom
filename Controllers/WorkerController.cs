@@ -17,13 +17,12 @@ namespace WebApplicationDiplom.Controllers
         {
             _context = context;
         }
-        
+        #region отображение списка работников
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
                 (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
-            //return View(await _context.Worker.ToListAsync());
             var employee = _context.employeeRegistrationLogs 
            .Include(p => p.Worker).Include(p =>p.Organizations).Where(p => p.TableOrganizationsId == TableOrganizations)
            .Include(p => p.Worker.positon)
@@ -31,11 +30,16 @@ namespace WebApplicationDiplom.Controllers
            ;
             return View(await employee.ToListAsync());
         }
+        #endregion
+        #region отображение добавления работника
+        [HttpGet]
         public IActionResult Create()
         {
             ViewBag.TablePositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
             return View();
         }
+        #endregion
+        #region добавления работника
         [HttpPost]
         public async Task<IActionResult> Create(RegisterWorkerViewModel model)
         {
@@ -66,17 +70,23 @@ namespace WebApplicationDiplom.Controllers
             }
             return RedirectToAction("Index");
         }
+        #endregion
+        #region отображения редактирования работника
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.TablePositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
             if (id != null)
             {
                 Worker worker = await _context.Worker.FirstOrDefaultAsync(p => p.WorkerId == id);
                 if (worker != null)
+
                     return View(worker);
             }
             return NotFound();
         }
+        #endregion
+        #region редактирования работника
         [HttpPost]
         public async Task<IActionResult> Edit(Worker worker)
         {
@@ -84,5 +94,6 @@ namespace WebApplicationDiplom.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }

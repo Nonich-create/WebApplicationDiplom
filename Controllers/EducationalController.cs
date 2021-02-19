@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
@@ -18,7 +16,7 @@ namespace WebApplicationDiplom.Controllers
         {
             _context = context;
         }
-
+        #region Отображения образований работников
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -34,7 +32,8 @@ namespace WebApplicationDiplom.Controllers
                 .Where(p => p.Worker.TableOrganizationsId == TableOrganizations);
              return View(await educationales.ToListAsync());
         }
-
+        #endregion
+        #region Отображения регистрации образования
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -43,7 +42,8 @@ namespace WebApplicationDiplom.Controllers
 
             var Worker = await _context.employeeRegistrationLogs
                 .Include(i => i.Worker)
-                .Include(i => i.Organizations)
+                .Include(i => i.Worker.positon)
+                .Include(i => i.Organizations)          
                 .ThenInclude(i => i.users)
                 .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
@@ -56,6 +56,8 @@ namespace WebApplicationDiplom.Controllers
             };
             return View(model);
         }
+        #endregion
+        #region регистрация нового образования работника
         [HttpPost]
         public async Task<IActionResult> Create(EducationalViewModel model)
         {
@@ -77,22 +79,19 @@ namespace WebApplicationDiplom.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
                 }
-                //ViewBag.WorkerId = new SelectList(_context.Worker, "WorkerId", "Surname",model.WorkerId);
 
-                //ViewBag.EducationalInstitutionsId = new SelectList(_context.EducationalInstitutions, "EducationalInstitutionsId", "NameEducationalInstitutions",model.EducationalInstitutionsId);
-
-                //ViewBag.PositionId = new SelectList(_context.Position, "PositionId", "JobTitle",model.PositionId);
-
-                //ViewBag.QualificationId = new SelectList(_context.TableQualification, "QualificationId", "Qualification",model.QualificationId);
 
                 return View();
         }
+        #endregion
+        #region отображения добавления место образоавния в справочник 
         [HttpGet]
         public IActionResult CreateEducationalInstitutions()
         {
- 
             return View();
         }
+        #endregion
+        #region добавления образования в справочник
         [HttpPost]
         public async Task<IActionResult> CreateEducationalInstitutions(EducationalInstitutions model)
         {
@@ -109,12 +108,15 @@ namespace WebApplicationDiplom.Controllers
             }
             return View();
         }
+        #endregion
+        #region отображения добавления квалификации 
         [HttpGet]
         public IActionResult CreateQualification()
         {
-
             return View();
         }
+        #endregion
+        #region добавления квалификации в справчоник
         [HttpPost]
         public async Task<IActionResult> CreateQualification(TableQualification model)
         {
@@ -131,6 +133,50 @@ namespace WebApplicationDiplom.Controllers
             }
             return View();
         }
+        #endregion
+        #region отображения добавления должности
+        [HttpGet]
+        public IActionResult CreateJob()
+        {
+            return View();
+        }
+        #endregion
+        #region добавления должности в справочник
+        [HttpPost]
+        public async Task<IActionResult> CreateJob(Position model)
+        {
+            if (ModelState.IsValid)
+            {
+                Position position = await _context.Position.FirstOrDefaultAsync
+                    (i => i.JobTitle == model.JobTitle);
+                if (position == null)
+                {
+                    await _context.Position.AddAsync(model);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Create");
+                }
+
+
+            }
+            return View();
+        }
+        #endregion
+        #region удаления образования работника
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                TableEducational educational = await _context.TableEducational.FirstOrDefaultAsync(p => p.EducationalId == id);
+                if (educational != null)
+                {
+                    _context.TableEducational.Remove(educational);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
+        }
+        #endregion
     }
 
 }

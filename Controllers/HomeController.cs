@@ -41,6 +41,7 @@ namespace WebApplicationDiplom.Controllers
          [HttpGet]
          public async Task<IActionResult> Index()
          {
+           
             int selectedIndex = 1;
             foreach (var item in _context.TableArea.ToList())
                 area.Add(item);
@@ -62,7 +63,7 @@ namespace WebApplicationDiplom.Controllers
             var location = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}");
             string loc = location.ToString();
     //    https://localhost:44305/
-            AddressViewModel avm = new AddressViewModel {SSS = loc  , areas = area, districts = districts, localities = locations, addresses = addresses };
+            AddressViewModel avm = new AddressViewModel { areas = area, districts = districts, localities = locations, addresses = addresses };
             return View(avm);  
          }
 

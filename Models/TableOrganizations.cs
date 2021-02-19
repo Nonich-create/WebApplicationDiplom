@@ -18,7 +18,7 @@ namespace WebApplicationDiplom.Models
         public string NameOfOrganization { get; set; }
         public string TypeOrganization { get; set; }
         public string Email { get; set; }
-        public string Subordination { get; set; }
+        public int? SubordinationId { get; set; }
         public string UserId { get; set; }
         public User? users { get; set; }
         public List<TablePosition> TablePosition { get; set; }

@@ -11,10 +11,10 @@
 
     <div>
         <label>Фамилия работника</label><br />
-        <select asp-for="EmployeeRegistrationLogId">
+        <select asp-for="EmployeeRegistrationLogId" class="select-css">
             @foreach (var item in Model.workers)
             {
-                <option value="@item.EmployeeRegistrationId">@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName</option>
+                <option value="@item.EmployeeRegistrationId">@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName @item.Worker.positon.JobTitle</option>
             }
         </select>
     </div>
@@ -31,7 +31,7 @@
         <span asp-validation-for="QualificationEducation"></span>
     </div>
     <br />
-    <div>
+    <div style="width = 50">
         <label>Учреждения образования</label>
         <a asp-controller="Educational" asp-action="CreateEducationalInstitutions">Добавить учреждения образования в справочник</a><br />
         @Html.DropDownListFor(model => model.EducationalInstitutionsId, ViewBag.EducationalInstitutionsId as SelectList)
@@ -39,6 +39,7 @@
     <br />
     <div>
         <label>Специальность</label>
+        <a asp-controller="Educational" asp-action="CreateJob">Добавить должность в справочник</a><br />
         @Html.DropDownListFor(model => model.PositionId, ViewBag.PositionId as SelectList)
     </div>
     <br>
@@ -59,7 +60,7 @@
         <input asp-for="EndDate" style="width: 50%; margin: 0 auto; text-align: start;" />
         <span asp-validation-for="EndDate"></span>
     </div>
-    <br /><br /><br />
+    <br />
     <div>
         <input type="submit" value="Регистрация" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />
     </div>

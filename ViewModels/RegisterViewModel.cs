@@ -14,7 +14,7 @@ namespace WebApplicationDiplom.ViewModels
 
 
 
-
+        public int TableOrganizationsId { get; set; }
         //[Required]
         //[Display(Name = "Идентификатор")]
         public string Identifier { get; set; }
@@ -47,8 +47,9 @@ namespace WebApplicationDiplom.ViewModels
 
         //[DataType(DataType.Text)]
         //[Display(Name = "под организации")]
-        public string Subordination { get; set; }
+        public int? SubordinationId { get; set; }
         public TypesOfBusinesses Businesses { get; set; }
+        public List<TableOrganizations> organizations = new List<TableOrganizations>(); 
         //[Required(ErrorMessage = "Не указана Адрес организации")]
         //[DataType(DataType.Text)]
         //[Display(Name = "Адрес организации")]

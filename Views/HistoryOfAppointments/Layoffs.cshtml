@@ -1,0 +1,20 @@
+﻿@using WebApplicationDiplom.Enumeration
+@model WebApplicationDiplom.ViewModels.HistoryOfAppointmentsViewModel
+@{
+    ViewBag.Title = "Увольнения работника";
+}
+<form asp-action="Layoffs" asp-controller="HistoryOfAppointments" asp-route-id="@Model.HistoryOfAppointmentsId">
+    <input type="hidden" asp-for="HistoryOfAppointmentsId" class="form-control" />
+
+    <div>
+        <label asp-for="GroundsForDismissal" style="width: 50%; margin: 0 auto; text-align: start;">Причина увольнения</label><br />
+        <select asp-for="GroundsForDismissal" asp-items="Html.GetEnumSelectList<GroundsForDismissal>()" style="width: 50%; margin: 0 auto; text-align: start;"></select>
+        <span asp-validation-for="GroundsForDismissal"></span>
+    </div>
+
+
+    <div class="form-group">
+        <input type="submit" value="Уволить" class="btn btn-default" />
+    </div>
+
+</form>

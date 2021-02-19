@@ -13,6 +13,7 @@ namespace WebApplicationDiplom.Controllers
     public class AccountController : Controller
     {
         public readonly ApplicationContext _context;
+     
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
@@ -62,10 +63,16 @@ namespace WebApplicationDiplom.Controllers
             _signInManager = signInManager;
         }
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
-            return View();
-            // return View(await _context.PersTableAddresson.Include(i => i.locality).ThenInclude(i => i.District).ThenInclude(i => i.Area).ToListAsync());
+            var organizations = await _context.TableOrganizations.ToListAsync();
+
+
+            RegisterViewModel model = new RegisterViewModel
+            {
+                organizations = organizations,
+            };
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -74,7 +81,10 @@ namespace WebApplicationDiplom.Controllers
             {
                 User user = new User { UserName = model.Identifier, Identifier = model.Identifier, };
                 // добавляем пользователя
+
                 var result = await _userManager.CreateAsync(user, model.Password);
+
+
                 if (result.Succeeded)
                 {
 
@@ -82,22 +92,31 @@ namespace WebApplicationDiplom.Controllers
                     {
                         NameOfOrganization = model.OrganizationName,
                         UserId = user.Id,
-                        TypeOrganization = model.Businesses.ToString(),  //model.TypeOrganization,
+                        TypeOrganization = model.Businesses.ToString(),  
                         Email = model.Email,
-                        Subordination = model.Subordination,
-                        //AddressId = model.AddressId,
+                        SubordinationId = model.TableOrganizationsId,
+                        
                     };
                     // установка куки
-                    _context.TableOrganizations.Add(organizations);
-                    await _context.SaveChangesAsync();
+               //     var UserIdentifier = await _context.Users.FirstOrDefaultAsync
+                 //   (i => i.Identifier == model.Identifier);
+        
+                 //   if (UserIdentifier == null)
+                 //   {
+                        _context.TableOrganizations.Add(organizations);
+                        await _context.SaveChangesAsync();
+                        
+                 //   }
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
+                  
                 }
                 else
                 {
                     foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
+                        return RedirectToAction("Register", "Account");
                     }
                 }
             }

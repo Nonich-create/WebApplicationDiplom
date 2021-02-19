@@ -28,7 +28,7 @@ namespace WebApplicationDiplom.ViewModels
 
         [Required(ErrorMessage = "Не указана должность")]
         [DataType(DataType.Text)]
-        [Display(Name = "Адрес организации")]
+        [Display(Name = "Должность")]
         public int PositionId { get; set; }
 
         [Required(ErrorMessage = "Не указан работник ")]

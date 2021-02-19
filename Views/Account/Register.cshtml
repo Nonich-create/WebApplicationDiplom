@@ -1,6 +1,8 @@
 ﻿@using WebApplicationDiplom.Enumeration
 @model WebApplicationDiplom.ViewModels.RegisterViewModel
-
+@{
+    Layout = "";
+}
 <h2>Регистрация организцаии</h2>
 <form method="post" asp-controller="Account" asp-action="Register" style="width: 50%; margin: 0 auto; text-align: center;">
     <div asp-validation-summary="ModelOnly"></div>
@@ -14,19 +16,19 @@
     <br />
     <div>
         <label asp-for="Password" style="width: 50%; margin: 0 auto; text-align: start;">Пароль</label><br />
-        <input asp-for="Password" style="width: 50%; margin: 0 auto; text-align: start;"/>
+        <input asp-for="Password" style="width: 50%; margin: 0 auto; text-align: start;" />
         <span asp-validation-for="Password"></span>
     </div>
     <br />
     <div>
         <label asp-for="PasswordConfirm" style="width: 50%; margin: 0 auto; text-align: start;">Повторный пароль</label><br />
-        <input asp-for="PasswordConfirm" style="width: 50%; margin: 0 auto; text-align: start;"/>
+        <input asp-for="PasswordConfirm" style="width: 50%; margin: 0 auto; text-align: start;" />
         <span asp-validation-for="PasswordConfirm"></span>
     </div>
     <br />
     <div>
         <label asp-for="OrganizationName" style="width: 50%; margin: 0 auto; text-align: start;">Название организации</label><br />
-        <input asp-for="OrganizationName" style="width: 50%; margin: 0 auto; text-align: start;"/>
+        <input asp-for="OrganizationName" style="width: 50%; margin: 0 auto; text-align: start;" />
         <span asp-validation-for="OrganizationName"></span>
     </div>
     <br />
@@ -38,11 +40,19 @@
     <br />
     <div>
         <label asp-for="Email" style="width: 50%; margin: 0 auto; text-align: start;">Электронный адрес организации</label><br />
-        <input asp-for="Email" style="width: 50%; margin: 0 auto; text-align: start;"/>
+        <input asp-for="Email" style="width: 50%; margin: 0 auto; text-align: start;" />
         <span asp-validation-for="Email"></span>
     </div>
-    <br /><br /><br />
+    <br />
+    <label>Место повышения квалификации</label><br />
+    <select asp-for="TableOrganizationsId" >
+        @foreach (var item in Model.organizations)
+        {
+            <option value="@item.TableOrganizationsId">@item.NameOfOrganization</option>
+        }
+    </select>
+    <br /><br />
     <div>
-        <input type="submit" value="Регистрация"  style="width: 50%; margin: 0 auto; text-align: start, "text-align: center;"/>
+        <input type="submit" value="Регистрация" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />
     </div>
 </form>

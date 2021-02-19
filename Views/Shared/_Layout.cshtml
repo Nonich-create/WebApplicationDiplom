@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Резерв кадров</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">На главную страницу</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,12 +19,23 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Worker" asp-action="Index">Работники</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Educational" asp-action="Index">Образования</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="VerificationOfEducation" asp-action="Index">Аттестация</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Position" asp-action="Index">Добавить должность в организацию</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="HistoryOfAppointments" asp-action="Index">Назначение на должность</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Position" asp-action="CreateJob">Добавить должность в справочник</a>
                         </li>
-                    </ul>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ReserveOfPersonnel" asp-action="Index">Работника в резерве</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="AdvancedTraining" asp-action="Index">Квалификации работников</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Reports" asp-action="Index">Отчёты</a>
+                        </li>
+                    </ul>    
                 </div>
             </div>
         </nav>

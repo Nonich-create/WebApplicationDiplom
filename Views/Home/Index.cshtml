@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<label>@Model.SSS      @*@Context.Request.Host@Context.Request.Path*@</label>
+ 
 @if (User.Identity.IsAuthenticated)
 {
     <p>@User.Identity.Name</p>
@@ -12,18 +12,6 @@
         <div asp-validation-summary="ModelOnly"></div>
         <input type="submit" value="Выход" />
         <a asp-controller="Account" asp-action="Register">Регистрация</a>
-        <br />
-        <a asp-controller="Worker" asp-action="Index">Работники</a>
-        <br />
-        <a asp-controller="Educational" asp-action="Index">Образования</a>
-        <a asp-controller="Position" asp-action="Index">Новые должности</a>
-        <a asp-controller="HistoryOfAppointments" asp-action="Index">Назначение на должность</a>
-        <a asp-controller="VerificationOfEducation" asp-action="Index">Аттестация</a>
-        <a asp-controller="Position" asp-action="CreateJob">Добавить должность в справочник</a>
-        <a asp-controller="ReserveOfPersonnel" asp-action="Index">Резерв</a>
-        <a asp-controller="AdvancedTraining" asp-action="Index">Повышение квалификации</a>
-        <a asp-controller="Home" asp-action="Reser">Отчёт</a>
-
     </form>
 }
 else
@@ -34,7 +22,7 @@ else
 
 }
 
-<a asp-controller="Reports" asp-action="Index">Отчёты</a>
+ 
 
 
 <select>
@@ -50,14 +38,13 @@ else
     }
 </select>
 
-<table class="table">
-    <tr><td>Имя</td><td>Возраст</td></tr>
+
     @foreach (var item in Model.localities)
     {
-        <tr><td>@item.District.Area.NameArea</td><td>@item.District.NameDistrict</td></tr>
+        @item.District.Area.NameArea @item.District.NameDistrict
 
     }
-</table>
+
 <h3>Выберите область</h3>
 @Html.DropDownList("TableArea", ViewBag.Areaes as SelectList, new { id = "areaes" })
 <h3>Выберите регион</h3>

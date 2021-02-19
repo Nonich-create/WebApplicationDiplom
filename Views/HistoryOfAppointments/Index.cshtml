@@ -3,24 +3,41 @@
     ViewData["Title"] = "Назначения на должность";
 }
 <a asp-action="Create">Назначить на должность</a>
- |
+ 
 <table class="table">
     <tr>
-        <td>ФИО</td>
-        <td>Дата назначения</td>
-        <td>Должность</td>
+        <th>ФИО</th>
+        <th>Дата назначения</th>
+        <th>Должность</th>
+        <th>Причина увольнения</th>
+        <th>Дата увольнения</th>
     </tr>
     @foreach (TableHistoryOfAppointments item in Model)
     {
-        <tr>
-            <td>@item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
-            <td>@item.DateOfAppointment.ToString().Remove(10)</td>
-            <td>@item.Position.Position.JobTitle</td>
-            <td>
-                <a asp-action="Edit" asp-controller="Worker" asp-route-id="@item.HistoryOfAppointmentsId">Изменить</a>
-                <a asp-action="Edit" asp-controller="Worker" asp-route-id="@item.HistoryOfAppointmentsId">Изменить</a>
-            </td>   
-        </tr>
+<tr>
+    <td>@item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
+    <td>@item.DateOfAppointment.ToString().Remove(10)</td>
+    <td>@item.Position.Position.JobTitle</td>
+    @if (item.TheReasonForTheDismissal != null)
+    {
+        <td>@item.TheReasonForTheDismissal.Replace("_", " ")</td>
+    }
+    else
+    {
+        <td>@item.TheReasonForTheDismissal</td>
+    }
+    @if (item.DateOfDismissal != null)
+    {
+        <td> @item.DateOfDismissal.ToString().Remove(10)  </td>
+    }
+    else
+    {
+        <td>  @item.DateOfDismissal</td>
+    }
+    <td>
+        <a asp-action="Layoffs" asp-controller="HistoryOfAppointments" asp-route-id="@item.HistoryOfAppointmentsId">Уволить</a>
+    </td>
+</tr>
     }
 </table>
 

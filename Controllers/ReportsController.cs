@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,13 +33,13 @@ namespace WebApplicationDiplom.Controllers
             return View();
         }
 
-
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> TheListOfPersonnelReserve()
         {
-            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+            int TableOrganizations =  _context.TableOrganizations.Include(i => i.users).FirstOrDefault
            (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
-
+           
 
             var position = await _context.TablePosition.Include(i => i.Position)
               .Where(i => i.TableOrganizationsId == TableOrganizations)
@@ -77,7 +78,7 @@ namespace WebApplicationDiplom.Controllers
               tableEducationals = educationals,
               reserveOfPersonnels = reserveOfPersonnels,
               advancedTrainingViewModels = advancedTrainings,
-               SSS = location.ToString()
+           
             };
 
             return View(model);
@@ -85,29 +86,23 @@ namespace WebApplicationDiplom.Controllers
         [HttpGet]
         public async Task<IActionResult> Print()
         {
-            //  Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Home/Index{Request.QueryString}");
-            //    var location = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}");
-            // string loc = location.ToString();
-            //    https://localhost:44305/
             Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Reports/TheListOfPersonnelReserve{Request.QueryString}");
-            WebRequest request = WebRequest.Create(location);
-                using (WebResponse response = request.GetResponse())
+            string loc = location.ToString();
+            WebRequest request = WebRequest.Create(loc);
+            using (WebResponse response = request.GetResponse())
+            {
+                using (StreamReader responseReader =
+                  new StreamReader(response.GetResponseStream()))
                 {
-                    using (StreamReader responseReader =
-                      new StreamReader(response.GetResponseStream()))
+                    string responseData = responseReader.ReadToEnd();
+                    using (StreamWriter writer =
+                      new StreamWriter(@"S:\sample.doc"))
                     {
-                        
-                        string responseData = responseReader.ReadToEnd();
-                        using (StreamWriter writer =
-                          new StreamWriter(@"S:\sample.doc"))
-                        {
-                            await writer.WriteAsync(responseData);
-                        }
-                        
+                        await writer.WriteAsync(responseData);
                     }
                 }
+            }
 
- 
             return RedirectToAction("Index");
         }
 
