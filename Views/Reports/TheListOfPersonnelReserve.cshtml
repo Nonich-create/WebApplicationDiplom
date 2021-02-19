@@ -1,9 +1,15 @@
 ﻿@model WebApplicationDiplom.ViewModels.TheListOfPersonnelReserveViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "";
 }
+@{
+    Layout = "";
+}
+ 
 <form method="get" asp-controller="Reports" asp-action="TheListOfPersonnelReserve">
     <div asp-validation-summary="ModelOnly"></div>
+    <a asp-controller="Reports" asp-action="Print">Отчёт</a>
+    <label>@Model.SSS</label>
     <div style="float:right">
         Приложение № 1
         <br />
@@ -20,114 +26,115 @@
     <br />
     <div style="text-align: center;">
         СПИСОК РЕЗЕРВА КАДРОВ  <br />
-       @foreach (var item in Model.tableHistoryOfAppointments)
+        @foreach (var item in Model.tableHistoryOfAppointments)
         {
             <span>@item.Position.Position.JobTitle </span>
         }
     </div>
     <br />
     <div>
-        <table class="table" border="1">
+        <table class="table" border="1"
+               style="border-collapse:collapse; ">
             @foreach (var item in Model.tableHistoryOfAppointments)
             {
-                
-                    <tr>
-                        <th width="100">Наименование организации</th>
-                        <th width="200">Занимаемая должность, фамилия, имя, отчество</th>
-                        <th width="100">Число, месяц, год рождения</th>
-                        <th width="350">Образование, когда и что окончил, специальность по образованию, где учится</th>
-                        <th width="100">С какого времени работает в должности</th>
-                        <th width="100">Последнее повышение квалификации (год, УО)</th>
-                    </tr>
-                    <tr>
-                        <td> @item.Position.Organizations.NameOfOrganization</td>
-                        <td>@item.Position.Position.JobTitle @item.EmployeeRegistrationLog.Worker.Surname @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
-                        <td>@item.EmployeeRegistrationLog.Worker.DateOfBirth.ToString().Remove(10)</td>
-                        <td>
-                            @foreach (var itemEducation in Model.tableEducationals)
+
+                <tr>
+                    <th width="100">Наименование организации</th>
+                    <th width="200">Занимаемая должность, фамилия, имя, отчество</th>
+                    <th width="100">Число, месяц, год рождения</th>
+                    <th width="350">Образование, когда и что окончил, специальность по образованию, где учится</th>
+                    <th width="100">С какого времени работает в должности</th>
+                    <th width="100">Последнее повышение квалификации (год, УО)</th>
+                </tr>
+                <tr>
+                    <td> @item.Position.Organizations.NameOfOrganization</td>
+                    <td>@item.Position.Position.JobTitle @item.EmployeeRegistrationLog.Worker.Surname @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
+                    <td>@item.EmployeeRegistrationLog.Worker.DateOfBirth.ToString().Remove(10)</td>
+                    <td>
+                        @foreach (var itemEducation in Model.tableEducationals)
+                        {
+                            if (itemEducation.WorkerEmployeeRegistrationId == item.EmployeeRegistrationLog.WorkerId)
                             {
-                                if (itemEducation.WorkerEmployeeRegistrationId == item.EmployeeRegistrationLog.WorkerId)
-                                {
-                                    @itemEducation.EducationType.Replace("_", " ").Insert(itemEducation.EducationType.Length, ", ")
-                                    @itemEducation.EndDate.ToString().Remove(10).Remove(0, 6).Insert(4, ", ")
-                                    @itemEducation.EducationalInstitutions.NameEducationalInstitutions.Insert(itemEducation.EducationalInstitutions.NameEducationalInstitutions.Length, ", ")
-                                    @itemEducation.position.JobTitle
-                                }
+                                @itemEducation.EducationType.Replace("_", " ").Insert(itemEducation.EducationType.Length, ", ")
+                                @itemEducation.EndDate.ToString().Remove(10).Remove(0, 6).Insert(4, ", ")
+                                @itemEducation.EducationalInstitutions.NameEducationalInstitutions.Insert(itemEducation.EducationalInstitutions.NameEducationalInstitutions.Length, ", ")
+                                @itemEducation.position.JobTitle
+                            }
+                            <br />
+                        }
+                    </td>
+
+                    <td>@item.DateOfAppointment.ToString().Remove(10)</td>
+                    <td>
+                        @foreach (var itemAdvancedTrainings in Model.advancedTrainingViewModels)
+                        {
+                            if (itemAdvancedTrainings.EmployeeRegistrationLog.WorkerId == item.EmployeeRegistrationLog.WorkerId)
+                            {
+                                @itemAdvancedTrainings.End.ToString().Remove(10).Remove(0, 6).Insert(4, ", ")
+                                @itemAdvancedTrainings.EducationalInstitutions.NameEducationalInstitutions
                                 <br />
                             }
-                        </td>
-
-                        <td>@item.DateOfAppointment.ToString().Remove(10)</td>
-                        <td>
-                            @foreach (var itemAdvancedTrainings in Model.advancedTrainingViewModels)
-                            {
-                                if (itemAdvancedTrainings.EmployeeRegistrationLog.WorkerId == item.EmployeeRegistrationLog.WorkerId)
-                                {
-                                    @itemAdvancedTrainings.End.ToString().Remove(10).Remove(0, 6).Insert(4, ", ")
-                                    @itemAdvancedTrainings.EducationalInstitutions.NameEducationalInstitutions
-                                    <br />
-                                }
-                            }
-                        </td>
-                    </tr>
+                        }
+                    </td>
+                </tr>
                 foreach (var itemReserve in Model.reserveOfPersonnels)
                 {
                     if (item.TablePositionId == itemReserve.TablePositionId)
                     {
                         <tr>
-                        <td>РЕЗЕРВ:</td>
-                       
-                             
-                        <td>
-                            @foreach (var itemIsResers in Model.tableHistoryOfAppointments)
-                            {
-                                @if (itemIsResers.EmployeeRegistrationLogId == itemReserve.EmployeeRegistrationLogId)
-                                {
-                                    @itemIsResers.Position.Position.JobTitle<a>, </a>
-                                    @itemIsResers.EmployeeRegistrationLog.Worker.Surname<a> </a>
-                                    @itemIsResers.EmployeeRegistrationLog.Worker.Name<a> </a>
-                                    @itemIsResers.EmployeeRegistrationLog.Worker.DoubleName<a> </a>
-                                 }
-                             }
-                        </td>                       
-                        <td>@itemReserve.employeeRegistrationLog.Worker.DateOfBirth.ToString().Remove(10)</td>
-                      
-                        <td>
-                            @foreach (var itemEducation in Model.tableEducationals)
-                            {
-                                if (itemEducation.WorkerEmployeeRegistrationId == itemReserve.employeeRegistrationLog.WorkerId)
-                                {
-                                    @itemEducation.EducationType.Replace("_", " ").Insert(itemEducation.EducationType.Length, ", ")
-                                    @itemEducation.EndDate.ToString().Remove(10).Remove(0, 6).Insert(4, ", ")
-                                    @itemEducation.EducationalInstitutions.NameEducationalInstitutions.Insert(itemEducation.EducationalInstitutions.NameEducationalInstitutions.Length, ", ")
-                                    @itemEducation.position.JobTitle
-                                }
-                                <br />
-                            }
-                        </td>
+                            <td>РЕЗЕРВ:</td>
 
 
-                        <td>
-                            @foreach (var itemIsResers in Model.tableHistoryOfAppointments)
-                            {
-                                @if (itemIsResers.EmployeeRegistrationLogId == itemReserve.EmployeeRegistrationLogId)
+                            <td>
+                                @foreach (var itemIsResers in Model.tableHistoryOfAppointments)
                                 {
-                                    @itemIsResers.DateOfAppointment.ToString().Remove(10)
-               
+                                    @if (itemIsResers.EmployeeRegistrationLogId == itemReserve.EmployeeRegistrationLogId)
+                                    {
+                                        @itemIsResers.Position.Position.JobTitle<a>, </a>
+                                        @itemIsResers.EmployeeRegistrationLog.Worker.Surname<a> </a>
+                                        @itemIsResers.EmployeeRegistrationLog.Worker.Name<a> </a>
+                                        @itemIsResers.EmployeeRegistrationLog.Worker.DoubleName<a> </a>
+                                    }
                                 }
-                            }
-                        </td>
-                        <td>
-                            @foreach (var itemAdvancedTrainings in Model.advancedTrainingViewModels)
-                            {
-                                if (itemAdvancedTrainings.EmployeeRegistrationLog.WorkerId == itemReserve.employeeRegistrationLog.WorkerId)
+                            </td>
+                            <td>@itemReserve.employeeRegistrationLog.Worker.DateOfBirth.ToString().Remove(10)</td>
+
+                            <td>
+                                @foreach (var itemEducation in Model.tableEducationals)
                                 {
-                                    @itemAdvancedTrainings.End.ToString().Remove(10).Remove(0, 6).Insert(4, ", ")
-                                    @itemAdvancedTrainings.EducationalInstitutions.NameEducationalInstitutions
+                                    if (itemEducation.WorkerEmployeeRegistrationId == itemReserve.employeeRegistrationLog.WorkerId)
+                                    {
+                                        @itemEducation.EducationType.Replace("_", " ").Insert(itemEducation.EducationType.Length, ", ")
+                                        @itemEducation.EndDate.ToString().Remove(10).Remove(0, 6).Insert(4, ", ")
+                                        @itemEducation.EducationalInstitutions.NameEducationalInstitutions.Insert(itemEducation.EducationalInstitutions.NameEducationalInstitutions.Length, ", ")
+                                        @itemEducation.position.JobTitle
+                                    }
                                     <br />
                                 }
-                            }
-                        </td>
+                            </td>
+
+
+                            <td>
+                                @foreach (var itemIsResers in Model.tableHistoryOfAppointments)
+                                {
+                                    @if (itemIsResers.EmployeeRegistrationLogId == itemReserve.EmployeeRegistrationLogId)
+                                    {
+                                        @itemIsResers.DateOfAppointment.ToString().Remove(10)
+
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @foreach (var itemAdvancedTrainings in Model.advancedTrainingViewModels)
+                                {
+                                    if (itemAdvancedTrainings.EmployeeRegistrationLog.WorkerId == itemReserve.employeeRegistrationLog.WorkerId)
+                                    {
+                                        @itemAdvancedTrainings.End.ToString().Remove(10).Remove(0, 6).Insert(4, ", ")
+                                        @itemAdvancedTrainings.EducationalInstitutions.NameEducationalInstitutions
+                                        <br />
+                                    }
+                                }
+                            </td>
                         </tr>
 
                     }
@@ -136,5 +143,5 @@
             }
         </table>
     </div>
-    </form>
- 
+</form>
+

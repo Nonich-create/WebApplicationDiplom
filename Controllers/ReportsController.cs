@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 using WebApplicationDiplom.ViewModels;
@@ -69,20 +69,48 @@ namespace WebApplicationDiplom.Controllers
                 .Include(i => i.EducationalInstitutions)
                 .Include(i => i.EmployeeRegistrationLog)
                 .Where(i => i.EmployeeRegistrationLog.TableOrganizationsId == TableOrganizations).ToListAsync();
-
+            var location = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}");
 
             TheListOfPersonnelReserveViewModel model = new TheListOfPersonnelReserveViewModel
             { 
               tableHistoryOfAppointments = historyOfAppointments,
               tableEducationals = educationals,
               reserveOfPersonnels = reserveOfPersonnels,
-              advancedTrainingViewModels = advancedTrainings
+              advancedTrainingViewModels = advancedTrainings,
+               SSS = location.ToString()
             };
 
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> Print()
+        {
+            //  Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Home/Index{Request.QueryString}");
+            //    var location = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}");
+            // string loc = location.ToString();
+            //    https://localhost:44305/
+            Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Reports/TheListOfPersonnelReserve{Request.QueryString}");
+            WebRequest request = WebRequest.Create(location);
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (StreamReader responseReader =
+                      new StreamReader(response.GetResponseStream()))
+                    {
+                        
+                        string responseData = responseReader.ReadToEnd();
+                        using (StreamWriter writer =
+                          new StreamWriter(@"S:\sample.doc"))
+                        {
+                            await writer.WriteAsync(responseData);
+                        }
+                        
+                    }
+                }
 
  
+            return RedirectToAction("Index");
+        }
+
 
 
     }
