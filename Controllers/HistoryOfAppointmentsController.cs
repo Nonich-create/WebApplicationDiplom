@@ -50,16 +50,31 @@ namespace WebApplicationDiplom.Controllers
                .Include(i => i.Worker.positon)
                .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
-
-
             var position = await _context.TablePosition.Include(i => i.Position)
                .Where(i => i.TableOrganizationsId == TableOrganizations)
                .Select(i => new { TablePositionId = i.TablePositionId, JobTitle = i.Position.JobTitle }).ToListAsync();
          
-            // сделать  когда добовляю запись изменялось количество доступных мест в должностях
-
             ViewBag.TablePositionId = new SelectList(position, "TablePositionId", "JobTitle");
-            HistoryOfAppointmentsViewModel model = new HistoryOfAppointmentsViewModel
+            var historyofappointments = _context.TableHistoryOfAppointments
+              .Include(p => p.Position)
+              .Include(p => p.EmployeeRegistrationLog)
+              .Include(p => p.EmployeeRegistrationLog.Worker)
+              .Include(p => p.Position.Position)
+              .Where(p => p.EmployeeRegistrationLog.TableOrganizationsId == TableOrganizations)
+              .Where(p => p.DateOfDismissal == null);
+
+             foreach (var item in historyofappointments)
+             {
+                foreach(var itememployees in employees)
+                {
+                    if (item.EmployeeRegistrationLogId == itememployees.EmployeeRegistrationId)
+                    {
+                        employees.Remove(itememployees);
+                        break;
+                    }
+                }
+             }
+                HistoryOfAppointmentsViewModel model = new HistoryOfAppointmentsViewModel
             { 
                employeeRegistrationLogs = employees,
                  

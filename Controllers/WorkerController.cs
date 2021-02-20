@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,6 +19,7 @@ namespace WebApplicationDiplom.Controllers
             _context = context;
         }
         #region отображение списка работников
+        [Authorize] 
         [HttpGet]
         public async Task<IActionResult> Index()
         {

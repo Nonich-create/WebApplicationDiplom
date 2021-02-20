@@ -110,30 +110,30 @@ namespace WebApplicationDiplom.Controllers
 
 
 
-        public async Task<IActionResult> Reser()
-        {
-            Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Home/Index{Request.QueryString}");
-            string loc = location.ToString();
-            WebRequest request = WebRequest.Create(loc);
-            using (WebResponse response = request.GetResponse())
-            {
-                using (StreamReader responseReader =
-                  new StreamReader(response.GetResponseStream()))
-                {
-                    string responseData = responseReader.ReadToEnd();
-                    using (StreamWriter writer =
-                      new StreamWriter(@"S:\sample.doc"))
-                    {
-                        await writer.WriteAsync(responseData);
-                    }
-                }
-            }
+        //public async Task<IActionResult> Reser()
+        //{
+        //    Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Home/Index{Request.QueryString}");
+        //    string loc = location.ToString();
+        //    WebRequest request = WebRequest.Create(loc);
+        //    using (WebResponse response = request.GetResponse())
+        //    {
+        //        using (StreamReader responseReader =
+        //          new StreamReader(response.GetResponseStream()))
+        //        {
+        //            string responseData = responseReader.ReadToEnd();
+        //            using (StreamWriter writer =
+        //              new StreamWriter(@"S:\sample.doc"))
+        //            {
+        //                await writer.WriteAsync(responseData);
+        //            }
+        //        }
+        //    }
 
-            return RedirectToAction("Index");
-        }
-        private void PrintButton()
-        {
-           // await Task.Run(() => PrintButton());
-        }
+        //    return RedirectToAction("Index");
+        //}
+        //private void PrintButton()
+        //{
+        //   // await Task.Run(() => PrintButton());
+        //}
     }
 }

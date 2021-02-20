@@ -39,12 +39,7 @@ namespace WebApplicationDiplom.ViewModels
         public List<EmployeeRegistrationLog> employeeRegistrationLogs { get; set; }
         public List<TablePosition> positions { get; set; }
  
-        public HistoryOfAppointmentsViewModel()
-        {
-
-            employeeRegistrationLogs = new List<EmployeeRegistrationLog>();
-            positions = new List<TablePosition>();
-        }
+         
 
 
     }

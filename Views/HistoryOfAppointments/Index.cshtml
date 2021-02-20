@@ -15,7 +15,12 @@
     @foreach (TableHistoryOfAppointments item in Model)
     {
 <tr>
-    <td>@item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
+    <td>
+    @item.EmployeeRegistrationLog.Worker.Surname
+    @item.EmployeeRegistrationLog.Worker.Name 
+    @item.EmployeeRegistrationLog.Worker.DoubleName
+    </td>
+    
     <td>@item.DateOfAppointment.ToString().Remove(10)</td>
     <td>@item.Position.Position.JobTitle</td>
     @if (item.TheReasonForTheDismissal != null)

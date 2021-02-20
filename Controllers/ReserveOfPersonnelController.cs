@@ -50,12 +50,25 @@ namespace WebApplicationDiplom.Controllers
 
             var TablePositions = await _context.TablePosition
                 .Include(i => i.Position)
-                .Include(i => i.Organizations)
+                .Include(i => i.Organizations)   
                 .ThenInclude(i => i.users)
                 .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
-              
+
+            var historyOfAppointments = await _context.TableHistoryOfAppointments
+                .Include(i =>i.EmployeeRegistrationLog)
+                .Include(i =>i.EmployeeRegistrationLog.Worker)
+                .Include(i =>i.EmployeeRegistrationLog.Worker.positon)
+                .Include(i =>i.Position)
+                .Where(i => i.DateOfDismissal == null)
+                .Where(i => i.EmployeeRegistrationLog.TableOrganizationsId == TableOrganizations)
+                .ToListAsync();
+
             ReserveOfPersonnelViewModel model = new ReserveOfPersonnelViewModel 
-            { employeeRegistrationLog = employees, positions = TablePositions};
+            {
+                employeeRegistrationLog = employees,
+                positions = TablePositions,
+                HistoryOfAppointments = historyOfAppointments,
+            };
 
             return View(model);
         }

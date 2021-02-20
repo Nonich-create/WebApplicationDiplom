@@ -53,7 +53,9 @@ namespace WebApplicationDiplom.Controllers
             .Include(i => i.EmployeeRegistrationLog)
             .Include(i => i.EmployeeRegistrationLog.Worker)
             .Include(i => i.Position.Organizations)
-            .Where(i => i.Position.TableOrganizationsId == TableOrganizations).ToListAsync();
+            .Where(i => i.DateOfDismissal == null)
+            .Where(i => i.Position.TableOrganizationsId == TableOrganizations)
+            .ToListAsync();
 
             var educationals = await _context.TableEducational
                 .Include(i => i.EducationalInstitutions)
@@ -64,7 +66,9 @@ namespace WebApplicationDiplom.Controllers
             var reserveOfPersonnels = await _context.reserveOfPersonnels
                 .Include(i => i.tablePosition)
                 .Include(i => i.employeeRegistrationLog)
-                .Where(i => i.employeeRegistrationLog.TableOrganizationsId == TableOrganizations).ToListAsync();
+                .Where(i => i.EndDateReserve == null)
+                .Where(i => i.employeeRegistrationLog.TableOrganizationsId == TableOrganizations)
+                .ToListAsync();
 
             var advancedTrainings = await _context.advancedTrainings
                 .Include(i => i.EducationalInstitutions)
@@ -83,6 +87,8 @@ namespace WebApplicationDiplom.Controllers
 
             return View(model);
         }
+
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Print()
         {
@@ -102,8 +108,8 @@ namespace WebApplicationDiplom.Controllers
                     }
                 }
             }
-
-            return RedirectToAction("Index");
+            
+             return RedirectToAction("Index");
         }
 
 

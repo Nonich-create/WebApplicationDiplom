@@ -11,9 +11,14 @@
     <div>
         <label>Информация о работники</label><br />
         <select asp-for="EmployeeRegistrationLogId">
-            @foreach (var item in Model.employeeRegistrationLog)
+            @foreach (var item in Model.HistoryOfAppointments)
             {
-                <option value="@item.EmployeeRegistrationId">@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName, @item.Worker.positon.JobTitle</option>
+                <option value="@item.EmployeeRegistrationLog.EmployeeRegistrationId">
+            @item.EmployeeRegistrationLog.Worker.Surname 
+            @item.EmployeeRegistrationLog.Worker.Name 
+            @item.EmployeeRegistrationLog.Worker.DoubleName, 
+            @item.EmployeeRegistrationLog.Worker.positon.JobTitle
+                </option>
             }
         </select>
     </div>
