@@ -8,7 +8,7 @@ namespace WebApplicationDiplom.ViewModels
 {
     public class TheListOfPersonnelReserveViewModel
     {
-         
+        public int Id { get; set; }
         public List<TableHistoryOfAppointments> tableHistoryOfAppointments { get; set; }
         public List<ReserveOfPersonnel> reserveOfPersonnels { get; set; }
         public List<TableEducational> tableEducationals { get; set; }

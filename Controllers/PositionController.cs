@@ -17,8 +17,7 @@ namespace WebApplicationDiplom.Controllers
         {
             _context = context;
         }
-
- 
+        #region отображения должностей в организации
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -27,11 +26,15 @@ namespace WebApplicationDiplom.Controllers
             var positiones = _context.TablePosition.Include(p => p.Position).Where(p => p.TableOrganizationsId == TableOrganizations);
             return View(await positiones.ToListAsync());
         }
-        public IActionResult Create()
+        #endregion
+        #region отображения регистрации должности в организации
+        public IActionResult Create() 
         {
             ViewBag.PositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
             return View();
         }
+        #endregion
+        #region регистрация должности в организации
         [HttpPost]
         public async Task<IActionResult> Create(PositionViewModel model)
         {
@@ -52,16 +55,17 @@ namespace WebApplicationDiplom.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
- 
-
             return View();
             }
+        #endregion
+        #region отображения добавления должности в справочник
         [HttpGet]
         public IActionResult CreateJob()
         {
-       
             return View();
         }
+        #endregion
+        #region добавления должности в справочник
         [HttpPost]
         public async Task<IActionResult> CreateJob(Position model)
         {
@@ -80,6 +84,7 @@ namespace WebApplicationDiplom.Controllers
             }
             return View();
         }
+        #endregion
     }
 }
     

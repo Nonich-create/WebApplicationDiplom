@@ -5,10 +5,7 @@
 @{
     Layout = "";
 }
-@*<a asp-controller="Reports" asp-action="Print">Отчёт</a>*@
-<a asp-action="DownloadFile" asp-controller="Reports" asp-route-id="@Model.Id">Сохранить</a>
-<form method="get" asp-controller="Reports" asp-action="TheListOfPersonnelReserve">
-    <div asp-validation-summary="ModelOnly"></div>
+<form asp-action="SavingReport" asp-controller="Reports" asp-route-id="@Model.Id">
     <div style="float:right">
         Приложение № 1
         <br />
@@ -145,4 +142,3 @@
         </table>
     </div>
 </form>
-

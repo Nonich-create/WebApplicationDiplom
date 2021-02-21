@@ -19,10 +19,6 @@ namespace WebApplicationDiplom.Controllers
    //  [Authorize] 
     public class HomeController : Controller
     {
-        ObservableCollection<TableArea> area = new ObservableCollection<TableArea>();
-        ObservableCollection<TableDistrict> districts = new ObservableCollection<TableDistrict>();
-        List<Tablelocality> locations = new List<Tablelocality>();
-        List<TableAddress> addresses = new List<TableAddress>();
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationContext _context;
         public HomeController(ILogger<HomeController> logger, ApplicationContext context)
@@ -30,6 +26,11 @@ namespace WebApplicationDiplom.Controllers
             _context = context;
             _logger = logger;
         }
+        ObservableCollection<TableArea> area = new ObservableCollection<TableArea>();
+        ObservableCollection<TableDistrict> districts = new ObservableCollection<TableDistrict>();
+        List<Tablelocality> locations = new List<Tablelocality>();
+        List<TableAddress> addresses = new List<TableAddress>();
+       
 
         // [HttpGet]
         // public async Task<IActionResult> Index()
@@ -96,44 +97,12 @@ namespace WebApplicationDiplom.Controllers
 
     //}
        
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+     
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
-
-
-        //public async Task<IActionResult> Reser()
-        //{
-        //    Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Home/Index{Request.QueryString}");
-        //    string loc = location.ToString();
-        //    WebRequest request = WebRequest.Create(loc);
-        //    using (WebResponse response = request.GetResponse())
-        //    {
-        //        using (StreamReader responseReader =
-        //          new StreamReader(response.GetResponseStream()))
-        //        {
-        //            string responseData = responseReader.ReadToEnd();
-        //            using (StreamWriter writer =
-        //              new StreamWriter(@"S:\sample.doc"))
-        //            {
-        //                await writer.WriteAsync(responseData);
-        //            }
-        //        }
-        //    }
-
-        //    return RedirectToAction("Index");
-        //}
-        //private void PrintButton()
-        //{
-        //   // await Task.Run(() => PrintButton());
-        //}
     }
 }

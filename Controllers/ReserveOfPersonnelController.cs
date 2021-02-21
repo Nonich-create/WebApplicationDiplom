@@ -18,6 +18,7 @@ namespace WebApplicationDiplom.Controllers
         {
             _context = context;
         }
+        #region отображения страницы резерва кадров
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -33,7 +34,8 @@ namespace WebApplicationDiplom.Controllers
                 ;
             return View(await reverveofpersonnel.ToListAsync());
         }
- 
+        #endregion
+        #region отображения регистрации в резерв
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -72,7 +74,8 @@ namespace WebApplicationDiplom.Controllers
 
             return View(model);
         }
- 
+        #endregion
+        #region регистрация в резерв
         public async Task<IActionResult> Create(ReserveOfPersonnelViewModel model)
         {
             int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
@@ -95,6 +98,8 @@ namespace WebApplicationDiplom.Controllers
             }
             return View();
         }
+        #endregion
+        #region отображения вывыдо из резерва
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -125,6 +130,8 @@ namespace WebApplicationDiplom.Controllers
             }
             return NotFound();
         }
+        #endregion
+        #region вывод из резерва
         [HttpPost]
         public async Task<IActionResult> Edit(ReserveOfPersonnelViewModel model)
         {
@@ -146,6 +153,6 @@ namespace WebApplicationDiplom.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        #endregion
     }
 }

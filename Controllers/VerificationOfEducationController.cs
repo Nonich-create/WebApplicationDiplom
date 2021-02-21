@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
@@ -19,7 +17,7 @@ namespace WebApplicationDiplom.Controllers
             _context = context;
         }
 
-
+        #region отображения на странице
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -37,9 +35,9 @@ namespace WebApplicationDiplom.Controllers
             
             return View(await verificationofeducation.ToListAsync());
         }
-
-
-       [HttpGet]
+        #endregion
+        #region  отображения регистрации аттестации
+        [HttpGet]
        public async Task<IActionResult> Create()
        {
            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
@@ -61,31 +59,32 @@ namespace WebApplicationDiplom.Controllers
             };
             return View(model);
        }
-
-
-       [HttpPost]
-       public async Task<IActionResult> Create(VerificationOfEducationViewModel model)
-       {
-           if (ModelState.IsValid)
-           {
-                TableVerificationOfEducation verificationOfEducation = new TableVerificationOfEducation
-                {
-
-                    Recommendations = "",
-                    VerificationStatus = "Не аттестован",
-                    DateOfVerification = DateTime.Now,
-                    DateOfCertificationCompletion = model.DateOfCertificationCompletion,
-                    EmployeeRegistrationLogId = model.EmployeeRegistrationLogId,
-                    PositionId = model.PositionId,
-                };
-       
-               _context.TableVerificationOfEducation.Add(verificationOfEducation);
-               await _context.SaveChangesAsync();
-               return RedirectToAction("Index");
-           }
-           return View();
-       }
-
+        #endregion
+        #region регистрация аттестации
+        [HttpPost]
+        public async Task<IActionResult> Create(VerificationOfEducationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                 TableVerificationOfEducation verificationOfEducation = new TableVerificationOfEducation
+                 {
+        
+                     Recommendations = "",
+                     VerificationStatus = "Не аттестован",
+                     DateOfVerification = DateTime.Now,
+                     DateOfCertificationCompletion = model.DateOfCertificationCompletion,
+                     EmployeeRegistrationLogId = model.EmployeeRegistrationLogId,
+                     PositionId = model.PositionId,
+                 };
+        
+                _context.TableVerificationOfEducation.Add(verificationOfEducation);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+        #endregion
+        #region отображения утверждения аттестации
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -113,7 +112,8 @@ namespace WebApplicationDiplom.Controllers
             }
             return NotFound();
         }
-
+        #endregion
+        #region утверждения аттестации
         [HttpPost]
         public async Task<IActionResult> Edit(VerificationOfEducationViewModel model )
         {
@@ -125,6 +125,7 @@ namespace WebApplicationDiplom.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        #endregion
 
     }
 }

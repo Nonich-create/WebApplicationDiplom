@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
@@ -17,14 +15,12 @@ namespace WebApplicationDiplom.Controllers
         {
             _context = context;
         }
-
+        #region отображения повышения квалификации работника
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
              (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
-
-
 
             var advancedTraining =  _context.advancedTrainings
                 .Include(p => p.EmployeeRegistrationLog)
@@ -35,7 +31,8 @@ namespace WebApplicationDiplom.Controllers
 
             return View(await advancedTraining.ToListAsync());
         }
-
+        #endregion
+        #region отображения регистрации повышения квалификации работника
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -57,7 +54,8 @@ namespace WebApplicationDiplom.Controllers
             };
             return View(model);
         }
-
+        #endregion
+        #region регистрация квалификации работника
         [HttpPost]
         public async Task<IActionResult> Create(AdvancedTrainingViewModel model)
         {
@@ -77,5 +75,6 @@ namespace WebApplicationDiplom.Controllers
             }
             return View();
         }
+        #endregion
     }
 }
