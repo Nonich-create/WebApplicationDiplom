@@ -10,6 +10,7 @@ using WebApplicationDiplom.ViewModels;
 
 namespace WebApplicationDiplom.Controllers
 {
+    
     public class WorkerController : Controller
     {
         public readonly ApplicationContext _context;
@@ -19,7 +20,7 @@ namespace WebApplicationDiplom.Controllers
             _context = context;
         }
         #region отображение списка работников
-        [Authorize] 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -35,10 +36,16 @@ namespace WebApplicationDiplom.Controllers
         #endregion
         #region отображение добавления работника
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.TablePositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
-            return View();
+
+            //ViewBag.TablePositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
+            var positions = await _context.Position.ToListAsync();
+            RegisterWorkerViewModel model = new RegisterWorkerViewModel
+            {
+                positions = positions,
+            };
+            return View(model);
         }
         #endregion
         #region добавления работника
@@ -95,6 +102,22 @@ namespace WebApplicationDiplom.Controllers
             _context.Worker.Update(worker);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+        #endregion
+        #region удаления записи о работники
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                Worker worker = await _context.Worker.FirstOrDefaultAsync(p => p.WorkerId == id);
+                if (worker != null)
+                {
+                    _context.Worker.Remove(worker);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
         }
         #endregion
     }

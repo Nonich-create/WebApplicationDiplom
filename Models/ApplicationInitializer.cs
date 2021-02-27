@@ -9,7 +9,7 @@ namespace WebApplicationDiplom.Models
 {
     public static class ApplicationInitializer
     {
-        public static async Task InitializeAsync(ApplicationContext context)
+        public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ApplicationContext context)
         {
             if(!context.EducationalInstitutions.Any())
             {
@@ -145,19 +145,19 @@ namespace WebApplicationDiplom.Models
                 await context.Position.AddRangeAsync(new List<Position> {
                       new Position
                       {
-                          JobTitle = "Работник облпотребсоюза"
+                          JobTitle = "Председатель правления"
                       },
                       new Position
                       {
-                          JobTitle = "Председатель правления райпо"
+                          JobTitle = "Первый заместитель председателя правления"
                       },
                         new Position
                       {
-                          JobTitle = "Председател  ревизионный комиссии  райпо"
+                          JobTitle = "И.о.председателя правления"
                       },
                           new Position
                       {
-                          JobTitle = "Заместитель председателя правления райпо"
+                          JobTitle = "Председатель ревизионной комиссии"
                       },
                             new Position
                       {
@@ -166,7 +166,27 @@ namespace WebApplicationDiplom.Models
                             ,
                             new Position
                       {
-                          JobTitle = "Директор филиала  "
+                          JobTitle = "Директор филиала"
+                      }
+                                 ,
+                            new Position
+                      {
+                          JobTitle = "И.о.директора"
+                      }
+                                 ,
+                            new Position
+                      {
+                          JobTitle = "И.о.председателя ревизионной комиссии"
+                      }
+                                 ,
+                            new Position
+                      {
+                          JobTitle = "Директор"
+                      }
+                                          ,
+                            new Position
+                      {
+                          JobTitle = "И.о.директора филиала"
                       }
                 });
             }
@@ -198,8 +218,72 @@ namespace WebApplicationDiplom.Models
                     }
                 });
             }
+
+            if (await roleManager.FindByNameAsync("admin") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("admin"));
+            }
+            if (await roleManager.FindByNameAsync("user") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("user"));
+            }
+
+            if (!userManager.Users.Any())
+            {
+                User userBKS = new User {Identifier = "095126613431253",UserName = "095126613431253" };
+                IdentityResult result1 = await userManager.CreateAsync(userBKS, "1234567890");
+                if (result1.Succeeded)
+                {
+                 
+                    await userManager.AddToRoleAsync(userBKS, "user");
+                    //    TableOrganizations organizations = new TableOrganizations
+                    //{
+                    //    NameOfOrganization = "белкоопсоюз",
+                    //    UserId = userBKS.Id,
+                    //    TypeOrganization = "Главный офис",
+                    //    Email = "",
+                    //    SubordinationId = 0,
+
+                    //};
+                    //context.TableOrganizations.Add(organizations);
+
+                }
+                //User admin = new User { Identifier = "admin",UserName = "admin" };
+                //IdentityResult result2 = await userManager.CreateAsync(admin, "admin");
+                //if (result2.Succeeded)
+                //{
+                //    await userManager.AddToRoleAsync(admin, "user");
+                //}
+                //if (!context.TableOrganizations.Any())
+                //{
+
+                //   await context.TableOrganizations.AddRangeAsync(new List<TableOrganizations>
+                //   {
+                //    new TableOrganizations
+                //    {
+                //        UserId = userBKS.Id,
+                //        NameOfOrganization = "",
+                //        SubordinationId = 0,
+                //        TypeOrganization = "Главный офис"
+                //    },
+                //          new TableOrganizations
+                //    {
+                //        UserId =  admin.Id,
+                //        NameOfOrganization = "",
+                //        SubordinationId = 0,
+                //    }
+                //   });
+                //}
+
+            }
+            
+            
+
             await context.SaveChangesAsync();
         }
 
     }
 }
+ 
+
+ 

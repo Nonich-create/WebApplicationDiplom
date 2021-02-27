@@ -1,0 +1,5 @@
+﻿Сборка начата…
+1>------ Сборка начата: проект: WebApplicationDiplom, Конфигурация: Debug Any CPU ------
+1>WebApplicationDiplom -> S:\.Net\ASP.net\Diplom\WebApplicationDiplom\bin\Debug\net5.0\WebApplicationDiplom.dll
+1>WebApplicationDiplom -> S:\.Net\ASP.net\Diplom\WebApplicationDiplom\bin\Debug\net5.0\WebApplicationDiplom.Views.dll
+========== Сборка: успешно: 1, с ошибками: 0, без изменений: 0, пропущено: 0 ==========

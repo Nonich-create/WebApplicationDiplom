@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 using WebApplicationDiplom.ViewModels;
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplicationDiplom.Controllers

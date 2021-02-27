@@ -30,7 +30,7 @@ namespace WebApplicationDiplom.Controllers
         ObservableCollection<TableDistrict> districts = new ObservableCollection<TableDistrict>();
         List<Tablelocality> locations = new List<Tablelocality>();
         List<TableAddress> addresses = new List<TableAddress>();
-       
+
 
         // [HttpGet]
         // public async Task<IActionResult> Index()
@@ -38,37 +38,15 @@ namespace WebApplicationDiplom.Controllers
         //    // return View(await _context.Person.Include(i => i.Company).ToListAsync());
         //
         // }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
         
-         [HttpGet]
-         public async Task<IActionResult> Index()
-         {
-           
-            int selectedIndex = 1;
-            foreach (var item in _context.TableArea.ToList())
-                area.Add(item);
-       //     districts = _context.TableDistrict.ToList();
-        
-            locations = _context.Tablelocality.ToList();
-            addresses = _context.PersTableAddresson.ToList();
-            //area.CollectionChanged += Users_CollectionChanged;
-            SelectList areaes = new SelectList(_context.TableArea, "AreaId", "NameArea", selectedIndex);
-            ViewBag.TableArea = areaes;
-            SelectList districtes = new SelectList(_context.TableDistrict.Where(c => c.AreaId==selectedIndex), "DistrictId", "NameDistrict");
-            ViewBag.TableDistrict = districtes;
+            return View( );
+        }
 
-            ViewBag.AreaId = new SelectList(_context.TableDistrict, "AreaId", "NameArea");
-
-            ViewBag.DistrictId = new SelectList(_context.TableDistrict, "DistrictId", "NameDistrict");
-
-
-            var location = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}");
-            string loc = location.ToString();
-    //    https://localhost:44305/
-            AddressViewModel avm = new AddressViewModel { areas = area, districts = districts, localities = locations, addresses = addresses };
-            return View(avm);  
-         }
-
-         public ActionResult GetItems(int id)
+        public ActionResult GetItems(int id)
          {
             return PartialView(_context.TableDistrict.Where(c => c.AreaId == id).ToList());
          }

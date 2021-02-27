@@ -5,8 +5,9 @@
 @{
     Layout = "";
 }
-<form asp-action="SavingReport" asp-controller="Reports" asp-route-id="@Model.Id">
-    <div style="float:right">
+
+<form asp-action="SavingChairmenOfTheManagementBoards" asp-controller="Reports" asp-route-id="@Model.Id">
+    <div style="text-align: right;">
         Приложение № 1
         <br />
         к постановлению правления
@@ -34,7 +35,7 @@
             @foreach (var item in Model.tableHistoryOfAppointments)
             {
 
-                <tr>
+                <tr align="center">
                     <th width="100">Наименование организации</th>
                     <th width="200">Занимаемая должность, фамилия, имя, отчество</th>
                     <th width="100">Число, месяц, год рождения</th>
@@ -42,7 +43,7 @@
                     <th width="100">С какого времени работает в должности</th>
                     <th width="100">Последнее повышение квалификации (год, УО)</th>
                 </tr>
-                <tr>
+                <tr align="center">
                     <td> @item.Position.Organizations.NameOfOrganization</td>
                     <td>@item.Position.Position.JobTitle @item.EmployeeRegistrationLog.Worker.Surname @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
                     <td>@item.EmployeeRegistrationLog.Worker.DateOfBirth.ToString().Remove(10)</td>
@@ -60,8 +61,8 @@
                         }
                     </td>
 
-                    <td>@item.DateOfAppointment.ToString().Remove(10)</td>
-                    <td>
+                    <td align="center">@item.DateOfAppointment.ToString().Remove(10)</td>
+                    <td align="center">
                         @foreach (var itemAdvancedTrainings in Model.advancedTrainingViewModels)
                         {
                             if (itemAdvancedTrainings.EmployeeRegistrationLog.WorkerId == item.EmployeeRegistrationLog.WorkerId)
@@ -79,11 +80,11 @@
 
                     if (item.TablePositionId == itemReserve.TablePositionId)
                     {
-                        <tr>
+                        <tr align="center">
                             <td>РЕЗЕРВ:</td>
 
 
-                            <td>
+                            <td align="center">
                                 @foreach (var itemIsResers in Model.tableHistoryOfAppointments)
                                 {
                                     @if (itemIsResers.EmployeeRegistrationLogId == itemReserve.EmployeeRegistrationLogId)
@@ -96,9 +97,9 @@
                                     }
                                 }
                             </td>
-                            <td>@itemReserve.employeeRegistrationLog.Worker.DateOfBirth.ToString().Remove(10)</td>
+                            <td align="center">@itemReserve.employeeRegistrationLog.Worker.DateOfBirth.ToString().Remove(10)</td>
 
-                            <td>
+                            <td align="center">
                                 @foreach (var itemEducation in Model.tableEducationals)
                                 {
                                     if (itemEducation.WorkerEmployeeRegistrationId == itemReserve.employeeRegistrationLog.WorkerId)
@@ -113,7 +114,7 @@
                             </td>
 
 
-                            <td>
+                            <td align="center">
                                 @foreach (var itemIsResers in Model.tableHistoryOfAppointments)
                                 {
                                     @if (itemIsResers.EmployeeRegistrationLogId == itemReserve.EmployeeRegistrationLogId)
@@ -123,7 +124,7 @@
                                     }
                                 }
                             </td>
-                            <td>
+                            <td align="center">
                                 @foreach (var itemAdvancedTrainings in Model.advancedTrainingViewModels)
                                 {
                                     if (itemAdvancedTrainings.EmployeeRegistrationLog.WorkerId == itemReserve.employeeRegistrationLog.WorkerId)
@@ -141,4 +142,7 @@
             }
         </table>
     </div>
+    Начальник отдела кадров, организационно-
+    кооперативной и идеологической работы
+
 </form>

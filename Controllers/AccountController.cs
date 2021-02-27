@@ -122,5 +122,13 @@ namespace WebApplicationDiplom.Controllers
             }
             return View(model);
         }
+       
+        [HttpGet]
+        public async Task<IActionResult> OrganizationInformation()
+        {
+
+            return View();
+        }
+
     }
 }

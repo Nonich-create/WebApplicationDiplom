@@ -23,6 +23,7 @@
     <td>@worker.Worker.DateOfBirth.ToString().Remove(10)</td>
     <td>@worker.EmployeeRegistrationDate.ToString().Remove(10)</td>
     <td> <a asp-action="Edit" asp-controller="Worker" asp-route-id="@worker.WorkerId">Изменить</a></td>
+    <td> <a asp-action="Delete" asp-controller="Worker" asp-route-id="@worker.WorkerId">Удалить запись</a></td>
 </tr>
         
      

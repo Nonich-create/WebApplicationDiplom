@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplicationDiplom.Models;
 
 namespace WebApplicationDiplom.ViewModels
 {
@@ -28,8 +29,8 @@ namespace WebApplicationDiplom.ViewModels
         [DataType(DataType.Text)]
         [Display(Name = "Должность")]
         public int PositionId { get; set; }
+        public List<Position> positions = new List<Position>();
+        public Position Position { get; set; }
 
-
-            
     }
 }

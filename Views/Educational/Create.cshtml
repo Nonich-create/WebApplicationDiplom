@@ -31,7 +31,7 @@
         <span asp-validation-for="QualificationEducation"></span>
     </div>
     <br />
-    <div style="width = 50">
+    <div>
         <label>Учреждения образования</label>
         <a asp-controller="Educational" asp-action="CreateEducationalInstitutions">Добавить учреждения образования в справочник</a><br />
         @Html.DropDownListFor(model => model.EducationalInstitutionsId, ViewBag.EducationalInstitutionsId as SelectList)

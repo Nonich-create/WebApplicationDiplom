@@ -12,7 +12,7 @@ namespace WebApplicationDiplom.Models
         public int HistoryOfAppointmentsId { get; set; }
         public DateTime DateOfAppointment { get; set; }
         public DateTime? DateOfDismissal { get; set; }
-        public string? TheReasonForTheDismissal { get; set; }
+        public string TheReasonForTheDismissal { get; set; }
         public int? TablePositionId { get; set; }
         public int EmployeeRegistrationLogId { get; set; }
         public EmployeeRegistrationLog EmployeeRegistrationLog { get; set; }

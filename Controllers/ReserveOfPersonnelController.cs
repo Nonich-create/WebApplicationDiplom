@@ -81,6 +81,7 @@ namespace WebApplicationDiplom.Controllers
             int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
                  (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
 
+   
             if (ModelState.IsValid)
             {
                 ReserveOfPersonnel reserveOfPersonnel = new ReserveOfPersonnel
@@ -135,10 +136,17 @@ namespace WebApplicationDiplom.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ReserveOfPersonnelViewModel model)
         {
-            ReserveOfPersonnel reserve = _context.reserveOfPersonnels.Find(model.ReserveId);
+            ReserveOfPersonnel reserve =  await _context.reserveOfPersonnels.FirstOrDefaultAsync(p => p.ReserveId == model.ReserveId);
+            var TablePosition = _context.TablePosition.Find(reserve.TablePositionId);
             reserve.StatusReserve = "Выведен из резерва";
             reserve.EndDateReserve = DateTime.Now;
 
+            if (TablePosition.CountPosition == 0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
                 TableHistoryOfAppointments historyofappointments = new TableHistoryOfAppointments
                 {
                     DateOfAppointment = DateTime.Now,
@@ -146,12 +154,47 @@ namespace WebApplicationDiplom.Controllers
                     EmployeeRegistrationLogId = reserve.EmployeeRegistrationLogId,
                 };
                 _context.TableHistoryOfAppointments.Add(historyofappointments);
-              
-            
-    
-            _context.reserveOfPersonnels.Update(reserve);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+                _context.reserveOfPersonnels.Update(reserve);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+               
+            }
+        }
+        #endregion
+        #region Вывод из резерва
+        public async Task<IActionResult> Remove(int? id)
+        {
+            if (id != null)
+            {
+                ReserveOfPersonnel reserve = await _context.reserveOfPersonnels.FirstOrDefaultAsync(p => p.ReserveId == id);
+                if (reserve != null)
+                {
+
+                    reserve.StatusReserve = "Выведен из резерва";
+                    reserve.EndDateReserve = DateTime.Now;
+                    _context.reserveOfPersonnels.Update(reserve);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
+        }
+        #endregion
+        #region удаления записи резерва
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                ReserveOfPersonnel reserve = await _context.reserveOfPersonnels.FirstOrDefaultAsync(p => p.ReserveId == id);
+                if (reserve != null)
+                {
+                    _context.reserveOfPersonnels.Remove(reserve);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
         }
         #endregion
     }

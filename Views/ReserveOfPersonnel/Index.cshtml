@@ -28,10 +28,12 @@
     }
     else
     {
-<td>@item.EndDateReserve</td>
+        <td>@item.EndDateReserve</td>
     }
-        <td> <a asp-action="Edit" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId">Вывести с резерва</a></td>
-    </tr>
+    <td> <a asp-action="Edit" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId">Назначить на должность</a></td>
+    <td> <a asp-action="Remove" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId">Вывести с резерва </a></td>
+    <td> <a asp-action="Delete" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId">Удалить запись</a></td>
+</tr>
     }
 </table>
 

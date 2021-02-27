@@ -1,5 +1,4 @@
-﻿@model WebApplicationDiplom.ViewModels.AddressViewModel
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -25,31 +24,11 @@ else
  
 
 
-<select>
-    @foreach (var item in Model.areas)
-    {
-        <option>@item.NameArea</option>
-    }
-</select>
-<select>
-    @foreach (var item in Model.districts)
-    {
-        <option>@item.NameDistrict</option>
-    }
-</select>
+ 
 
+   
 
-    @foreach (var item in Model.localities)
-    {
-        @item.District.Area.NameArea @item.District.NameDistrict
-
-    }
-
-<h3>Выберите область</h3>
-@Html.DropDownList("TableArea", ViewBag.Areaes as SelectList, new { id = "areaes" })
-<h3>Выберите регион</h3>
-@Html.DropDownList("TableDistrict", ViewBag.Districtes as SelectList, new { id = "districtes" })
-
+ 
 
 @*@section scripts{
         <script type="text/javascript">

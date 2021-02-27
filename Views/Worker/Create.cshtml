@@ -1,45 +1,52 @@
 ﻿@model WebApplicationDiplom.ViewModels.RegisterWorkerViewModel
-
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Регистрация работника";
+    Layout = "";
 }
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
 
-<h2>Добавление модели</h2>
-<form method="post" asp-controller="Worker" asp-action="Create" style="width: 50%; margin: 0 auto; text-align: center;">
-    <div asp-validation-summary="ModelOnly"></div>
-
-
-    <div>
-        <label asp-for="Surname" style="width: 50%; margin: 0 auto; text-align: start;">Фамилия</label><br />
-        <input asp-for="Surname" style="width: 50%; margin: 0 auto; text-align: start;" />
-        <span asp-validation-for="Surname"></span>
-    </div>
-    <br />
-    <div>
-        <label asp-for="Name" style="width: 50%; margin: 0 auto; text-align: start;">Имя</label><br />
-        <input asp-for="Name" style="width: 50%; margin: 0 auto; text-align: start;" />
-        <span asp-validation-for="Name"></span>
-    </div>
-    <br />
-    <div>
-        <label asp-for="DoubleName" style="width: 50%; margin: 0 auto; text-align: start;">Отчёство</label><br />
-        <input asp-for="DoubleName" style="width: 50%; margin: 0 auto; text-align: start;" />
-        <span asp-validation-for="DoubleName"></span>
-    </div>
-    <br />
-    <div>
-        <label asp-for="DateOfBirth" style="width: 50%; margin: 0 auto; text-align: start;">Дата рождения</label><br />
-        <input asp-for="DateOfBirth" style="width: 50%; margin: 0 auto; text-align: start;" />
-        <span asp-validation-for="DateOfBirth"></span>
-    </div>
-    <br />
-    <div>  
-        <label>Должность</label>
-        @Html.DropDownListFor(model => model.PositionId, ViewBag.TablePositionId as SelectList)
-    </div>
-
-    <br /><br /><br />
-    <div>
-        <input type="submit" value="Регистрация" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />
-    </div>
-</form>
+    <form method="post" asp-controller="Worker" asp-action="Create" class="form" style="width: 50%; margin: 0 auto; text-align: center;">
+        <div asp-validation-summary="ModelOnly"></div>
+        <h1 class="form_title">Добавление работника</h1>
+        <div class="form_grup">
+            <label class="form_label" asp-for="Surname">Фамилия</label><br />
+            <input class="form_input" asp-for="Surname" />
+            <span asp-validation-for="Surname"></span>
+        </div>
+        <div class="form_grup">
+            <label class="form_label" asp-for="Name">Имя</label><br />
+            <input class="form_input" asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form_grup">
+            <label class="form_label" asp-for="DoubleName">Отчёство</label><br />
+            <input class="form_input" asp-for="DoubleName" />
+            <span asp-validation-for="DoubleName"></span>
+        </div>
+        <div class="form_grup">
+            <label class="form_label" asp-for="DateOfBirth">Дата рождения</label><br />
+            <input class="form_input" asp-for="DateOfBirth" />
+            <span asp-validation-for="DateOfBirth"></span>
+        </div>
+        <div class="box">
+            <label class="form_label">Должность</label>
+            <select asp-for="PositionId">
+                @foreach (var item in Model.positions)
+                {
+                    <option value="@item.PositionId">@item.JobTitle</option>
+                }
+            </select>
+        </div>
+        <br />
+        <div  >
+            <button class="form_button" type="submit" value="Регистрация">
+                Регистрация
+            </button>
+            <a class="form_button" asp-area="" asp-controller="Worker" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
+        </div>
+    </form>
+</body>
