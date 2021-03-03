@@ -90,6 +90,9 @@ namespace WebApplicationDiplom.Controllers
             }
             return RedirectToAction("Index");
         }
+        #region Отображения смены пароля 
+        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> ChangePassword(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
@@ -100,6 +103,8 @@ namespace WebApplicationDiplom.Controllers
             ChangePasswordViewModel model = new ChangePasswordViewModel { Id = user.Id, Identifier = user.Identifier };
             return View(model);
         }
+        #endregion
+        #region смена пароля
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -136,6 +141,8 @@ namespace WebApplicationDiplom.Controllers
             }
             return View(model);
         }
+        #endregion 
 
     }
+
 }

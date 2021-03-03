@@ -1,28 +1,32 @@
 ﻿@using WebApplicationDiplom.Enumeration
 @model WebApplicationDiplom.ViewModels.VerificationOfEducationViewModel
 @{
-    ViewBag.Title = "Аттестация работника";
+    ViewBag.Title = "Регистрация аттестации сотрудника";
+    Layout = "";
 }
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+</head>
+<body>
+    <form class="form" asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@Model.Id">
+        <div asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="Id" class="form-control" />
+        <div class="box">
+            <label class="form_label" asp-for="VerificationStatus">Статус аттестации</label><br />
+            <select asp-for="EnumerationStatus" asp-items="Html.GetEnumSelectList<VerificationStatus>()"></select>
+            <span asp-validation-for="VerificationStatus"></span>
+        </div>
+        <div class="box">
+            <label class="form_label" asp-for="EnumerationRecommendations">Рекомендации</label><br />
+            <select asp-for="EnumerationRecommendations" asp-items="Html.GetEnumSelectList<RecommendationsAfterCertification>()"></select>
+            <span asp-validation-for="EnumerationRecommendations"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Сохранить" class="form_button" />
+            <a class="form_button" asp-controller="VerificationOfEducation" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
+        </div>
 
-<form asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@Model.Id">
-    <div asp-validation-summary="ModelOnly"></div>
-    <input type="hidden" asp-for="Id" class="form-control" />
-        @*@Html.DisplayFor(model => model.Position.JobTitle)*@
-    </div>
-    <br />
-    <div>
-        <label asp-for="VerificationStatus" style="width: 50%; margin: 0 auto; text-align: start;">Статус аттестации</label><br />
-        <select asp-for="EnumerationStatus" asp-items="Html.GetEnumSelectList<VerificationStatus>()" style="width: 50%; margin: 0 auto; text-align: start;"></select>
-        <span asp-validation-for="VerificationStatus"></span>
-    </div>
-    <div>
-        <label asp-for="EnumerationRecommendations" style="width: 50%; margin: 0 auto; text-align: start;">Рекомендации</label><br />
-        <select asp-for="EnumerationRecommendations" asp-items="Html.GetEnumSelectList<RecommendationsAfterCertification>()" style="width: 50%; margin: 0 auto; text-align: start;"></select>
-        <span asp-validation-for="EnumerationRecommendations"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Сохранить" class="btn btn-default" />
-    </div>
-
-</form>
- 
+    </form>
+</body>

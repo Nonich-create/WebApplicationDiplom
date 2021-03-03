@@ -46,7 +46,7 @@ namespace WebApplicationDiplom.Controllers
                 .Include(i => i.Organizations)          
                 .ThenInclude(i => i.users)
                 .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
-
+     
             ViewBag.EducationalInstitutionsId = new SelectList(_context.EducationalInstitutions, "EducationalInstitutionsId", "NameEducationalInstitutions");
             ViewBag.PositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
             ViewBag.QualificationId = new SelectList(_context.TableQualification, "QualificationId", "Qualification");
@@ -62,7 +62,7 @@ namespace WebApplicationDiplom.Controllers
         public async Task<IActionResult> Create(EducationalViewModel model)
         {
             if (ModelState.IsValid)
-             {
+            {
                 TableEducational educational = new TableEducational
                 {
                     EducationType = model.EducationType.ToString(),
@@ -74,14 +74,11 @@ namespace WebApplicationDiplom.Controllers
                     QualificationId = model.QualificationId,
                     WorkerEmployeeRegistrationId = model.EmployeeRegistrationLogId
                 };
-             
                 _context.TableEducational.Add(educational);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
-                }
-
-
-                return View();
+            }
+            return View(model);
         }
         #endregion
         #region отображения добавления место образоавния в справочник 

@@ -1,1 +1,21 @@
-﻿
+﻿@model WebApplicationDiplom.ViewModels.InformationAboutTheAccountViewModel
+@{
+    ViewBag.Title = "";
+}
+ 
+
+<div>
+    @foreach (var item in Model.TableOrganizations)
+    {
+        <label>Идентификатор: </label>
+        <a>@User.Identity.Name</a><br />
+        <label>Название организации: </label>
+        <a>@item.NameOfOrganization</a><br />
+        <label>Тип организации: </label>
+        <a>@item.TypeOrganization</a><br />
+        <label>Электронный адрес: </label>
+        <a>@item.Email</a><br />
+        <a asp-action="Edit" asp-controller="Account" asp-route-id="@item.TableOrganizationsId">Изменить</a>
+        <a class="btn btn-sm btn-primary" asp-controller="Account"  asp-action="ChangePassword" asp-route-id="@Model.users">Сменить пароль</a>
+    }
+</div>

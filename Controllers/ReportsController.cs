@@ -184,6 +184,7 @@ namespace WebApplicationDiplom.Controllers
 
             return View(await TheModelIsFilledWithAllTheData(TableOrganizations));
         }
+        #region список резерва
         private async Task<TheListOfPersonnelReserveViewModel> TheModelIsFilledWithAllTheData(int TableOrganizations)
         {
             var historyOfAppointments = await _context.TableHistoryOfAppointments
@@ -247,5 +248,95 @@ namespace WebApplicationDiplom.Controllers
             };
             return model;
         }
+        #endregion
+        #region список резерва на должности председателей правлений облпотребсоюзов, облпотребобществ
+
+        private async Task<TheListOfPersonnelReserveViewModel> CreateApplicationReport(int TableOrganizations)
+        {
+            var historyOfAppointments = await _context.TableHistoryOfAppointments
+            .Include(i => i.Position)
+            .Include(i => i.Position.Position)
+            .Include(i => i.EmployeeRegistrationLog)
+            .Include(i => i.EmployeeRegistrationLog.Worker)
+            .Include(i => i.Position.Organizations)
+            .Where(i => i.DateOfDismissal == null)
+            .Where(i => i.Position.Position.JobTitle == "Председатель правления облпотребсоюза"
+             || i.Position.Position.JobTitle == "Председатель правления облпотребобщества")
+            .ToListAsync();
+
+            var AllhistoryOfAppointments = await _context.TableHistoryOfAppointments
+            .Include(i => i.Position)
+            .Include(i => i.Position.Position)
+            .Include(i => i.EmployeeRegistrationLog)
+            .Include(i => i.EmployeeRegistrationLog.Worker)
+            .Include(i => i.Position.Organizations)
+            .Where(i => i.DateOfDismissal == null)
+            .ToListAsync();
+
+
+            var educationals = await _context.TableEducational
+                .Include(i => i.EducationalInstitutions)
+                .Include(i => i.position)
+                .Include(i => i.Worker)
+                .Include(i => i.Qualification)
+                .ToListAsync();
+
+            var reserveOfPersonnels = await _context.reserveOfPersonnels
+                .Include(i => i.tablePosition)
+                .Include(i => i.employeeRegistrationLog)
+                .Include(i => i.tablePosition.Position)
+                .Include(i => i.employeeRegistrationLog.Worker)
+                .Where(i => i.EndDateReserve == null)
+                .ToListAsync();
+
+            var advancedTrainings = await _context.advancedTrainings
+                .Include(i => i.EducationalInstitutions)
+                .Include(i => i.EmployeeRegistrationLog)
+                .ToListAsync();
+
+            var organizations = await _context.TableOrganizations
+                .ToListAsync();
+            TheListOfPersonnelReserveViewModel model = new TheListOfPersonnelReserveViewModel
+            {
+                Id = TableOrganizations,
+                tableHistoryOfAppointments = historyOfAppointments,
+                tableEducationals = educationals,
+                reserveOfPersonnels = reserveOfPersonnels,
+                advancedTrainingViewModels = advancedTrainings,
+                Organizations = organizations,
+                AllHistoryOfAppointments = AllhistoryOfAppointments,
+            };
+            return model;
+        }
+        #endregion
+        #region Формирования резерва на должности председателей правлений облпотребсоюзов, облпотребобществ
+        [Authorize]
+        public async Task<IActionResult> ApplicationReport()
+        {
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+           (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+
+            return View(await CreateApplicationReport(TableOrganizations));
+        }
+        #endregion
+        #region Формирования резерва на должности председателей правлений облпотребсоюзов, облпотребобществ на сохранения
+        public async Task<IActionResult> SavingApplicationReport(int id)
+        {
+            return View(await CreateApplicationReport(id));
+        }
+        #endregion
+        #region Загрузка  списка резерва на должности председателей правлений облпотребсоюзов, облпотребобществ
+        [HttpGet]
+        public FileResult DownloadFileApplicationReport(int id)
+        {
+            Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Reports/SavingApplicationReport/{id}");
+            using (WebClient client = new WebClient())
+            {
+                string file_type = "text/doc";
+                string file_name = $"Резерв на пред. правлений ОПС на 2020 (приложение 2) {DateTime.Now.ToString().Remove(10).Remove(0, 6)}.doc";
+                return File(client.DownloadData(location), file_type, file_name);
+            }
+        }
+        #endregion
     }
-}
+}   

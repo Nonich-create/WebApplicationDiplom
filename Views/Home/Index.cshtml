@@ -10,7 +10,9 @@
     <form method="post" asp-controller="Account" asp-action="Logout">
         <div asp-validation-summary="ModelOnly"></div>
         <input type="submit" value="Выход" />
+        @if (User.IsInRole("admin")) {  
         <a asp-controller="Account" asp-action="Register">Регистрация</a>
+        }
     </form>
 }
 else
@@ -21,14 +23,14 @@ else
 
 }
 
- 
 
 
- 
 
-   
 
- 
+
+
+
+
 
 @*@section scripts{
         <script type="text/javascript">

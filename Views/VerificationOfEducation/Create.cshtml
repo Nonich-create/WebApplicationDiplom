@@ -1,41 +1,44 @@
 ﻿@model WebApplicationDiplom.ViewModels.VerificationOfEducationViewModel
-
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Регистрация аттестации сотрудника";
+    Layout = "";
 }
-
-<h2>Аттестация</h2>
-<form method="post" asp-controller="VerificationOfEducation" asp-action="Create" style="width: 50%; text-align: left;">
-    <div asp-validation-summary="ModelOnly"></div>
-
-    <div>
-        <label>Информация о работники</label><br />
-        <select asp-for="EmployeeRegistrationLogId">
-            @foreach (var item in Model.employeeRegistrationLogs)
-            {
-                <option value="@item.EmployeeRegistrationId">@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName, @item.Worker.positon.JobTitle</option>
-            }
-        </select>
-    </div>
-    <br />
-    <div>
-        <label>Аттестация на должность</label><br />
-        <select asp-for="PositionId">
-            @foreach (var item in Model.positions)
-            {
-                <option value="@item.PositionId">@item.JobTitle</option>
-            }
-        </select>
-    </div>
-    <br />
- 
-    <div>
-        <label asp-for="DateOfCertificationCompletion">Дата прохождении аттестации</label><br />
-        <input asp-for="DateOfCertificationCompletion" />
-        <span asp-validation-for="DateOfCertificationCompletion"></span>
-    </div>
-    <br /><br /><br />
-    <div>
-        <input type="submit" value="Регистрация" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />
-    </div>
-</form>
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+</head>
+<body>
+    <form method="post" asp-controller="VerificationOfEducation" asp-action="Create" class="form">
+        <div asp-validation-summary="ModelOnly"></div>
+        <h2 class="form_title">Аттестация</h2>
+        <div class="box">
+            <label class="form_label">Информация о работники</label><br />
+            <select asp-for="EmployeeRegistrationLogId">
+                @foreach (var item in Model.employeeRegistrationLogs)
+                {
+                    <option value="@item.EmployeeRegistrationId">@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName, @item.Worker.positon.JobTitle</option>
+                }
+            </select>
+        </div>
+        <br />
+        <div class="box">
+            <label class="form_label">Аттестация на должность</label><br />
+            <select asp-for="PositionId">
+                @foreach (var item in Model.positions)
+                {
+                    <option value="@item.PositionId">@item.JobTitle</option>
+                }
+            </select>
+        </div>
+        <br />
+        <div class="form_grup">
+            <label class="form_label" asp-for="DateOfCertificationCompletion">Дата прохождении аттестации</label><br />
+            <input class="form_input" asp-for="DateOfCertificationCompletion" />
+            <span asp-validation-for="DateOfCertificationCompletion"></span>
+        </div>
+        <div>
+            <input type="submit" value="Регистрация" class="form_button" />
+            <a class="form_button" asp-controller="VerificationOfEducation" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
+        </div>
+    </form>
+</body>

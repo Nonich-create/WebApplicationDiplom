@@ -1,34 +1,42 @@
 ﻿@model WebApplicationDiplom.ViewModels.PositionViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Добавления должности в организацию";
+    Layout = "";
 }
-
-<h2>Добавление должности в организацию</h2>
-<form method="post" asp-controller="Position" asp-action="Create" style="width: 50%; text-align: left;">
-    <div asp-validation-summary="ModelOnly"></div>
-
-    <div>
-        <label>Должность    </label>
-        <a asp-controller="Position" asp-action="CreateJob">Добавить должность в справочник</a><br />
-        @Html.DropDownListFor(Model => Model.PositionId, ViewBag.PositionId as SelectList)
-    </div>
-    <br />
-    <br />
-    <div>
-        <label asp-for="JobResponsibilities" style="width: 50%; margin: 0 auto; text-align: start;">Описания</label><br />
-        <input asp-for="JobResponsibilities" style="width: 50%; margin: 0 auto; text-align: start;" />
-        <span asp-validation-for="JobResponsibilities"></span>
-    </div>
-    <br />
-    <div>
-        <label asp-for="CountPosition" style="width: 50%; margin: 0 auto; text-align: start;">Количество мест на должность</label><br />
-        <input asp-for="CountPosition" style="width: 50%; margin: 0 auto; text-align: start;" />
-        <span asp-validation-for="CountPosition"></span>
-    </div>
- 
-    <br /><br /><br />
-    <div>
-        <input type="submit" value="Регистрация" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />
-    </div>
-</form>
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+</head>
+<body>
+    <form method="post" asp-controller="Position" asp-action="Create" class="form">
+        <div asp-validation-summary="ModelOnly"></div>
+        <h2 class="form_title">Добавление должности в организацию</h2>
+        <div class="box">
+            <label class="form_label">Должность</label><br />
+            <a asp-controller="Position" asp-action="CreateJob">Добавить должность в справочник</a><br />
+            <select asp-for="PositionId">
+                @foreach (var item in Model.positions)
+                {
+                    <option value="@item.PositionId">@item.JobTitle</option>
+                }
+            </select>
+            <span asp-validation-for="PositionId"></span>
+        </div>
+        <br />
+        <div class="form_grup">
+            <label asp-for="JobResponsibilities" class="form_label">Описания</label><br />
+            <input asp-for="JobResponsibilities" class="form_input" />
+            <span asp-validation-for="JobResponsibilities"></span>
+        </div>
+        <div class="form_grup">
+            <label asp-for="CountPosition" class="form_label">Количество мест на должность</label><br />
+            <input asp-for="CountPosition" class="form_input" />
+            <span asp-validation-for="CountPosition"></span>
+        </div>
+        <div>
+            <input type="submit" value="Регистрация" class="form_button" />
+            <a class="form_button" asp-controller="Position" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
+        </div>
+    </form>
+</body>

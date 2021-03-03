@@ -10,6 +10,7 @@ namespace WebApplicationDiplom.ViewModels
         public List<Tablelocality> localities { get; set; }
         public List<TableAddress> addresses { get; set; }
         public List<TableOrganizations> TableOrganizations { get; set; }
-        
+        public List<User> users { get; set; }
+ 
     }
 }

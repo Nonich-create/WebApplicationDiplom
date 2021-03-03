@@ -16,7 +16,7 @@ using WebApplicationDiplom.ViewModels;
 
 namespace WebApplicationDiplom.Controllers
 {
-   //  [Authorize] 
+    [Authorize] 
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -26,19 +26,6 @@ namespace WebApplicationDiplom.Controllers
             _context = context;
             _logger = logger;
         }
-        ObservableCollection<TableArea> area = new ObservableCollection<TableArea>();
-        ObservableCollection<TableDistrict> districts = new ObservableCollection<TableDistrict>();
-        List<Tablelocality> locations = new List<Tablelocality>();
-        List<TableAddress> addresses = new List<TableAddress>();
-
-
-        // [HttpGet]
-        // public async Task<IActionResult> Index()
-        // {
-        //    // return View(await _context.Person.Include(i => i.Company).ToListAsync());
-        //
-        // }
-
         [HttpGet]
         public IActionResult Index()
         {

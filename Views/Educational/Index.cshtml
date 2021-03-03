@@ -6,15 +6,15 @@
  
 <table class="table">
     <tr>
-        <td>ФИО</td>
-        <td>Тип образования</td>
-        <td>Образования</td>
-        <td>Учреждения образования</td>
-        <td>Должность</td>
-        <td>Квалификация</td>
-        <td>Поступление</td>
-        <td>Окончание</td>
-    </tr>
+        <th>ФИО</th>
+        <th>Тип образования</th>
+        <th>Образования</th>
+        <th>Учреждения образования</th>
+        <th>Должность</th>
+        <th>Квалификация</th>
+        <th>Поступление</th>
+        <th>Окончание</th>
+</tr>
     @foreach (TableEducational educational in Model)
     {
 <tr>
@@ -26,7 +26,7 @@
     <td>@educational.Qualification.Qualification</td>
     <td>@educational.StartDate.ToString().Remove(10)</td>
     <td>@educational.EndDate.ToString().Remove(10)</td>
-    <td> <a asp-action="Delete" asp-controller="Educational" asp-route-id="@educational.EducationalId">Удалить</a></td>
+    <td> <a asp-action="Delete" asp-controller="Educational" as p-route-id="@educational.EducationalId">Удалить</a></td>
 </tr>
     }
 </table>

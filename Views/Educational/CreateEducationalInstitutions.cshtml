@@ -1,19 +1,26 @@
 ﻿@model WebApplicationDiplom.ViewModels.EducationalInstitutionsViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Добавления в справочник";
+    Layout = "";
 }
-
-<h2>Добавление  учреждения образования в справчоник</h2>
-<form method="post" asp-controller="Educational" asp-action="CreateEducationalInstitutions">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="NameEducationalInstitutions">Название учреждения образования</label><br />
-        <input asp-for="NameEducationalInstitutions" />
-        <span asp-validation-for="NameEducationalInstitutions"></span>
-    </div>
-    <br />
-    <div>
-        <input type="submit" value="Сохранить" />
-    </div>
-</form>
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+</head>
+<body>
+    <form method="post" asp-controller="Educational" asp-action="CreateEducationalInstitutions" class="form">
+        <div asp-validation-summary="ModelOnly"></div>
+        <h2 class="form_title">Добавление  учреждения образования в справчоник</h2>
+        <div class="form_grup">
+            <label class="form_label" asp-for="NameEducationalInstitutions">Название учреждения образования</label><br />
+            <input class="form_input" asp-for="NameEducationalInstitutions" />
+            <span asp-validation-for="NameEducationalInstitutions"></span>
+        </div>
+        <br />
+        <div>
+            <input type="submit" value="Сохранить" class="form_button" />
+            <a class="form_button"   asp-controller="Educational" asp-action="Create" style=" text-decoration: none;">Назад</a><br />
+        </div>
+    </form>
+</body>

@@ -188,6 +188,15 @@ namespace WebApplicationDiplom.Models
                       {
                           JobTitle = "И.о.директора филиала"
                       }
+                                                       ,
+                            new Position
+                      {
+                          JobTitle = "Председатель правления облпотребсоюза"
+                      }                                     ,
+                            new Position
+                      {
+                          JobTitle = "Председатель правления   облпотребобщества"
+                      }
                 });
             }
             if(!context.TableQualification.Any())
@@ -231,54 +240,40 @@ namespace WebApplicationDiplom.Models
             if (!userManager.Users.Any())
             {
                 User userBKS = new User {Identifier = "095126613431253",UserName = "095126613431253" };
-                IdentityResult result1 = await userManager.CreateAsync(userBKS, "1234567890");
+                IdentityResult result1 = await userManager.CreateAsync(userBKS, "dY2-AJX-mJd-zuL");
                 if (result1.Succeeded)
                 {
                  
                     await userManager.AddToRoleAsync(userBKS, "user");
-                    //    TableOrganizations organizations = new TableOrganizations
-                    //{
-                    //    NameOfOrganization = "белкоопсоюз",
-                    //    UserId = userBKS.Id,
-                    //    TypeOrganization = "Главный офис",
-                    //    Email = "",
-                    //    SubordinationId = 0,
+                    TableOrganizations organizations = new TableOrganizations
+                    {
+                        NameOfOrganization = "Белкоопсоюз",
+                        UserId = userBKS.Id,
+                        TypeOrganization = "Главный офис",
+                        Email = "",
+                        SubordinationId = 0,
 
-                    //};
-                    //context.TableOrganizations.Add(organizations);
+                    };
+                    context.TableOrganizations.Add(organizations);
 
                 }
-                //User admin = new User { Identifier = "admin",UserName = "admin" };
-                //IdentityResult result2 = await userManager.CreateAsync(admin, "admin");
-                //if (result2.Succeeded)
-                //{
-                //    await userManager.AddToRoleAsync(admin, "user");
-                //}
-                //if (!context.TableOrganizations.Any())
-                //{
-
-                //   await context.TableOrganizations.AddRangeAsync(new List<TableOrganizations>
-                //   {
-                //    new TableOrganizations
-                //    {
-                //        UserId = userBKS.Id,
-                //        NameOfOrganization = "",
-                //        SubordinationId = 0,
-                //        TypeOrganization = "Главный офис"
-                //    },
-                //          new TableOrganizations
-                //    {
-                //        UserId =  admin.Id,
-                //        NameOfOrganization = "",
-                //        SubordinationId = 0,
-                //    }
-                //   });
-                //}
-
+                User admin = new User { Identifier = "admin", UserName = "admin" };
+                IdentityResult result2 = await userManager.CreateAsync(admin, "dY2-AJX-mJd-zuL");
+                if (result2.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(admin, "user");
+                    await userManager.AddToRoleAsync(admin, "admin");
+                    TableOrganizations organizations = new TableOrganizations
+                    {
+                        UserId = admin.Id,
+                        NameOfOrganization = "Admin",
+                        SubordinationId = 0,
+                        TypeOrganization = "Admin",
+                        Email = ""
+                    };
+                    context.TableOrganizations.Add(organizations);
+                }
             }
-            
-            
-
             await context.SaveChangesAsync();
         }
 

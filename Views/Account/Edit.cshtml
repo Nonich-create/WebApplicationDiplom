@@ -1,0 +1,26 @@
+﻿@model WebApplicationDiplom.Models.TableOrganizations
+@{
+    ViewBag.Title = "Организации работника";
+    Layout = "";
+}
+<form asp-action="Edit" asp-controller="Account" asp-route-id="@Model.TableOrganizationsId">
+    <input type="hidden" asp-for="TableOrganizationsId" class="form-control" />
+    <input type="hidden" asp-for="SubordinationId" class="form-control" />
+    <input type="hidden" asp-for="UserId" class="form-control" />
+    <div class="form-group">
+        <label asp-for="NameOfOrganization" class="control-label">Название организации</label>
+        <input type="text" asp-for="NameOfOrganization" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="TypeOrganization" class="control-label">Тип организации</label>
+        <input type="text" asp-for="TypeOrganization" class="form-control" />
+    </div>  
+    <div class="form-group">
+        <label asp-for="Email" class="control-label">Электронный адрес</label>
+        <input type="text" asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-default" />
+    </div>
+
+</form>

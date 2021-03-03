@@ -38,8 +38,6 @@ namespace WebApplicationDiplom.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-
-            //ViewBag.TablePositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
             var positions = await _context.Position.ToListAsync();
             RegisterWorkerViewModel model = new RegisterWorkerViewModel
             {
@@ -56,7 +54,7 @@ namespace WebApplicationDiplom.Controllers
             {
 
                 int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
-               (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+                (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
                 Worker worker = new Worker
                 {
                     Surname = model.Surname,
@@ -65,7 +63,7 @@ namespace WebApplicationDiplom.Controllers
                     DateOfBirth = model.DateOfBirth,
                     PositionId = model.PositionId
                 };
-                 _context.Worker.Add(worker);
+                _context.Worker.Add(worker);
                 await _context.SaveChangesAsync();
                 EmployeeRegistrationLog employee = new EmployeeRegistrationLog
                 {
@@ -75,9 +73,15 @@ namespace WebApplicationDiplom.Controllers
                 };
                 _context.employeeRegistrationLogs.Add(employee);
                 await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
 
             }
-            return RedirectToAction("Index");
+            else
+            {
+                var positions = await _context.Position.ToListAsync();
+                model.positions = positions;
+                return View(model);
+            }
         }
         #endregion
         #region отображения редактирования работника

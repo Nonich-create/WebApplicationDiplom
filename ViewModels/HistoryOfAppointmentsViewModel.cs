@@ -19,7 +19,7 @@ namespace WebApplicationDiplom.ViewModels
         [Display(Name = "Дата увольнения работника")]
         public DateTime? DateOfDismissal { get; set; }
 
-
+        [Required(ErrorMessage = "Не указана причина увольнения")]
         [DataType(DataType.Text)]
         [Display(Name = "Причина увольнения")]
         public string TheReasonForTheDismissal { get; set; }

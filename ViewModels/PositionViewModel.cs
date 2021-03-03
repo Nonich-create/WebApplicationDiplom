@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 
 namespace WebApplicationDiplom.ViewModels
@@ -20,7 +18,7 @@ namespace WebApplicationDiplom.ViewModels
         [Display(Name = "Количество мест")]
         public int CountPosition { get; set; }
 
-
+        [Required(ErrorMessage = "Не указаны обязанности")]
         [DataType(DataType.Text)]
         [Display(Name = "Должностные обязанности")]
         public string JobResponsibilities { get; set; }

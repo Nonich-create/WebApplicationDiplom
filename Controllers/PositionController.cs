@@ -28,20 +28,26 @@ namespace WebApplicationDiplom.Controllers
         }
         #endregion
         #region отображения регистрации должности в организации
-        public IActionResult Create() 
+        public async Task<IActionResult> CreateAsync() 
         {
-            ViewBag.PositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
-            return View();
+            var positions = await _context.Position.ToListAsync();
+          //  ViewBag.PositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
+            PositionViewModel model = new PositionViewModel
+            {
+                positions = positions,
+            };
+            return View(model);
         }
         #endregion
         #region регистрация должности в организации
         [HttpPost]
         public async Task<IActionResult> Create(PositionViewModel model)
         {
-            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
-                 (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
             if (ModelState.IsValid)
             {
+                int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+                 (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+            
                 TablePosition position = new TablePosition
                 {
                     DateOfJobRegistration = DateTime.Now,
@@ -55,8 +61,14 @@ namespace WebApplicationDiplom.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                var positions = await _context.Position.ToListAsync();
+                model.positions = positions;
+                return View(model);
             }
+           
+        }
         #endregion
         #region отображения добавления должности в справочник
         [HttpGet]
@@ -67,22 +79,27 @@ namespace WebApplicationDiplom.Controllers
         #endregion
         #region добавления должности в справочник
         [HttpPost]
-        public async Task<IActionResult> CreateJob(Position model)
+        public async Task<IActionResult> CreateJob(JobDirectoryViewModel model)
         {
             if (ModelState.IsValid)
             {
                 Position position = await _context.Position.FirstOrDefaultAsync
                     (i => i.JobTitle == model.JobTitle);
+
+                Position positionResult = new Position
+                {
+                        JobTitle = model.JobTitle
+                };
                 if (position == null)
                 {
-                    await _context.Position.AddAsync(model);
+                    await _context.Position.AddAsync(positionResult);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Create");
                 }
            
               
             }
-            return View();
+            return View(model);
         }
         #endregion
     }

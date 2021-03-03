@@ -9,5 +9,7 @@ namespace WebApplicationDiplom.ViewModels
         [DataType(DataType.Text)]
         [Display(Name = "Должность")]
         public string JobTitle { get; set; }
+
+
      }
 }

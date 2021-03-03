@@ -54,8 +54,8 @@ namespace WebApplicationDiplom.Controllers
 
             VerificationOfEducationViewModel model = new VerificationOfEducationViewModel
             {
+                positions = position,
                 employeeRegistrationLogs = employees,
-                positions = position
             };
             return View(model);
        }
@@ -64,24 +64,25 @@ namespace WebApplicationDiplom.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(VerificationOfEducationViewModel model)
         {
+            
             if (ModelState.IsValid)
             {
-                 TableVerificationOfEducation verificationOfEducation = new TableVerificationOfEducation
-                 {
-        
-                     Recommendations = "",
-                     VerificationStatus = "Не аттестован",
-                     DateOfVerification = DateTime.Now,
-                     DateOfCertificationCompletion = model.DateOfCertificationCompletion,
-                     EmployeeRegistrationLogId = model.EmployeeRegistrationLogId,
-                     PositionId = model.PositionId,
-                 };
-        
+                TableVerificationOfEducation verificationOfEducation = new TableVerificationOfEducation
+                {
+
+                    Recommendations = "",
+                    VerificationStatus = "Не аттестован",
+                    DateOfVerification = DateTime.Now,
+                    DateOfCertificationCompletion = model.DateOfCertificationCompletion,
+                    EmployeeRegistrationLogId = model.EmployeeRegistrationLogId,
+                    PositionId = model.PositionId,
+                };
+
                 _context.TableVerificationOfEducation.Add(verificationOfEducation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(model);
         }
         #endregion
         #region отображения утверждения аттестации
