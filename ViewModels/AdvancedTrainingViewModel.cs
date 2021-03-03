@@ -10,10 +10,13 @@ namespace WebApplicationDiplom.ViewModels
         public int AdvancedTrainingId { get; set; }
         public int educationalsId { get; set; }
         public int employeesId { get; set; }
+
+        [Required(ErrorMessage = "Не указана дата начала")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата начала")]
         public DateTime Start { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата окончания")]

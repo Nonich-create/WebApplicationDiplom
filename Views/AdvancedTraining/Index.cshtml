@@ -17,7 +17,14 @@
             <td>@item.EmployeeRegistrationLog.Worker.Surname @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
             <td>@item.EducationalInstitutions.NameEducationalInstitutions</td>
             <td>@item.Start.ToString().Remove(10)</td>
+            @if (item.End != null)
+            {
             <td>@item.End.ToString().Remove(10)</td>
+            }
+            else
+            {
+                <td></td>
+            }
             <td> <a asp-action="Edit" asp-controller="AdvancedTraining" asp-route-id="@item.AdvancedTrainingId">Изменить</a></td>
         </tr>
     }

@@ -102,6 +102,22 @@ namespace WebApplicationDiplom.Controllers
             return View(model);
         }
         #endregion
+        #region удаления записи о работники
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                TablePosition position = await _context.TablePosition.FirstOrDefaultAsync(p => p.TablePositionId == id);
+                if (position != null)
+                {
+                    _context.TablePosition.Remove(position);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
+        }
+        #endregion
     }
 }
     

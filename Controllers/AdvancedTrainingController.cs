@@ -59,21 +59,45 @@ namespace WebApplicationDiplom.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AdvancedTrainingViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                AdvancedTraining advanced = new AdvancedTraining
+                if (ModelState.IsValid)
                 {
-                 EducationalInstitutionsId = model.educationalsId,
-                 EmployeeRegistrationLogId = model.employeesId,
-                 Start = model.Start,
-                 End = model.End,
-                };
+                    AdvancedTraining advanced = new AdvancedTraining
+                    {
+                        EducationalInstitutionsId = model.educationalsId,
+                        EmployeeRegistrationLogId = model.employeesId,
+                        Start = model.Start,
+                        End = model.End,
+                    };
 
-                _context.advancedTrainings.Add(advanced);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                    _context.advancedTrainings.Add(advanced);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+               (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+
+                    var employees = await _context.employeeRegistrationLogs
+                        .Include(i => i.Worker)
+                        .Include(i => i.Organizations)
+                        .ThenInclude(i => i.users)
+                        .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
+
+                    var educationals = await _context.EducationalInstitutions.ToListAsync();
+                    AdvancedTrainingViewModel modelResult = new AdvancedTrainingViewModel
+                    {
+                        employees = employees,
+                        educationals = educationals
+                    };
+                    return View(modelResult);
+                }
             }
-            return View();
+            catch {
+                return RedirectToAction("Create");
+            }
         }
         #endregion
     }

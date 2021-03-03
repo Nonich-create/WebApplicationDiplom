@@ -14,12 +14,13 @@ namespace WebApplicationDiplom.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата приема на работу")]
         public DateTime DateOfAppointment { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата увольнения работника")]
         public DateTime? DateOfDismissal { get; set; }
 
-        [Required(ErrorMessage = "Не указана причина увольнения")]
+ 
         [DataType(DataType.Text)]
         [Display(Name = "Причина увольнения")]
         public string TheReasonForTheDismissal { get; set; }
@@ -29,7 +30,7 @@ namespace WebApplicationDiplom.ViewModels
         [Display(Name = "Должность")]
         public int? TablePositionId { get; set; }
 
-        [Required(ErrorMessage = "Не указана работник")]
+        [Required(ErrorMessage = "Не указана работник")] 
         [DataType(DataType.Text)]
         [Display(Name = "Работник")]
         public int EmployeeRegistrationLogId { get; set; }

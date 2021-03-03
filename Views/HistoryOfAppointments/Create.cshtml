@@ -29,12 +29,11 @@
                     <option value="@item.TablePositionId">@item.Position.JobTitle</option>
                 }
             </select>
-            @*@Html.DropDownListFor(Model => Model.TablePositionId, ViewBag.TablePositionId as SelectList)*@
         </div>
         <br />
         <div>
             <input type="submit" value="Регистрация" class="form_button" />
-            <a class="form_button" asp-controller="Educational" asp-action="Index" style=" text-decoration: none;">Назад</a>
+            <a class="form_button" asp-controller="HistoryOfAppointments" asp-action="Index" style=" text-decoration: none;">Назад</a>
         </div>
     </form>
 </body>

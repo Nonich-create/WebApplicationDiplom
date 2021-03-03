@@ -1,47 +1,48 @@
 ﻿@model WebApplicationDiplom.ViewModels.AdvancedTrainingViewModel
-
-
 @{
     ViewBag.Title = "Create";
+    Layout = "";
 }
-
-<h2>Добавление повышение квалификации</h2>
-<form method="post" asp-controller="AdvancedTraining" asp-action="Create" style="width: 50%; text-align: left;">
-    <div asp-validation-summary="ModelOnly"></div>
-
-    <div>
-        <label>ФИО работника</label><br />
-        <select asp-for="employeesId">
-            @foreach (var item in Model.employees)
-            {
-                <option value="@item.EmployeeRegistrationId">@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName</option>
-            }
-        </select>
-    </div>
-    <br />
-    <div>
-        <label>Место повышения квалификации</label><br />
-        <select asp-for="educationalsId">
-            @foreach (var item in Model.educationals)
-            {
-                <option value="@item.EducationalInstitutionsId">@item.NameEducationalInstitutions</option>
-            }
-        </select>
-    </div>
-    <br />
-    <div>
-        <label asp-for="Start" style="width: 50%; margin: 0 auto; text-align: start;">Дата </label><br />
-        <input asp-for="Start" style="width: 50%; margin: 0 auto; text-align: start;" />
-        <span asp-validation-for="Start"></span>
-    </div>
-    <br />
-    <div>
-        <label asp-for="End" style="width: 50%; margin: 0 auto; text-align: start;">Дата </label><br />
-        <input asp-for="End" style="width: 50%; margin: 0 auto; text-align: start;" />
-        <span asp-validation-for="End"></span>
-    </div>
-    <br /><br /><br />
-    <div>
-        <input type="submit" value="Добавить" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />
-    </div>
-</form>
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+</head>
+<body>
+    <form method="post" asp-controller="AdvancedTraining" asp-action="Create" class="form">
+        <div asp-validation-summary="ModelOnly"></div>
+        <h2 class="form_title">Добавление повышение квалификации</h2>
+        <div class="box">
+            <label class="form_label">ФИО работника</label><br />
+            <select asp-for="employeesId">
+                @foreach (var item in Model.employees)
+                {
+                    <option value="@item.EmployeeRegistrationId">@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName</option>
+                }
+            </select>
+        </div>
+        <div class="box">
+            <label class="form_label">Место повышения квалификации</label><br />
+            <select asp-for="educationalsId">
+                @foreach (var item in Model.educationals)
+                {
+                    <option value="@item.EducationalInstitutionsId">@item.NameEducationalInstitutions</option>
+                }
+            </select>
+        </div>
+        <div class="form_grup">
+            <label class="form_label">Дата начала</label><br />
+            <input class="form_input" asp-for="Start"/>
+            <span asp-validation-for="Start"></span>
+        </div>
+        <div class="form_grup">
+            <label  class="form_label">Дата окончания </label><br />
+            <input asp-for="End" class="form_input" />
+            <span asp-validation-for="End"></span>
+        </div>
+        <br />
+        <div>
+            <input type="submit" value="Добавить" class="form_button" />
+            <a class="form_button" asp-controller="AdvancedTraining" asp-action="Index" style=" text-decoration: none;">Назад</a>
+        </div>
+    </form>
+</body>

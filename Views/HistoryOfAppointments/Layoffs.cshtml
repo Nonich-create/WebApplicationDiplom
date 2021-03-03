@@ -2,19 +2,24 @@
 @model WebApplicationDiplom.ViewModels.HistoryOfAppointmentsViewModel
 @{
     ViewBag.Title = "Увольнения работника";
+    Layout = "";
 }
-<form asp-action="Layoffs" asp-controller="HistoryOfAppointments" asp-route-id="@Model.HistoryOfAppointmentsId">
-    <input type="hidden" asp-for="HistoryOfAppointmentsId" class="form-control" />
-
-    <div>
-        <label asp-for="GroundsForDismissal" style="width: 50%; margin: 0 auto; text-align: start;">Причина увольнения</label><br />
-        <select asp-for="GroundsForDismissal" asp-items="Html.GetEnumSelectList<GroundsForDismissal>()" style="width: 50%; margin: 0 auto; text-align: start;"></select>
-        <span asp-validation-for="GroundsForDismissal"></span>
-    </div>
-    <br />
-
-    <div class="form-group">
-        <input type="submit" value="Уволить" class="btn btn-default" />
-    </div>
-
-</form>
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+</head>
+<body>
+    <form asp-action="Layoffs" class="form" asp-controller="HistoryOfAppointments" asp-route-id="@Model.HistoryOfAppointmentsId">
+        <input type="hidden" asp-for="HistoryOfAppointmentsId" class="form-control" />
+        <div class="box">
+            <label asp-for="GroundsForDismissal" class="form_label">Причина увольнения</label><br />
+            <select asp-for="GroundsForDismissal" asp-items="Html.GetEnumSelectList<GroundsForDismissal>()"></select>
+            <span asp-validation-for="GroundsForDismissal"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Уволить" class="form_button" />
+            <a class="form_button" asp-controller="HistoryOfAppointments" asp-action="Index" style=" text-decoration: none;">Назад</a>
+        </div>
+    </form>
+</body>

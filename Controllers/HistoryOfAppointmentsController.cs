@@ -91,6 +91,8 @@ namespace WebApplicationDiplom.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(HistoryOfAppointmentsViewModel model)
         {
+            try
+            {
                 var tableposition = await _context.TablePosition.FirstOrDefaultAsync(p => p.TablePositionId == model.TablePositionId);
                 if (tableposition.CountPosition > 0)
                 {
@@ -110,29 +112,34 @@ namespace WebApplicationDiplom.Controllers
                     }
                     else
                     {
-                    int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
-                     (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
-                    var position = await _context.TablePosition
-                      .Include(i => i.Position)
-                   .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
-                    var employees = await _context.employeeRegistrationLogs
-           .Include(i => i.Worker)
-           .Include(i => i.Organizations)
-           .Include(i => i.Worker.positon)
-           .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
-                    HistoryOfAppointmentsViewModel modelResult = new HistoryOfAppointmentsViewModel
-                    {
+                        int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+                         (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+                        var position = await _context.TablePosition
+                          .Include(i => i.Position)
+                       .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
+                        var employees = await _context.employeeRegistrationLogs
+               .Include(i => i.Worker)
+               .Include(i => i.Organizations)
+               .Include(i => i.Worker.positon)
+               .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
+                        HistoryOfAppointmentsViewModel modelResult = new HistoryOfAppointmentsViewModel
+                        {
 
-                        employeeRegistrationLogs = employees,
-                        positions = position,
-                    };
-                    return View(modelResult);
+                            employeeRegistrationLogs = employees,
+                            positions = position,
+                        };
+                        return View(modelResult);
                     }
                 }
                 else
                 {
                     return RedirectToAction("Create");
-                }  
+                }
+            }
+            catch
+            {
+                return RedirectToAction("Create");
+            }
         }
         #endregion
         #region отображения увольнения работника с должности

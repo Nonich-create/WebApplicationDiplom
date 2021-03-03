@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
@@ -78,26 +76,41 @@ namespace WebApplicationDiplom.Controllers
         #region регистрация в резерв
         public async Task<IActionResult> Create(ReserveOfPersonnelViewModel model)
         {
-            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
-                 (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
-
-   
-            if (ModelState.IsValid)
+            try
             {
-                ReserveOfPersonnel reserveOfPersonnel = new ReserveOfPersonnel
+
+                int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+                     (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+                TableHistoryOfAppointments historyOfAppointments = await _context.TableHistoryOfAppointments
+                    .Where(p => p.TablePositionId == model.TablePositionId)
+                    .Where(p => p.DateOfDismissal == null)
+                    .FirstOrDefaultAsync(p => p.EmployeeRegistrationLogId == model.EmployeeRegistrationLogId);
+                if (historyOfAppointments == null)
                 {
-
-                    StatusReserve = "В резерве",
-                    TablePositionId = model.TablePositionId,
-                    StartDateReserve = DateTime.Now,
-                    EmployeeRegistrationLogId = model.EmployeeRegistrationLogId
-                };
-
-                await _context.reserveOfPersonnels.AddAsync(reserveOfPersonnel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                    if (ModelState.IsValid)
+                    {
+                        ReserveOfPersonnel reserveOfPersonnel = new ReserveOfPersonnel
+                        {
+                            StatusReserve = "В резерве",
+                            TablePositionId = model.TablePositionId,
+                            StartDateReserve = DateTime.Now,
+                            EmployeeRegistrationLogId = model.EmployeeRegistrationLogId
+                        };
+                        await _context.reserveOfPersonnels.AddAsync(reserveOfPersonnel);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Index");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Create");
+                }
+                return View(model);
             }
-            return View();
+            catch
+            {
+                return RedirectToAction("Create");
+            }
         }
         #endregion
         #region отображения вывыдо из резерва
@@ -132,16 +145,18 @@ namespace WebApplicationDiplom.Controllers
             return NotFound();
         }
         #endregion
-        #region вывод из резерва
+        #region вывод из резерва и назначения на должность
         [HttpPost]
         public async Task<IActionResult> Edit(ReserveOfPersonnelViewModel model)
         {
             ReserveOfPersonnel reserve =  await _context.reserveOfPersonnels.FirstOrDefaultAsync(p => p.ReserveId == model.ReserveId);
             var TablePosition = _context.TablePosition.Find(reserve.TablePositionId);
-            reserve.StatusReserve = "Выведен из резерва";
+            reserve.StatusReserve = "Назначен на должность";
             reserve.EndDateReserve = DateTime.Now;
-
-            if (TablePosition.CountPosition == 0)
+            TableHistoryOfAppointments his = await _context.TableHistoryOfAppointments
+                .Where(p => p.DateOfDismissal == null)
+                .FirstOrDefaultAsync(p => p.TablePositionId == model.TablePositionId);
+            if (TablePosition.CountPosition == 0 && his == null)
             {
                 return RedirectToAction("Index");
             }
@@ -153,12 +168,13 @@ namespace WebApplicationDiplom.Controllers
                     TablePositionId = reserve.TablePositionId,
                     EmployeeRegistrationLogId = reserve.EmployeeRegistrationLogId,
                 };
-                _context.TableHistoryOfAppointments.Add(historyofappointments);
+                TablePosition.CountPosition = TablePosition.CountPosition - 1;
 
+                _context.TableHistoryOfAppointments.Add(historyofappointments);
                 _context.reserveOfPersonnels.Update(reserve);
+                _context.TablePosition.Update(TablePosition);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-               
+                return RedirectToAction("Index");      
             }
         }
         #endregion
@@ -170,7 +186,6 @@ namespace WebApplicationDiplom.Controllers
                 ReserveOfPersonnel reserve = await _context.reserveOfPersonnels.FirstOrDefaultAsync(p => p.ReserveId == id);
                 if (reserve != null)
                 {
-
                     reserve.StatusReserve = "Выведен из резерва";
                     reserve.EndDateReserve = DateTime.Now;
                     _context.reserveOfPersonnels.Update(reserve);

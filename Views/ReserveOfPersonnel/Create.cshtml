@@ -1,39 +1,43 @@
 ﻿@model WebApplicationDiplom.ViewModels.ReserveOfPersonnelViewModel
-
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Добавления в резерв";
+    Layout = "";
 }
-
-<h2>Добавления в резерв</h2>
-<form method="post" asp-controller="ReserveOfPersonnel" asp-action="Create" style="width: 50%; text-align: left;">
-    <div asp-validation-summary="ModelOnly"></div>
-
-    <div>
-        <label>Информация о работники</label><br />
-        <select asp-for="EmployeeRegistrationLogId">
-            @foreach (var item in Model.HistoryOfAppointments)
-            {
-                <option value="@item.EmployeeRegistrationLog.EmployeeRegistrationId">
-            @item.EmployeeRegistrationLog.Worker.Surname 
-            @item.EmployeeRegistrationLog.Worker.Name 
-            @item.EmployeeRegistrationLog.Worker.DoubleName, 
-            @item.EmployeeRegistrationLog.Worker.positon.JobTitle
-                </option>
-            }
-        </select>
-    </div>
-    <br />
-    <div>
-        <label>Должность</label><br />
-        <select asp-for="TablePositionId">
-            @foreach (var item in Model.positions)
-            {
-                <option value="@item.TablePositionId">@item.Position.JobTitle</option>
-            }
-        </select>
-    </div>
-    <br /><br /><br />
-    <div>
-        <input type="submit" value="Добавить" style="width: 50%; margin: 0 auto; text-align: start, " text-align: center;" />
-    </div>
-</form>
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+</head>
+<body>
+    <form method="post" asp-controller="ReserveOfPersonnel" asp-action="Create" class="form">
+        <div asp-validation-summary="ModelOnly"></div>
+        <h2 class="form_title">Добавления в резерв</h2>
+        <div class="box">
+            <label class="form_label">Информация о работники</label><br />
+            <select asp-for="EmployeeRegistrationLogId">
+                 @foreach (var item in Model.HistoryOfAppointments)
+                  {
+                    <option value="@item.EmployeeRegistrationLog.EmployeeRegistrationId">
+                        @item.EmployeeRegistrationLog.Worker.Surname
+                        @item.EmployeeRegistrationLog.Worker.Name
+                        @item.EmployeeRegistrationLog.Worker.DoubleName,
+                        @item.EmployeeRegistrationLog.Worker.positon.JobTitle
+                    </option>
+                  }
+            </select>
+        </div>
+        <div class="box">
+            <label  class="form_label">Должность</label><br />
+            <select asp-for="TablePositionId">
+                @foreach (var item in Model.positions)
+                {
+                    <option value="@item.TablePositionId">@item.Position.JobTitle</option>
+                }
+            </select>
+        </div>
+        <br />
+        <div>
+            <input type="submit" value="Добавить" class="form_button"/>
+            <a class="form_button" asp-controller="ReserveOfPersonnel" asp-action="Index" style=" text-decoration: none;">Назад</a>
+        </div>
+    </form>
+</body>

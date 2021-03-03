@@ -262,16 +262,7 @@ namespace WebApplicationDiplom.Models
                 if (result2.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, "user");
-                    await userManager.AddToRoleAsync(admin, "admin");
-                    TableOrganizations organizations = new TableOrganizations
-                    {
-                        UserId = admin.Id,
-                        NameOfOrganization = "Admin",
-                        SubordinationId = 0,
-                        TypeOrganization = "Admin",
-                        Email = ""
-                    };
-                    context.TableOrganizations.Add(organizations);
+                    await userManager.AddToRoleAsync(admin, "admin");   
                 }
             }
             await context.SaveChangesAsync();
