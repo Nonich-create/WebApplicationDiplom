@@ -68,7 +68,7 @@ namespace WebApplicationDiplom.Controllers
 
             var educationals = await _context.TableEducational
                 .Include(i => i.EducationalInstitutions)
-                .Include(i => i.position)
+                .Include(i => i.tableSpecialty)
                 .Include(i => i.Worker)
                 .Where(i => i.Worker.TableOrganizationsId == TableOrganizations).ToListAsync();
 
@@ -204,6 +204,19 @@ namespace WebApplicationDiplom.Controllers
              || i.Position.Position.JobTitle == "Директор")
             .ToListAsync();
 
+            var tablePositions = await _context.TablePosition
+                .Include(i => i.Organizations)
+                .Include(i => i.Position)
+                 .Where(i => i.Position.JobTitle == "Председатель правления"
+             || i.Position.JobTitle == "Председатель ревизионной комиссии"
+             || i.Position.JobTitle == "Директор филиала"
+             || i.Position.JobTitle == "И.о.председателя правления"
+             || i.Position.JobTitle == "И.о.директора филиала"
+             || i.Position.JobTitle == "И.о.директора"
+             || i.Position.JobTitle == "И.о.председателя ревизионной комиссии"
+             || i.Position.JobTitle == "Директор")
+            .ToListAsync();
+
             var AllhistoryOfAppointments = await _context.TableHistoryOfAppointments
             .Include(i => i.Position)
             .Include(i => i.Position.Position)
@@ -216,7 +229,7 @@ namespace WebApplicationDiplom.Controllers
 
             var educationals = await _context.TableEducational
                 .Include(i => i.EducationalInstitutions)
-                .Include(i => i.position)
+                .Include(i => i.tableSpecialty)
                 .Include(i => i.Worker)
                 .Include(i => i.Qualification)
                 .ToListAsync();
@@ -236,6 +249,8 @@ namespace WebApplicationDiplom.Controllers
 
             var organizations = await _context.TableOrganizations
                 .ToListAsync();
+
+
             TheListOfPersonnelReserveViewModel model = new TheListOfPersonnelReserveViewModel
             {
                 Id = TableOrganizations,
@@ -245,6 +260,8 @@ namespace WebApplicationDiplom.Controllers
                 advancedTrainingViewModels = advancedTrainings,
                 Organizations = organizations,
                 AllHistoryOfAppointments = AllhistoryOfAppointments,
+                tablePositions = tablePositions
+                
             };
             return model;
         }
@@ -264,6 +281,13 @@ namespace WebApplicationDiplom.Controllers
              || i.Position.Position.JobTitle == "Председатель правления облпотребобщества")
             .ToListAsync();
 
+            var tablePositions = await _context.TablePosition
+              .Include(i => i.Organizations)
+              .Include(i => i.Position)
+   .Where(i => i.Position.JobTitle == "Председатель правления облпотребсоюза"
+             || i.Position.JobTitle == "Председатель правления облпотребобщества")
+          .ToListAsync();
+
             var AllhistoryOfAppointments = await _context.TableHistoryOfAppointments
             .Include(i => i.Position)
             .Include(i => i.Position.Position)
@@ -276,7 +300,7 @@ namespace WebApplicationDiplom.Controllers
 
             var educationals = await _context.TableEducational
                 .Include(i => i.EducationalInstitutions)
-                .Include(i => i.position)
+                .Include(i => i.tableSpecialty)
                 .Include(i => i.Worker)
                 .Include(i => i.Qualification)
                 .ToListAsync();
@@ -305,6 +329,7 @@ namespace WebApplicationDiplom.Controllers
                 advancedTrainingViewModels = advancedTrainings,
                 Organizations = organizations,
                 AllHistoryOfAppointments = AllhistoryOfAppointments,
+                tablePositions = tablePositions
             };
             return model;
         }

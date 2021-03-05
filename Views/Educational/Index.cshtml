@@ -10,7 +10,7 @@
         <th>Тип образования</th>
         <th>Образования</th>
         <th>Учреждения образования</th>
-        <th>Должность</th>
+        <th>Специальность</th>
         <th>Квалификация</th>
         <th>Поступление</th>
         <th>Окончание</th>
@@ -22,7 +22,7 @@
     <td>@educational.EducationType.Replace("_"," ")</td>
     <td>@educational.QualificationEducation.Replace("_", " ")</td>
     <td>@educational.EducationalInstitutions.NameEducationalInstitutions</td>
-    <td>@educational.position.JobTitle</td>
+    <td>@educational.tableSpecialty.Specialty</td>
     <td>@educational.Qualification.Qualification</td>
     <td>@educational.StartDate.ToString().Remove(10)</td>
     <td>@educational.EndDate.ToString().Remove(10)</td>

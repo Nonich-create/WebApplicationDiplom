@@ -25,7 +25,7 @@ namespace WebApplicationDiplom.Controllers
 
                  var educationales = _context.TableEducational
                 .Include(p => p.Worker)
-                .Include(p => p.position)
+                .Include(p => p.tableSpecialty)
                 .Include(p => p.Qualification)
                 .Include(p => p.EducationalInstitutions)
                 .Include(p => p.Worker.Worker)
@@ -41,18 +41,23 @@ namespace WebApplicationDiplom.Controllers
             (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
 
             var Worker = await _context.employeeRegistrationLogs
-                .Include(i => i.Worker)
-                .Include(i => i.Worker.positon)
-                .Include(i => i.Organizations)          
-                .ThenInclude(i => i.users)
-                .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
-     
-            ViewBag.EducationalInstitutionsId = new SelectList(_context.EducationalInstitutions, "EducationalInstitutionsId", "NameEducationalInstitutions");
-            ViewBag.PositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
-            ViewBag.QualificationId = new SelectList(_context.TableQualification, "QualificationId", "Qualification");
+            .Include(i => i.Worker)
+            .Include(i => i.Organizations)
+            .ThenInclude(i => i.users)
+            .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
+
+            var Qualification = await _context.TableQualification.ToListAsync();
+            var Educational = await _context.EducationalInstitutions.ToListAsync();
+            var Specialties = await _context.tableSpecialties.ToListAsync();
+
+
+  
             EducationalViewModel model = new EducationalViewModel
             {
-                workers = Worker
+                workers = Worker,
+                educationals = Educational,
+                tableSpecialties = Specialties,
+                qualifications = Qualification
             };
             return View(model);
         }
@@ -70,7 +75,7 @@ namespace WebApplicationDiplom.Controllers
                     StartDate = model.StartDate,
                     EndDate = model.EndDate,
                     EducationalInstitutionsId = model.EducationalInstitutionsId,
-                    PositionId = model.PositionId,
+                    tableSpecialtySpecialtyId = model.tableSpecialtySpecialtyId,
                     QualificationId = model.QualificationId,
                     WorkerEmployeeRegistrationId = model.EmployeeRegistrationLogId
                 };
@@ -131,31 +136,29 @@ namespace WebApplicationDiplom.Controllers
             return View();
         }
         #endregion
-        #region отображения добавления должности
+        #region отображения добавления специальности
         [HttpGet]
-        public IActionResult CreateJob()
+        public IActionResult CreateSpecialty()
         {
             return View();
         }
         #endregion
-        #region добавления должности в справочник
+        #region добавления специальности в справочник
         [HttpPost]
-        public async Task<IActionResult> CreateJob(Position model)
+        public async Task<IActionResult> CreateSpecialty(TableSpecialty model)
         {
             if (ModelState.IsValid)
             {
-                Position position = await _context.Position.FirstOrDefaultAsync
-                    (i => i.JobTitle == model.JobTitle);
+                TableSpecialty position = await _context.tableSpecialties.FirstOrDefaultAsync
+                    (i => i.Specialty == model.Specialty);
                 if (position == null)
                 {
-                    await _context.Position.AddAsync(model);
+                    await _context.tableSpecialties.AddAsync(model);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Create");
                 }
-
-
             }
-            return View();
+            return View(model);
         }
         #endregion
         #region удаления образования работника

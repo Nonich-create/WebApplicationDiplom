@@ -46,8 +46,6 @@ namespace WebApplicationDiplom.Controllers
 
             var employees = await _context.employeeRegistrationLogs
                .Include(i => i.Worker)
-               .Include(i => i.Organizations)
-               .Include(i => i.Worker.positon)
                .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
             //var position = await _context.TablePosition.Include(i => i.Position)
@@ -120,7 +118,6 @@ namespace WebApplicationDiplom.Controllers
                         var employees = await _context.employeeRegistrationLogs
                .Include(i => i.Worker)
                .Include(i => i.Organizations)
-               .Include(i => i.Worker.positon)
                .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
                         HistoryOfAppointmentsViewModel modelResult = new HistoryOfAppointmentsViewModel
                         {

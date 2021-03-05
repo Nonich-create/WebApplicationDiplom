@@ -55,7 +55,7 @@
                                 @itemEducation.EducationType.Replace("_", " ").Insert(itemEducation.EducationType.Length, ", ")
                                 @itemEducation.EndDate.ToString().Remove(10).Remove(0, 6).Insert(4, ", ")
                                 @itemEducation.EducationalInstitutions.NameEducationalInstitutions.Insert(itemEducation.EducationalInstitutions.NameEducationalInstitutions.Length, ", ")
-                                @itemEducation.position.JobTitle
+                                @itemEducation.tableSpecialty.Specialty
                             }
                             <br />
                         }
@@ -107,7 +107,7 @@
                                         @itemEducation.EducationType.Replace("_", " ").Insert(itemEducation.EducationType.Length, ", ")
                                         @itemEducation.EndDate.ToString().Remove(10).Remove(0, 6).Insert(4, ", ")
                                         @itemEducation.EducationalInstitutions.NameEducationalInstitutions.Insert(itemEducation.EducationalInstitutions.NameEducationalInstitutions.Length, ", ")
-                                        @itemEducation.position.JobTitle
+                                        @itemEducation.tableSpecialty.Specialty
                                     }
                                     <br />
                                 }

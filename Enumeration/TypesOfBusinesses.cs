@@ -14,7 +14,12 @@ namespace WebApplicationDiplom.Enumeration
         [Display(Name = "Филиал")]
         Филиал,
         [Display(Name = "Заготторг")]
-        Заготторг
+        Заготторг,
+        [Display(Name = "Облпотребсоюз")]
+        облпотребсоюз,
+            [Display(Name = "Облпотребобщество")]
+        облпотребобщество
+
 
     }
 }

@@ -23,6 +23,7 @@ namespace WebApplicationDiplom.Models
         public DbSet<Worker> Worker { get; set; }
         public DbSet<ReserveOfPersonnel> reserveOfPersonnels { get; set; }
         public DbSet<AdvancedTraining> advancedTrainings { get; set; }
+        public DbSet<TableSpecialty> tableSpecialties { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
          : base(options)
         {

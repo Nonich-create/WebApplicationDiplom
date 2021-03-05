@@ -28,22 +28,16 @@ namespace WebApplicationDiplom.Controllers
                 (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
             var employee = _context.employeeRegistrationLogs 
            .Include(p => p.Worker).Include(p =>p.Organizations).Where(p => p.TableOrganizationsId == TableOrganizations)
-           .Include(p => p.Worker.positon)
-
            ;
             return View(await employee.ToListAsync());
         }
         #endregion
         #region отображение добавления работника
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            var positions = await _context.Position.ToListAsync();
-            RegisterWorkerViewModel model = new RegisterWorkerViewModel
-            {
-                positions = positions,
-            };
-            return View(model);
+
+            return View();
         }
         #endregion
         #region добавления работника
@@ -61,7 +55,6 @@ namespace WebApplicationDiplom.Controllers
                     Name = model.Name,
                     DoubleName = model.DoubleName,
                     DateOfBirth = model.DateOfBirth,
-                    PositionId = model.PositionId
                 };
                 _context.Worker.Add(worker);
                 await _context.SaveChangesAsync();
@@ -78,8 +71,6 @@ namespace WebApplicationDiplom.Controllers
             }
             else
             {
-                var positions = await _context.Position.ToListAsync();
-                model.positions = positions;
                 return View(model);
             }
         }

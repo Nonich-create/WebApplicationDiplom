@@ -16,8 +16,6 @@ namespace WebApplicationDiplom.Models
         public string DoubleName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public List<EmployeeRegistrationLog> employeeRegistrationLogs { get; set; }
-        public int? PositionId { get; set; }
-        public Position? positon { get; set; }
         public Worker()
         {
             employeeRegistrationLogs = new List<EmployeeRegistrationLog>();

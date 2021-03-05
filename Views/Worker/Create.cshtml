@@ -32,15 +32,6 @@
             <input class="form_input" asp-for="DateOfBirth" />
             <span asp-validation-for="DateOfBirth"></span>
         </div>
-        <div class="box">
-            <label class="form_label">Должность</label>
-            <select asp-for="PositionId">
-                @foreach (var item in Model.positions)
-                {
-                    <option value="@item.PositionId">@item.JobTitle</option>
-                }
-            </select>
-        </div>
         <br />
         <div  >
             <button class="form_button" type="submit" value="Регистрация">

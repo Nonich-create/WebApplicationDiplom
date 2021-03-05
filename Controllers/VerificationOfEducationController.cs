@@ -30,7 +30,6 @@ namespace WebApplicationDiplom.Controllers
                 .Include(p => p.employeeRegistrationLog)
                 .Include(p => p.employeeRegistrationLog.Organizations)
                 .Include(p => p.employeeRegistrationLog.Worker)
-                .Include(p => p.employeeRegistrationLog.Worker.positon)
                 .Where(p => p.employeeRegistrationLog.TableOrganizationsId == TableOrganizations);
             
             return View(await verificationofeducation.ToListAsync());
@@ -46,7 +45,6 @@ namespace WebApplicationDiplom.Controllers
             var employees = await _context.employeeRegistrationLogs
                 .Include(i => i.Worker)
                 .Include(i => i.Organizations)
-                .Include(i => i.Worker.positon)
                 .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
             var position = await _context.Position.ToListAsync();

@@ -26,7 +26,6 @@ namespace WebApplicationDiplom.Controllers
             var reverveofpersonnel = _context.reserveOfPersonnels
                 .Include(p => p.employeeRegistrationLog)
                 .Include(p => p.employeeRegistrationLog.Worker)
-                .Include(p => p.employeeRegistrationLog.Worker.positon)
                 .Include(p => p.tablePosition.Position)
                 .Where(p => p.tablePosition.TableOrganizationsId == TableOrganizations)
                 ;
@@ -45,7 +44,6 @@ namespace WebApplicationDiplom.Controllers
             var employees = await _context.employeeRegistrationLogs
                  .Include(i => i.Worker)
                  .Include(i => i.Organizations)
-                 .Include(i => i.Worker.positon)
                  .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
             var TablePositions = await _context.TablePosition
@@ -56,8 +54,6 @@ namespace WebApplicationDiplom.Controllers
 
             var historyOfAppointments = await _context.TableHistoryOfAppointments
                 .Include(i =>i.EmployeeRegistrationLog)
-                .Include(i =>i.EmployeeRegistrationLog.Worker)
-                .Include(i =>i.EmployeeRegistrationLog.Worker.positon)
                 .Include(i =>i.Position)
                 .Where(i => i.DateOfDismissal == null)
                 .Where(i => i.EmployeeRegistrationLog.TableOrganizationsId == TableOrganizations)

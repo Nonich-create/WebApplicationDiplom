@@ -13,6 +13,7 @@ namespace WebApplicationDiplom.ViewModels
         public List<AdvancedTraining> advancedTrainingViewModels { get; set; }
         public List<EmployeeRegistrationLog> employeeRegistrationLogs { get; set; }
         public List<TableOrganizations> Organizations { get; set; }
+        public List<TablePosition> tablePositions { get; set; }
 
     }
 }

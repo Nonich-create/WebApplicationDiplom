@@ -1,4 +1,4 @@
-﻿@model WebApplicationDiplom.ViewModels.JobDirectoryViewModel
+﻿@model WebApplicationDiplom.ViewModels.SpecialtyViewModel
 
 @{
     ViewBag.Title = "Добавления в справочник";
@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
 </head>
 <body>
-    <form method="post" asp-controller="Educational" asp-action="CreateJob" class="form">
+    <form method="post" asp-controller="Educational" asp-action="CreateSpecialty" class="form">
         <div asp-validation-summary="ModelOnly"></div>
-        <h2 class="form_title">Добавление должности в организацию</h2>
+        <h2 class="form_title">Добавление специальности в справчоник</h2>
         <div class="form_grup">
-            <label class="form_label" asp-for="JobTitle">Название должности</label><br />
-            <input class ="form_input"asp-for="JobTitle" />
-            <span asp-validation-for="JobTitle"></span>
+            <label class="form_label" asp-for="Specialty">Cпециальность</label><br />
+            <input class="form_input" asp-for="Specialty" />
+            <span asp-validation-for="Specialty"></span>
         </div>
         <br />
         <div class="form_grup">

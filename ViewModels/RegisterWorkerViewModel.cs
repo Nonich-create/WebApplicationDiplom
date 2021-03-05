@@ -31,12 +31,5 @@ namespace WebApplicationDiplom.ViewModels
         public DateTime DateOfBirth { get; set; }
 
 
-        [DataType(DataType.Text)]
-        [Required(ErrorMessage = "Не указана должность")]
-        [Display(Name = "Должность")]
-        public int PositionId { get; set; }
-        public List<Position> positions = new List<Position>();
-        public Position Position { get; set; }
-
     }
 }

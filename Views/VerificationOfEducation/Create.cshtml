@@ -16,7 +16,7 @@
             <select asp-for="EmployeeRegistrationLogId">
                 @foreach (var item in Model.employeeRegistrationLogs)
                 {
-                    <option value="@item.EmployeeRegistrationId">@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName, @item.Worker.positon.JobTitle</option>
+                    <option value="@item.EmployeeRegistrationId">@item.Worker.Surname @item.Worker.Name @item.Worker.DoubleName,</option>
                 }
             </select>
         </div>

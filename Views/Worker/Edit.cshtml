@@ -21,10 +21,6 @@
         <label asp-for="DateOfBirth" class="control-label">Дата рождения</label>
         <input type="date" asp-for="DateOfBirth" class="form-control" />
     </div>
-    <div>
-        <label>Должность</label>
-        @Html.DropDownListFor(model => model.PositionId, ViewBag.TablePositionId as SelectList)
-    </div>
     <div class="form-group">
         <input type="submit" value="Сохранить" class="btn btn-default" />
     </div>

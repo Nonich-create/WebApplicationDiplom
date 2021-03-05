@@ -195,7 +195,12 @@ namespace WebApplicationDiplom.Models
                       }                                     ,
                             new Position
                       {
-                          JobTitle = "Председатель правления   облпотребобщества"
+                          JobTitle = "Председатель правления облпотребобщества"
+                      }
+                              ,
+                            new Position
+                      {
+                          JobTitle = "Заместитель директора по торговле и общественному питанию"
                       }
                 });
             }

@@ -10,7 +10,7 @@ namespace WebApplicationDiplom.ViewModels
     {
         public TypeOfEducation EducationType { get; set; }
         public QualificationEducation QualificationEducation { get; set; }
-
+    
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "Не указан работник ")]
         [Display(Name = "Работник")]
@@ -36,7 +36,7 @@ namespace WebApplicationDiplom.ViewModels
         [Required(ErrorMessage = "Не указана должность")]
         [DataType(DataType.Text)]
         [Display(Name = "Должность")]
-        public int PositionId { get; set; }
+        public int tableSpecialtySpecialtyId { get; set; }
 
         [Required(ErrorMessage = "Не указана квалификация")]
         [DataType(DataType.Text)]
@@ -44,10 +44,9 @@ namespace WebApplicationDiplom.ViewModels
         public int QualificationId { get; set; }
 
         public List<EmployeeRegistrationLog> workers { get; set; }
-        public IEnumerable<EducationalInstitutions> educationals { get; set; }
-        public IEnumerable<TableQualification> qualifications { get; set; }
-      
-        public IEnumerable<Position> positions { get; set; }
+        public List<EducationalInstitutions> educationals { get; set; }
+        public List<TableQualification> qualifications { get; set; }
+        public List<TableSpecialty> tableSpecialties { get; set; }
 
     }
 }

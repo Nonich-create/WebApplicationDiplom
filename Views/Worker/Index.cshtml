@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Работники";
 }
-<a asp-action="Create">Добавить пользователя</a>
+<a asp-action="Create">Добавить работника</a>
  
 <table class="table">
     <tr>
@@ -16,7 +16,6 @@
     @foreach (EmployeeRegistrationLog worker in Model)
     {
 <tr>
-    <td>@worker.Worker.positon.JobTitle</td>
     <td>@worker.Worker.Surname</td>
     <td>@worker.Worker.Name</td>
     <td>@worker.Worker.DoubleName</td>
