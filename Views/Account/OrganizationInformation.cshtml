@@ -12,7 +12,7 @@
         <label>Название организации: </label>
         <a>@item.NameOfOrganization</a><br />
         <label>Тип организации: </label>
-        <a>@item.TypeOrganization</a><br />
+        <a>@item.TypeOrganization.Replace('_',' ')</a><br />
         <label>Электронный адрес: </label>
         <a>@item.Email</a><br />
         <a asp-action="Edit" asp-controller="Account" asp-route-id="@item.TableOrganizationsId">Изменить</a>

@@ -43,9 +43,12 @@ namespace WebApplicationDiplom.Controllers
                 .Include(i => i.Worker)
                 .Include(i => i.Organizations)
                 .ThenInclude(i => i.users)
+                .OrderBy(i => i.Worker.Surname)
                 .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
-            var educationals = await _context.EducationalInstitutions.ToListAsync();
+            var educationals = await _context.EducationalInstitutions
+                .OrderBy(i => i.NameEducationalInstitutions)
+                .ToListAsync();
 
             AdvancedTrainingViewModel model = new AdvancedTrainingViewModel
             {

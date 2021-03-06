@@ -44,12 +44,14 @@ namespace WebApplicationDiplom.Controllers
             var employees = await _context.employeeRegistrationLogs
                  .Include(i => i.Worker)
                  .Include(i => i.Organizations)
+                 .OrderBy(i => i.Worker.Surname)
                  .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
             var TablePositions = await _context.TablePosition
                 .Include(i => i.Position)
-                .Include(i => i.Organizations)   
+                .Include(i => i.Organizations) 
                 .ThenInclude(i => i.users)
+                                .OrderBy(i => i.Position.JobTitle)
                 .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
             var historyOfAppointments = await _context.TableHistoryOfAppointments

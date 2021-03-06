@@ -45,9 +45,12 @@ namespace WebApplicationDiplom.Controllers
             var employees = await _context.employeeRegistrationLogs
                 .Include(i => i.Worker)
                 .Include(i => i.Organizations)
+                .OrderBy(i => i.Worker.Surname)
                 .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
-            var position = await _context.Position.ToListAsync();
+            var position = await _context.Position
+                .OrderBy(i => i.JobTitle)
+                .ToListAsync();
 
 
             VerificationOfEducationViewModel model = new VerificationOfEducationViewModel

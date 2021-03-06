@@ -46,17 +46,14 @@ namespace WebApplicationDiplom.Controllers
 
             var employees = await _context.employeeRegistrationLogs
                .Include(i => i.Worker)
+               .OrderBy(i => i.Worker.Surname)
                .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
-
-            //var position = await _context.TablePosition.Include(i => i.Position)
-            //   .Where(i => i.TableOrganizationsId == TableOrganizations)
-            //   .Select(i => new { TablePositionId = i.TablePositionId, JobTitle = i.Position.JobTitle }).ToListAsync();
 
             var position = await _context.TablePosition
                 .Include(i => i.Position)
+                .OrderBy(i => i.Position.JobTitle)
                 .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
-            //ViewBag.TablePositionId = new SelectList(position, "TablePositionId", "JobTitle");
             var historyofappointments = _context.TableHistoryOfAppointments
               .Include(p => p.Position)
               .Include(p => p.EmployeeRegistrationLog)

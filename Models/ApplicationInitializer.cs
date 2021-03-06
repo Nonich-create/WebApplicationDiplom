@@ -18,124 +18,56 @@ namespace WebApplicationDiplom.Models
                     new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "Частное учреждение образования Минский институт управления"
+                        ,Abbreviation ="ЧУОМиу"
                     },
                       new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "Частное учреждение образования Белорусский институт правоведения"
+                           ,Abbreviation ="ЧУОБИП"
                     },  new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "Харьковский электротехнический техникум"
+                           ,Abbreviation ="ХЭТ"
                     },  new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "ФПК ИПК при Гомельском кооперативном институте"
-                    },  new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Факультет повышения квалификации руководящих работников и специалистов по бух. учету и финансам"
-                    },  new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Факультет повышения квалификации ИПК при ГКИ по обеспечению сохранности собственности"
-                    },  new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Факультет повышения квалификации ИПК при ГКИ"
+                           ,Abbreviation ="ФПКИПК"
                     },  new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "Учреждение образования Республиканский институт профессионального образования"
+                           ,Abbreviation ="УОРИПО"
                     },  new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "Учреждение образования БГИПК по стандартизации, метрологии и у3правлению качеством"
-                    },  new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Учебно-образовательное учреждение БГУ Республиканский институт высшей школы"
+                           ,Abbreviation ="УОБГИПК"
                     },  new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "УО Республиканский институт профессионального образования"
+                           ,Abbreviation ="УОРИПО"
                     },  new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "УО Молодечненский торгово-экономический колледж Белкоопсоюза"
-                    },  new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "УО Молодечненский государственный политехнический профессиональный лицей"
+                           ,Abbreviation ="УОМТЭКБ"
                     },  new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "УО Минский государственный лингвистический университет"
+                           ,Abbreviation ="УОМГЛУ"
                     },  new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "УО Белорусский государственный экономический университет"
+                           ,Abbreviation ="УОБГЭУ"
                     },  new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "УО Белорусский государственный педагогический университет имени Максима Танка"
-                    },  new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "УНК ПК МКИ Центросоюза"
-                    },  new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Техникум Молодечненского учебно-производственного комплекса ПТУ-техникум"
-                    },  new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Спецфакультет психолодической переподготовки УО БГЭУ"
-                    },  new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Республиканский институт профессионального образования"
-                    },  new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Республиканский институт инновационных технологий	"
-                    },  new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Республиканский институт высшей школы БГУ"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Профессионально-техническое училище №21 им. Ленинского комсомола"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Пинское педагогическое училище имени А.С. Пушкина"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Пинский учетно-кредитный техникум	"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Ошмянский государственный сельскохозяйственный техникум"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "ОАО Универсалпромстрой"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "НО учреждение Современная гуманитарная академия"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Московский орден Дружбы народов кооперативного института Центросоюза"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Московский новый юридический институт"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Молодечненское среднее ПТУ-21"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Молодечненское профессионально-техническое училище №87"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Молодечненский учетно-плановый техникум Белкоопсоюза"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Молодечненский торгово-экономический колледж"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Молодечненский техникум учебно-производственного комплекса ПТУ-техникум"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Могилевский государственный педагогический институт имени А. Кулешова"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Мінскі абласны УПК і ПКР і СА"
-                    }, new EducationalInstitutions
+                           ,Abbreviation ="УОБГПУ"
+                    },  new EducationalInstitutions                
                     {
                         NameEducationalInstitutions = "Минский институт управления"
+                           ,Abbreviation ="МИУ"
                     }, new EducationalInstitutions
                     {
                         NameEducationalInstitutions = "Минский институт культуры"
-                    }, new EducationalInstitutions
-                    {
-                        NameEducationalInstitutions = "Белорусский государственный институт повышения квалификации и переподготовки кадров"
+                           ,Abbreviation ="МИК"
                     }
                 }
                 );
@@ -254,7 +186,7 @@ namespace WebApplicationDiplom.Models
                     {
                         NameOfOrganization = "Белкоопсоюз",
                         UserId = userBKS.Id,
-                        TypeOrganization = "Главный офис",
+                        TypeOrganization = "Белкоопсоюз",
                         Email = "",
                         SubordinationId = 0,
 

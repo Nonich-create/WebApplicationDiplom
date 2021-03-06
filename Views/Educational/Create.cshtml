@@ -41,7 +41,7 @@
             <select asp-for="EducationalInstitutionsId">
                 @foreach (var item in Model.educationals)
                 {
-                    <option value="@item.EducationalInstitutionsId">@item.NameEducationalInstitutions</option>
+                    <option  value="@item.EducationalInstitutionsId">@item.NameEducationalInstitutions</option>
                 }
             </select>
             <span asp-validation-for="EducationalInstitutionsId"></span>

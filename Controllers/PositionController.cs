@@ -30,8 +30,9 @@ namespace WebApplicationDiplom.Controllers
         #region отображения регистрации должности в организации
         public async Task<IActionResult> CreateAsync() 
         {
-            var positions = await _context.Position.ToListAsync();
-          //  ViewBag.PositionId = new SelectList(_context.Position, "PositionId", "JobTitle");
+            var positions = await _context.Position
+                .OrderBy(i => i.JobTitle)
+                .ToListAsync();
             PositionViewModel model = new PositionViewModel
             {
                 positions = positions,

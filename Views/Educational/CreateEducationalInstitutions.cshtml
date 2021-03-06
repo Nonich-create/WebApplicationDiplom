@@ -17,10 +17,15 @@
             <input class="form_input" asp-for="NameEducationalInstitutions" />
             <span asp-validation-for="NameEducationalInstitutions"></span>
         </div>
+        <div class="form_grup">
+            <label class="form_label" asp-for="Abbreviation">Аббревиатура</label><br />
+            <input class="form_input" asp-for="Abbreviation" />
+            <span asp-validation-for="Abbreviation"></span>
+        </div>
         <br />
         <div>
             <input type="submit" value="Сохранить" class="form_button" />
-            <a class="form_button"   asp-controller="Educational" asp-action="Create" style=" text-decoration: none;">Назад</a><br />
+            <a class="form_button" asp-controller="Educational" asp-action="Create" style=" text-decoration: none;">Назад</a><br />
         </div>
     </form>
 </body>

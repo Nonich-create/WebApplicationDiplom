@@ -44,11 +44,18 @@ namespace WebApplicationDiplom.Controllers
             .Include(i => i.Worker)
             .Include(i => i.Organizations)
             .ThenInclude(i => i.users)
+            .OrderBy(i => i.Worker.Surname)
             .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
 
-            var Qualification = await _context.TableQualification.ToListAsync();
-            var Educational = await _context.EducationalInstitutions.ToListAsync();
-            var Specialties = await _context.tableSpecialties.ToListAsync();
+            var Qualification = await _context.TableQualification
+                .OrderBy(i => i.Qualification)
+                .ToListAsync();
+            var Educational = await _context.EducationalInstitutions
+                  .OrderBy(i => i.NameEducationalInstitutions)
+                .ToListAsync();
+            var Specialties = await _context.tableSpecialties
+                    .OrderBy(i => i.Specialty)
+                .ToListAsync();
 
 
   
