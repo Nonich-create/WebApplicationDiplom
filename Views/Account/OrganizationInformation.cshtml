@@ -2,20 +2,59 @@
 @{
     ViewBag.Title = "";
 }
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/StyleTable.css" />
+    <link rel="stylesheet" href="~/css/ddott.css" />
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+</head>
+<div id="demotext">
+    <p style="font-size: 44pt;">Личный кабинет</p>
  
-
+</div>
 <div>
     @foreach (var item in Model.TableOrganizations)
     {
-        <label>Идентификатор: </label>
+        <label>Логин: </label>
         <a>@User.Identity.Name</a><br />
         <label>Название организации: </label>
         <a>@item.NameOfOrganization</a><br />
         <label>Тип организации: </label>
-        <a>@item.TypeOrganization.Replace('_',' ')</a><br />
+        <a>@item.TypeOrganization.Replace('_', ' ')</a><br />
         <label>Электронный адрес: </label>
         <a>@item.Email</a><br />
-        <a asp-action="Edit" asp-controller="Account" asp-route-id="@item.TableOrganizationsId">Изменить</a>
-        <a class="btn btn-sm btn-primary" asp-controller="Account"  asp-action="ChangePassword" asp-route-id="@Model.users">Сменить пароль</a>
-    }
-</div>
+        <label>Адрес: </label><br />
+        @foreach (var itemadreess in Model.addresses)
+        {
+            <label>
+                @itemadreess.locality.District.Area.NameArea обл.,
+                @itemadreess.locality.District.NameDistrict район,
+                @itemadreess.locality.Typelocality.Replace('_', ' ')
+                @itemadreess.locality.Namelocality
+                @itemadreess.Adress
+                @itemadreess.PostalCode
+            </label><br />
+        }
+        <div class="ccd">
+            <a class="ddott" asp-action="Edit" asp-controller="Account" asp-route-id="@item.TableOrganizationsId">Изменить</a>
+        </div>
+
+        @if (Model.address == null)
+        {
+            <div class="ccd">   <a class="ddott" asp-action="AddAdreess" asp-controller="Account" asp-route-id="@item.TableOrganizationsId">Добавить адрес</a>      </div>
+
+        }
+        else
+        {
+            @foreach (var itemadreess in Model.addresses)
+            {
+<div class="ccd">
+    <a  class="ccd" asp-action="Delete" asp-controller="Account" asp-route-id="@itemadreess.AddressId">Удалить адрес адрес</a>
+</div>}
+                    }
+                    <div class="ccd">
+                        <a class="ddott" asp-controller="Account" asp-action="ChangePassword" asp-route-id="@item.users.Id">Сменить пароль</a>
+                    </div>
+                    }
+                </div>

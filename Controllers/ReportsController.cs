@@ -3,25 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 using WebApplicationDiplom.ViewModels;
-
 namespace WebApplicationDiplom.Controllers
 {
-  
     public class ReportsController : Controller
     {
-       
         private readonly ApplicationContext _context;
         public ReportsController(ApplicationContext context)
         {
             _context = context;
         }
-
         #region Отображения вариантов отчёта
         [HttpGet]
         public IActionResult Index()
@@ -97,56 +92,6 @@ namespace WebApplicationDiplom.Controllers
             return model;
         }
         #endregion
- 
-        //[HttpGet]
-        //public async Task<IActionResult> DownloadFile(int id)
-        //{
-        //    Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Reports/SavingReport/{id}");
-        //    using (WebClient client = new WebClient()) // WebClient class inherits IDisposable
-        //    {
-        //        //   client.DownloadFile(location, @"S:\sample.doc");
-        //        //@"S:\sample.doc"
-        //        //Response.Headers.Add("Content-Disposition", "inline;filename=somefile.ext");
-
-        //        client.DownloadFile(location, @"S:\sample.doc"); ;//("content-disposition", attachment));
-
-        //        // Or you can get the file content without saving it
-        //    //  string htmlCode =   client.DownloadString(location);
-
-        //    }
-        //    return RedirectToAction("Index");
-        //}
-
-        //#region метод для скачки файла
-        //[HttpGet]
-        //private async Task<FileResult> DownloadFile(int id)
-        //{
-        //    Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Reports/SavingReport/{id}");
-        //    WebRequest request = WebRequest.Create(location);
-        //       using (WebResponse response = await request.GetResponseAsync())
-        //       {
-        //        using (Stream stream = response.GetResponseStream())
-        //        {
-
-        //            byte[] buffer = new byte[16 * 12024];
-
-        //            using (MemoryStream ms = new MemoryStream())
-        //            {
-        //                int read;
-        //                while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
-        //                {
-        //                    ms.Write(buffer, 0, read);
-        //                }
-
-        //                string file_type = "text/doc";
-        //                string file_name = "sample.doc";
-        //                return File(ms.ToArray(), file_type, file_name);
-        //            }
-        //        }
-        //       }
-        //}
-        //#endregion
-
         [HttpGet]
         public FileResult DownloadFile(int id)
         {
@@ -158,7 +103,6 @@ namespace WebApplicationDiplom.Controllers
                 return File(client.DownloadData(location), file_type, file_name);
             }
         }
-
         [HttpGet]
         public FileResult DownloadFileChairmenOfTheManagementBoards(int id)
         {
@@ -170,12 +114,21 @@ namespace WebApplicationDiplom.Controllers
                 return File(client.DownloadData(location), file_type, file_name);
             }
         }
-
+        [HttpGet]
+        public FileResult DownloadApplicationReport4(int id)
+        {
+            Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Reports/SavingApplicationReport4/{id}");
+            using (WebClient client = new WebClient())
+            {
+                string file_type = "text/doc";
+                string file_name = $"Резерв на директоров УП, УО на 2020 (приложение 4) УП все {DateTime.Now.ToString().Remove(10).Remove(0, 6)}.doc";
+                return File(client.DownloadData(location), file_type, file_name);
+            }
+        }
         public async Task<IActionResult> SavingChairmenOfTheManagementBoards(int id)
         {
             return View(await TheModelIsFilledWithAllTheData(id));
         }
-
         [Authorize]
         public async Task<IActionResult> ChairmenOfTheManagementBoards()
         {
@@ -344,7 +297,7 @@ namespace WebApplicationDiplom.Controllers
             return View(await CreateApplicationReport(TableOrganizations));
         }
         #endregion
-        #region Формирования резерва на должности председателей правлений облпотребсоюзов, облпотребобществ на сохранения
+        #region на сохранения формирования резерва на должности председателей правлений облпотребсоюзов, облпотребобществ на сохранения
         public async Task<IActionResult> SavingApplicationReport(int id)
         {
             return View(await CreateApplicationReport(id));
@@ -361,6 +314,86 @@ namespace WebApplicationDiplom.Controllers
                 string file_name = $"Резерв на пред. правлений ОПС на 2020 (приложение 2) {DateTime.Now.ToString().Remove(10).Remove(0, 6)}.doc";
                 return File(client.DownloadData(location), file_type, file_name);
             }
+        }
+        #endregion
+        #region список лиц, включенных в кадровый резерв на должности руководителей предприятий и учреждений Белкоопсоюза 
+        private async Task<TheListOfPersonnelReserveViewModel> Reports4(int TableOrganizations)
+        {
+            var historyOfAppointments = await _context.TableHistoryOfAppointments
+            .Include(i => i.Position)
+            .Include(i => i.Position.Position)
+            .Include(i => i.EmployeeRegistrationLog)
+            .Include(i => i.EmployeeRegistrationLog.Worker)
+            .Include(i => i.Position.Organizations)
+            .Where(i => i.DateOfDismissal == null)
+            .Where(i => i.Position.Position.JobTitle.Contains("Директор"))
+            .ToListAsync();
+
+            var tablePositions = await _context.TablePosition
+              .Include(i => i.Organizations)
+              .Include(i => i.Position)
+            .Where(i => i.Position.JobTitle.Contains("Директор"))
+          .ToListAsync();
+
+            var AllhistoryOfAppointments = await _context.TableHistoryOfAppointments
+            .Include(i => i.Position)
+            .Include(i => i.Position.Position)
+            .Include(i => i.EmployeeRegistrationLog)
+            .Include(i => i.EmployeeRegistrationLog.Worker)
+            .Include(i => i.Position.Organizations)
+            .Where(i => i.DateOfDismissal == null)
+            .ToListAsync();
+
+
+            var educationals = await _context.TableEducational
+                .Include(i => i.EducationalInstitutions)
+                .Include(i => i.tableSpecialty)
+                .Include(i => i.Worker)
+                .Include(i => i.Qualification)
+                .ToListAsync();
+
+            var reserveOfPersonnels = await _context.reserveOfPersonnels
+                .Include(i => i.tablePosition)
+                .Include(i => i.employeeRegistrationLog)
+                .Include(i => i.tablePosition.Position)
+                .Include(i => i.employeeRegistrationLog.Worker)
+                .Where(i => i.EndDateReserve == null)
+                .ToListAsync();
+
+            var advancedTrainings = await _context.advancedTrainings
+                .Include(i => i.EducationalInstitutions)
+                .Include(i => i.EmployeeRegistrationLog)
+                .ToListAsync();
+
+            var organizations = await _context.TableOrganizations
+                .ToListAsync();
+            TheListOfPersonnelReserveViewModel model = new TheListOfPersonnelReserveViewModel
+            {
+                Id = TableOrganizations,
+                tableHistoryOfAppointments = historyOfAppointments,
+                tableEducationals = educationals,
+                reserveOfPersonnels = reserveOfPersonnels,
+                advancedTrainingViewModels = advancedTrainings,
+                Organizations = organizations,
+                AllHistoryOfAppointments = AllhistoryOfAppointments,
+                tablePositions = tablePositions
+            };
+            return model;
+        }
+        #endregion
+        #region Формирования резерва на должности председателей правлений облпотребсоюзов, облпотребобществ
+        [Authorize]
+        public async Task<IActionResult> ApplicationReport4()
+        {
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+            (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+            return View(await Reports4(TableOrganizations));
+        }
+        #endregion
+        #region на сохранения формирования резерва на должности председателей правлений облпотребсоюзов, облпотребобществ на сохранения
+        public async Task<IActionResult> SavingApplicationReport4(int id)
+        {
+            return View(await Reports4(id));
         }
         #endregion
     }

@@ -1,34 +1,37 @@
-﻿@model WebApplicationDiplom.ViewModels.LoginViewModel
-
-@{
-    Layout = "";
-}
-<html>
-<head runat="server">
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/style.css" />
-</head>
-<body>
-    <form method="post" asp-controller="Account" asp-action="Login" class="form" asp-route-returnUrl="@Model.ReturnUrl">
-        <h1 class="form_title">Вход</h1>
-        <div asp-validation-summary="ModelOnly"></div>
-        <div class="form_grup">
-            <label class="form_label">Идентификатор</label><br />
-            <input class="form_input" asp-for="Identifier" />
-            <span asp-validation-for="Identifier"></span>
-        </div>
-        <div>
-            <label class="form_label">Пароль</label><br />
-            <input class="form_input" asp-for="Password" />
-            <span asp-validation-for="Password"></span>
-        </div>
-        <div>
-            <label asp-for="RememberMe"></label><br />
-            <input asp-for="RememberMe" />
-        </div>
-        <div>
-            <button class="form_button" type="submit" value="Войти">Войти</button>
-        </div>
-    </form> 
-</body>
-</html>
+﻿    @model WebApplicationDiplom.ViewModels.LoginViewModel
+    @{
+        Layout = "";
+    }
+    <html>
+    <head runat="server">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="~/css/style.css" />
+        <link rel="stylesheet" href="~/css/BodyStyle.css" />
+        <link rel="stylesheet" href="~/css/StyleButton.css" />
+        <link rel="stylesheet" href="~/css/StyleInput.css" />
+    </head>
+    <body class="body">
+        <form method="post" asp-controller="Account" asp-action="Login" class="form" asp-route-returnUrl="@Model.ReturnUrl">
+            <h1 class="form_title">Вход</h1>
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form_grup">
+                <label class="form_label">Логин</label><br />
+                <input class="input" asp-for="Identifier" />
+                <span asp-validation-for="Identifier"></span>
+            </div>
+            <div>
+                <label class="form_label">Пароль</label><br />
+                <input class="input" asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div>
+                <label asp-for="RememberMe"></label><br />
+                <input asp-for="RememberMe" />
+            </div>
+            <br />
+            <div>
+                <button class="button" type="submit" value="Войти">Войти</button>
+            </div>
+        </form> 
+    </body>
+    </html>

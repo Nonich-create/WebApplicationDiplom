@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 using WebApplicationDiplom.ViewModels;
-
 namespace WebApplicationDiplom.Controllers
 {
     public class AccountController : Controller
@@ -14,6 +13,12 @@ namespace WebApplicationDiplom.Controllers
         public readonly ApplicationContext _context;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationContext context)
+        {
+            _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
@@ -29,7 +34,6 @@ namespace WebApplicationDiplom.Controllers
                     await _signInManager.PasswordSignInAsync(model.Identifier, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    // проверяем, принадлежит ли URL приложению
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -50,24 +54,14 @@ namespace WebApplicationDiplom.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
-        }
- 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,ApplicationContext context)
-        {
-            _context = context;
-            _userManager = userManager;
-            _signInManager = signInManager;
         }
         [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IActionResult> Register()
         {
             var organizations = await _context.TableOrganizations.ToListAsync();
-
-
             RegisterViewModel model = new RegisterViewModel
             {
                 organizations = organizations,
@@ -81,36 +75,21 @@ namespace WebApplicationDiplom.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { UserName = model.Identifier, Identifier = model.Identifier, };
-                // добавляем пользователя
-
                 var result = await _userManager.CreateAsync(user, model.Password);
-
-
                 if (result.Succeeded)
                 {
-
                     TableOrganizations organizations = new TableOrganizations
                     {
                         NameOfOrganization = model.OrganizationName,
                         UserId = user.Id,
                         TypeOrganization = model.Businesses.ToString(),  
                         Email = model.Email,
-                        SubordinationId = model.TableOrganizationsId,
-                        
+                        SubordinationId = model.TableOrganizationsId, 
                     };
-                    // установка куки
-               //     var UserIdentifier = await _context.Users.FirstOrDefaultAsync
-                 //   (i => i.Identifier == model.Identifier);
-        
-                 //   if (UserIdentifier == null)
-                 //   {
                         _context.TableOrganizations.Add(organizations);
                         await _context.SaveChangesAsync();
                          await _userManager.AddToRoleAsync(user, "user");
-                    //   }
-                    //   await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
-                  
                 }
                 else
                 {
@@ -130,16 +109,29 @@ namespace WebApplicationDiplom.Controllers
         {
             int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
                  (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
-            var users = _userManager.Users.ToList();
 
             var organizations = await _context.TableOrganizations
+                .Include(i => i.users)
                 .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
-
-
+            var adreess = await _context.PersTableAddresson
+                .Include(i => i.locality)
+                .Include(i => i.locality.District)
+                .Include(i => i.locality.District.Area)
+                .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
+            TableAddress tableAddress;
+            if (adreess.Count == 0)
+            {
+                 tableAddress = null;
+            }
+            else
+            {
+                 tableAddress = adreess[0];
+            }
             InformationAboutTheAccountViewModel model = new InformationAboutTheAccountViewModel
             {
                 TableOrganizations = organizations,
-                users = users,
+                addresses = adreess,
+                address = tableAddress
             };  
             return View(model);
         }
@@ -153,7 +145,9 @@ namespace WebApplicationDiplom.Controllers
             {
                 TableOrganizations organizations = await _context.TableOrganizations.FirstOrDefaultAsync(p => p.TableOrganizationsId == id);
                 if (organizations != null)
+                {
                     return View(organizations);
+                }
             }
             return NotFound();
         }
@@ -202,7 +196,7 @@ namespace WebApplicationDiplom.Controllers
                     {
                         user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
                         await _userManager.UpdateAsync(user);
-                        return RedirectToAction("Index");
+                        return RedirectToAction("OrganizationInformation");
                     }
                     else
                     {
@@ -219,7 +213,74 @@ namespace WebApplicationDiplom.Controllers
             }
             return View(model);
         }
-        #endregion 
+        #endregion
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> AddAdreess(int? id)
+        {
+            var area = await _context.TableArea.ToListAsync();
 
+            InformationAboutTheAccountViewModel model = new InformationAboutTheAccountViewModel
+            {
+                TableOrganizationsId = id,
+                areas = area,
+            };
+            return View(model); ;
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddAdreess(InformationAboutTheAccountViewModel model)
+        {
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+              (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+
+                TableDistrict district = new TableDistrict
+                {
+                    NameDistrict = model.District,
+                    AreaId = model.areaId
+                };
+                _context.TableDistrict.Add(district);
+                await _context.SaveChangesAsync();
+                Tablelocality tablelocality = new Tablelocality
+                {
+                    Typelocality = model.TypesOfLocalities.ToString(),
+                    DistrictId = district.DistrictId,
+                    Namelocality = model.Namelocality
+                };
+                _context.Tablelocality.Add(tablelocality);
+                await _context.SaveChangesAsync();
+                TableAddress address = new TableAddress
+                {
+                    Adress = model.Adress,
+                    PostalCode = model.PostalCode,
+                    TableOrganizationsId = TableOrganizations,
+                                     localityId = tablelocality.localityId,
+                };
+                _context.PersTableAddresson.Add(address);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("OrganizationInformation");
+    
+        }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                TableAddress address = await _context.PersTableAddresson.FirstOrDefaultAsync(p => p.AddressId == id);
+                Tablelocality tablelocality = await _context.Tablelocality.FirstOrDefaultAsync(p => p.localityId == address.localityId);
+                TableDistrict tableDistrict = await _context.TableDistrict.FirstOrDefaultAsync(p => p.DistrictId == tablelocality.DistrictId);
+                if (address != null)
+                {
+                    _context.PersTableAddresson.Remove(address);
+                    await _context.SaveChangesAsync();
+                    _context.Tablelocality.Remove(tablelocality);
+                    await _context.SaveChangesAsync();
+                    _context.TableDistrict.Remove(tableDistrict);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("OrganizationInformation");
+                }
+            }
+            return NotFound();
+        }
+ 
     }
 }

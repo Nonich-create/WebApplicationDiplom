@@ -1,48 +1,88 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Резерв кадров</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
+<body style="background: #333; color: #fc0">
+    <header style="background: #333; color: #fc0">
+
+        <nav class="navbar navbar-expand-sm navbar-expand-sm navbar-toggleable-sm navbar-light  box-shadow mb-3">
+            <div class="container" style="background: #333; color: #fc0">
                 <a class="nav-link text-dark"></a>
-         
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">На главную страницу</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Worker" asp-action="Index">Работники</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Educational" asp-action="Index">Образования</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="VerificationOfEducation" asp-action="Index">Аттестация</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Position" asp-action="Index">Добавить должность в организацию</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="HistoryOfAppointments" asp-action="Index">Назначение на должность</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ReserveOfPersonnel" asp-action="Index">Работника в резерве</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="AdvancedTraining" asp-action="Index">Квалификации работников</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reports" asp-action="Index">Отчёты</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="OrganizationInformation">Кабинет организации</a>
-                        </li>
-                    </ul>
-                </div>
+                @if (User.IsInRole("user"))
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="background: #333; color: #fc0">
+                        <ul class="navbar-nav flex-grow-1">
+
+                            <li class="nav-item">
+                                <a style="color:#fc0;" asp-area="" asp-controller="Home" asp-action="Index">На главную страницу</a><br />
+                                <a style="color:#fc0;" asp-area="" asp-controller="Account" asp-action="OrganizationInformation">Кабинет организации</a><br />
+                            </li>
+                            <li class="nav-item dropdown" style="background: #333; color:#fc0;">
+                                <a style="background: #333; color:#fc0;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Работники
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background: #333; color:#fc0;">
+                                    <a class="dropdown-item" style="color:#fc0;" asp-area="" asp-controller="Worker" asp-action="Index">Работники</a>
+                                    <a class="dropdown-item" style="color:#fc0;" asp-area="" asp-controller="Educational" asp-action="Index">Образования</a>
+                                    <a class="dropdown-item" style="color:#fc0;" asp-area="" asp-controller="VerificationOfEducation" asp-action="Index">Аттестация</a>
+                                    <a class="dropdown-item" style="color:#fc0;" asp-area="" asp-controller="HistoryOfAppointments" asp-action="Index">Назначенные на должность</a>
+                                    <a class="dropdown-item" style="color:#fc0;" asp-area="" asp-controller="ReserveOfPersonnel" asp-action="Index">Работники в резерве</a>
+                                    <a class="dropdown-item" style="color:#fc0;" asp-area="" asp-controller="AdvancedTraining" asp-action="Index">Квалификация работников</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown" style="background: #333; color:#fc0;">
+                                <a style="background: #333; color:#fc0;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Организация
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background: #333; color:#fc0;">
+                                    <a class="dropdown-item" style="color:#fc0;" asp-area="" asp-controller="Position" asp-action="Index">Должности в организации</a>
+
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown" style="background: #333; color:#fc0;">
+                                <a style="background: #333; color:#fc0;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Отчёты
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background: #333; color:#fc0;">
+                                    <a class="dropdown-item" style="color:#fc0;" asp-controller="Reports" asp-action="TheListOfPersonnelReserve">Список резерва кадров по организации</a>
+                                    <a class="dropdown-item" style="color:#fc0;" asp-controller="Reports" asp-action="ChairmenOfTheManagementBoards">Список резерва кадров на должности председателя правления и ревизионной комиссии облпотребсоюза</a>
+                                    <a class="dropdown-item" style="color:#fc0;" asp-controller="Reports" asp-action="ApplicationReport">
+                                        Список
+                                        лиц, включенных в кадровый резерв на должности председателей правлений
+                                        облпотребсоюзов, облпотребобществ
+                                    </a>
+                                    <a class="dropdown-item" style="color:#fc0;" asp-controller="Reports" asp-action="ApplicationReport4">
+                                        Список
+                                        лиц, включенных в кадровый резерв на должности руководителей предприятий и учреждений Белкоопсоюза
+                                    </a>
+
+
+                                </div>
+                            </li>
+                     
+
+
+
+                        </ul>
+                    </div>
+                    <div style="margin-right:8em; margin-left: auto;  min-height: 2em;   max-width: 8em;">
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <input type="submit" value="Выход" class="button" />
+                        </form>
+                    </div>
+                }
             </div>
         </nav>
     </header>
@@ -52,8 +92,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-     
+    <footer class="border-top footer text-muted" style="background: #333; color: #fc0">
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

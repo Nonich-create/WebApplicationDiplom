@@ -6,17 +6,22 @@
     Layout = "";
 }
 @*<a asp-controller="Reports" asp-action="SavingReport" asp-route-id="@Model.Id">Отчёт</a>*@
-<a asp-controller="Reports" asp-action="DownloadFile"  asp-route-id="@Model.Id">Сохранить</a>
+<a asp-controller="Reports" asp-action="DownloadFile" asp-route-id="@Model.Id">Сохранить</a>
+<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Назад</a>
+<br />
 <form method="get" asp-controller="Reports" asp-action="TheListOfPersonnelReserve">
     <div asp-validation-summary="ModelOnly"></div>
     <div style="float:right">
-        Приложение № 1
+        Приложение № __
         <br />
         к постановлению правления
         <br />
-        Минского облпотребсоюза
+        @foreach (var item in Model.tableHistoryOfAppointments)
+        {
+            @item.Position.Organizations.NameOfOrganization
+        }
         <br />
-        № 175 от 12.12.2019г.
+        @DateTime.Now.ToString().Remove(10)
     </div>
     <br />
     <br />

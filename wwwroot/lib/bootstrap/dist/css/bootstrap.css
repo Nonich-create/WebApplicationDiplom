@@ -1526,7 +1526,7 @@ pre code {
 
 .table thead th {
   vertical-align: bottom;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 2px solid #fc0;
 }
 
 .table tbody + tbody {
@@ -4058,6 +4058,7 @@ input[type="button"].btn-block {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  
 }
 
 .nav-link {

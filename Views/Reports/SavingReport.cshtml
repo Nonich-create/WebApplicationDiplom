@@ -8,13 +8,16 @@
 
 <form asp-action="SavingChairmenOfTheManagementBoards" asp-controller="Reports" asp-route-id="@Model.Id">
     <div style="text-align: right;">
-        Приложение № 1
+        Приложение № __
         <br />
         к постановлению правления
         <br />
-        Минского облпотребсоюза
+        @foreach (var item in Model.tableHistoryOfAppointments)
+        {
+            @item.Position.Organizations.NameOfOrganization
+        }
         <br />
-        № 175 от 12.12.2019г.
+        № ___ от @DateTime.Now.ToString().Remove(10)
     </div>
     <br />
     <br />
@@ -142,7 +145,4 @@
             }
         </table>
     </div>
-    Начальник отдела кадров, организационно-
-    кооперативной и идеологической работы
-
 </form>

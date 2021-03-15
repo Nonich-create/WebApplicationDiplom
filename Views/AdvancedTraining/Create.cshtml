@@ -1,17 +1,21 @@
 ﻿@model WebApplicationDiplom.ViewModels.AdvancedTrainingViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Добавления";
     Layout = "";
 }
 <head runat="server">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/StyleBox.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
 </head>
-<body>
+<body class="body">
     <form method="post" asp-controller="AdvancedTraining" asp-action="Create" class="form">
         <div asp-validation-summary="ModelOnly"></div>
         <h2 class="form_title">Добавление повышение квалификации</h2>
-        <div class="box">
+        <div class="boxDrop">
             <label class="form_label">ФИО работника</label><br />
             <select asp-for="employeesId">
                 @foreach (var item in Model.employees)
@@ -20,7 +24,7 @@
                 }
             </select>
         </div>
-        <div class="box">
+        <div class="boxDrop">
             <label class="form_label">Место повышения квалификации</label><br />
             <select asp-for="educationalsId">
                 @foreach (var item in Model.educationals)
@@ -31,18 +35,18 @@
         </div>
         <div class="form_grup">
             <label class="form_label">Дата начала</label><br />
-            <input class="form_input" asp-for="Start"/>
+            <input class="input" asp-for="Start"/>
             <span asp-validation-for="Start"></span>
         </div>
         <div class="form_grup">
             <label  class="form_label">Дата окончания </label><br />
-            <input asp-for="End" class="form_input" />
+            <input asp-for="End" class="input" />
             <span asp-validation-for="End"></span>
         </div>
         <br />
         <div>
-            <input type="submit" value="Добавить" class="form_button" />
-            <a class="form_button" asp-controller="AdvancedTraining" asp-action="Index" style=" text-decoration: none;">Назад</a>
+            <input type="submit" value="Добавить" class="button" />
+            <a class="button" asp-controller="AdvancedTraining" asp-action="Index" style=" text-decoration: none;">Назад</a>
         </div>
     </form>
 </body>

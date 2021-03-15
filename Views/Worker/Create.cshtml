@@ -6,38 +6,46 @@
 <head runat="server">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
 </head>
-<body>
+<body class="body"> 
 
     <form method="post" asp-controller="Worker" asp-action="Create" class="form">
         <div asp-validation-summary="ModelOnly"></div>
         <h1 class="form_title">Добавление работника</h1>
         <div class="form_grup">
             <label class="form_label" asp-for="Surname">Фамилия</label><br />
-            <input class="form_input" asp-for="Surname" />
+            <input class="input" asp-for="Surname" />
             <span asp-validation-for="Surname"></span>
         </div>
         <div class="form_grup">
             <label class="form_label" asp-for="Name">Имя</label><br />
-            <input class="form_input" asp-for="Name" />
+            <input class="input" asp-for="Name" />
             <span asp-validation-for="Name"></span>
         </div>
         <div class="form_grup">
             <label class="form_label" asp-for="DoubleName">Отчёство</label><br />
-            <input class="form_input" asp-for="DoubleName" />
+            <input class="input" asp-for="DoubleName" />
             <span asp-validation-for="DoubleName"></span>
         </div>
         <div class="form_grup">
             <label class="form_label" asp-for="DateOfBirth">Дата рождения</label><br />
-            <input class="form_input" asp-for="DateOfBirth" />
+            <input class="input" asp-for="DateOfBirth" />
             <span asp-validation-for="DateOfBirth"></span>
         </div>
         <br />
-        <div  >
-            <button class="form_button" type="submit" value="Регистрация">
-                Регистрация
+        <div>
+            <button class="button" type="submit" value="Регистрация">
+                Добавить
             </button>
-            <a class="form_button" asp-area="" asp-controller="Worker" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
+            
+            <a class="button" asp-area="" asp-controller="Worker" asp-action="Index"
+               style=" text-decoration: none; 
+
+            ">Назад</a><br />
         </div>
     </form>
+
 </body>

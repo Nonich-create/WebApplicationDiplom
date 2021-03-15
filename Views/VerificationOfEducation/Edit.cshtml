@@ -7,26 +7,29 @@
 <head runat="server">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/StyleBox.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
 </head>
-<body>
+<body class="body">
     <form class="form" asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@Model.Id">
         <div asp-validation-summary="ModelOnly"></div>
         <input type="hidden" asp-for="Id" class="form-control" />
-        <div class="box">
+        <div class="boxDrop">
             <label class="form_label" asp-for="VerificationStatus">Статус аттестации</label><br />
             <select asp-for="EnumerationStatus" asp-items="Html.GetEnumSelectList<VerificationStatus>()"></select>
             <span asp-validation-for="VerificationStatus"></span>
         </div>
-        <div class="box">
+        <div class="boxDrop">
             <label class="form_label" asp-for="EnumerationRecommendations">Рекомендации</label><br />
             <select asp-for="EnumerationRecommendations" asp-items="Html.GetEnumSelectList<RecommendationsAfterCertification>()"></select>
             <span asp-validation-for="EnumerationRecommendations"></span>
         </div>
         <br />
         <div class="form-group">
-            <input type="submit" value="Сохранить" class="form_button" />
-            <a class="form_button" asp-controller="VerificationOfEducation" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
+            <input type="submit" value="Сохранить" class="button" />
+            <a class="button" asp-controller="VerificationOfEducation" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
         </div>
-
     </form>
 </body>

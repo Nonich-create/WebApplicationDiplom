@@ -1,0 +1,59 @@
+﻿@using WebApplicationDiplom.Enumeration
+@model WebApplicationDiplom.ViewModels.InformationAboutTheAccountViewModel
+@{
+    ViewBag.Title = "Добавления должности в организацию";
+    Layout = "";
+}
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
+    <link rel="stylesheet" href="~/css/StyleBox.css" />
+</head>
+<body class="body">
+    <form method="post" asp-controller="Account" asp-action="AddAdreess" class="form">
+        <div asp-validation-summary="ModelOnly"></div>
+        <h2 class="form_title">Добавление адреса</h2>
+        <div class="boxDrop">
+            <label class="form_label">Область</label><br />
+            <select asp-for="areaId"  class="box">
+                @foreach (var item in Model.areas)
+                {
+                    <option value="@item.AreaId">@item.NameArea</option>
+                }
+            </select>
+            <span asp-validation-for="areaId"></span>
+        </div>
+        <br />
+        <div class="form_grup">
+            <label asp-for="District" class="form_label">Район</label><br />
+            <input asp-for="District" class="input" />
+            <span asp-validation-for="District"></span>
+        </div>
+        <div class="boxDrop">
+            <label class="form_label" asp-for="TypesOfLocalities">Тип населенного пункта</label><br />
+            <select asp-for="TypesOfLocalities" asp-items="Html.GetEnumSelectList<TypesOfLocalities>()"></select>
+            <span asp-validation-for="TypesOfLocalities"></span>
+        </div>
+        <div class="form_grup">
+            <label asp-for="Namelocality" class="form_label">Название населенного пункта</label><br />
+            <input asp-for="Namelocality" class="input" />
+            <span asp-validation-for="Namelocality"></span>
+        </div>
+        <div class="form_grup">
+            <label asp-for="Adress" class="form_label">Адрес</label><br />
+            <input asp-for="Adress" class="input" />
+        </div>
+        <div class="form_grup">
+            <label asp-for="PostalCode" class="form_label">Почтовый индекс</label><br />
+            <input asp-for="PostalCode" class="input" />
+        </div>
+        <div>
+            <input type="submit" value="Добавить" class="button" />
+            <a class="button" asp-controller="Account" asp-action="OrganizationInformation" style=" text-decoration: none;">Назад</a><br />
+        </div>
+    </form>
+</body>

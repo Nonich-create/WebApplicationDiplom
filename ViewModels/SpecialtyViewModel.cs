@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 namespace WebApplicationDiplom.ViewModels
 {
     public class SpecialtyViewModel

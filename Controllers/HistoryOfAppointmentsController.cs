@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
@@ -14,12 +11,10 @@ namespace WebApplicationDiplom.Controllers
     public class HistoryOfAppointmentsController : Controller
     {
         public readonly ApplicationContext _context;
-
         public HistoryOfAppointmentsController(ApplicationContext context)
         {
             _context = context;
         }
-
         #region отображения принятых на должность работников
         [HttpGet]
         public async Task<IActionResult> Index()

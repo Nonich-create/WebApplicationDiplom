@@ -5,18 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 using WebApplicationDiplom.ViewModels;
-
 namespace WebApplicationDiplom.Controllers
 {
     public class VerificationOfEducationController : Controller
     {
         public readonly ApplicationContext _context;
-
         public VerificationOfEducationController(ApplicationContext context)
         {
             _context = context;
         }
-
         #region отображения на странице
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -128,6 +125,5 @@ namespace WebApplicationDiplom.Controllers
             return RedirectToAction("Index");
         }
         #endregion
-
     }
 }

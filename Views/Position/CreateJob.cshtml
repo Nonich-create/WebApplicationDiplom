@@ -7,20 +7,24 @@
 <head runat="server">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/StyleBox.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
 </head>
-<body>
+<body class="body">
     <form method="post" asp-controller="Position" asp-action="CreateJob" class="form">
         <div asp-validation-summary="ModelOnly"></div>
-        <h2 class="form_title">Добавление должности в организацию</h2>
+        <h2 class="form_title">Добавление должности в справочник</h2>
         <div class="form_grup">
             <label class="form_label" asp-for="JobTitle">Название должности</label><br />
-            <input class="form_input" asp-for="JobTitle" />
+            <input class="input" asp-for="JobTitle" />
             <span asp-validation-for="JobTitle"></span>
         </div>
         <br />
         <div>
-            <input type="submit" value="Сохранить" class="form_button"/>
-            <a class="form_button" asp-controller="Position" asp-action="Create" style=" text-decoration: none;">Назад</a><br />
+            <input type="button" value="Сохранить" class="button"/>
+            <a class="button" asp-controller="Position" asp-action="Create" style=" text-decoration: none;">Назад</a><br />
         </div>
     </form>
 </body>

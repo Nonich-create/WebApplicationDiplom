@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace WebApplicationDiplom.Models
 {
     public class TableEducational
@@ -21,7 +17,6 @@ namespace WebApplicationDiplom.Models
         public TableQualification Qualification { get; set; }
         public EmployeeRegistrationLog Worker { get; set; }
         public TableSpecialty tableSpecialty  { get; set; }
-        public EducationalInstitutions EducationalInstitutions { get; set; }
-   
+        public EducationalInstitutions EducationalInstitutions { get; set; }   
     }
 }

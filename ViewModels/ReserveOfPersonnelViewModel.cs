@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebApplicationDiplom.Models;
-
 namespace WebApplicationDiplom.ViewModels
 {
     public class ReserveOfPersonnelViewModel

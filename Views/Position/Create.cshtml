@@ -7,14 +7,18 @@
 <head runat="server">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/StyleBox.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
 </head>
-<body>
+<body class="body">
     <form method="post" asp-controller="Position" asp-action="Create" class="form">
         <div asp-validation-summary="ModelOnly"></div>
         <h2 class="form_title">Добавление должности в организацию</h2>
-        <div class="box">
+        <div class="boxDrop">
             <label class="form_label">Должность</label><br />
-            <a asp-controller="Position" asp-action="CreateJob">Добавить должность в справочник</a><br />
+            <a asp-controller="Position" asp-action="CreateJob" style="text-decoration: none; color: #FFCC00">Добавить должность в справочник</a><br />
             <select asp-for="PositionId">
                 @foreach (var item in Model.positions)
                 {
@@ -26,17 +30,17 @@
         <br />
         <div class="form_grup">
             <label asp-for="JobResponsibilities" class="form_label">Описания</label><br />
-            <input asp-for="JobResponsibilities" class="form_input" />
+            <input asp-for="JobResponsibilities" class="input" />
             <span asp-validation-for="JobResponsibilities"></span>
         </div>
         <div class="form_grup">
             <label asp-for="CountPosition" class="form_label">Количество мест на должность</label><br />
-            <input asp-for="CountPosition" class="form_input" />
+            <input asp-for="CountPosition" class="input" />
             <span asp-validation-for="CountPosition"></span>
         </div>
         <div>
-            <input type="submit" value="Регистрация" class="form_button" />
-            <a class="form_button" asp-controller="Position" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
+            <input type="submit" value="Регистрация" class="button" />
+            <a class="button" asp-controller="Position" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
         </div>
     </form>
 </body>

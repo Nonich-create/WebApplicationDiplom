@@ -7,12 +7,16 @@
 <head runat="server">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/StyleBox.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
 </head>
-<body>
+<body class="body">
     <form method="post" asp-controller="Educational" asp-action="Create" class="form">
         <div asp-validation-summary="ModelOnly"></div>
-        <h1 class="form_title">Добавление образования</h1>
-        <div class="box">
+        <h2 class="form_title">Добавление образования</h2>
+        <div class="boxDrop">
             <label class="form_label">Фамилия работника</label><br />
             <select asp-for="EmployeeRegistrationLogId">
                 @foreach (var item in Model.workers)
@@ -23,21 +27,21 @@
             <span asp-validation-for="EmployeeRegistrationLogId"></span>
         </div>
         <br />
-        <div class="box">
+        <div class="boxDrop">
             <label asp-for="EducationType" class="form_label">Образования</label><br />
             <select asp-for="EducationType" asp-items="Html.GetEnumSelectList<TypeOfEducation>()"></select>
             <span asp-validation-for="EducationType"></span>
         </div>
         <br />
-        <div class="box">
+        <div class="boxDrop">
             <label class="form_label" asp-for="QualificationEducation">Вид образования</label><br />
             <select asp-for="QualificationEducation" asp-items="Html.GetEnumSelectList<QualificationEducation>()"></select>
             <span asp-validation-for="QualificationEducation"></span>
         </div>
         <br />
-        <div class="box">
+        <div class="boxDrop">
             <label class="form_label">Учреждения образования</label><br />
-            <a asp-controller="Educational" asp-action="CreateEducationalInstitutions">Добавить учреждения образования в справочник</a><br />
+            <a asp-controller="Educational" asp-action="CreateEducationalInstitutions"  style="text-decoration: none; color: #FFCC00">Добавить учреждения образования в справочник</a><br />
             <select asp-for="EducationalInstitutionsId">
                 @foreach (var item in Model.educationals)
                 {
@@ -47,9 +51,9 @@
             <span asp-validation-for="EducationalInstitutionsId"></span>
         </div>
         <br />
-        <div class="box">
+        <div class="boxDrop">
             <label class="form_label">Специальность</label><br />
-            <a asp-controller="Educational" asp-action="CreateSpecialty">Добавить специальность в справочник</a><br />
+            <a asp-controller="Educational" asp-action="CreateSpecialty"  style="text-decoration: none; color: #FFCC00">Добавить специальность в справочник</a><br />
             <select asp-for="tableSpecialtySpecialtyId">
                 @foreach (var item in Model.tableSpecialties)
                 {
@@ -59,9 +63,9 @@
             <span asp-validation-for="tableSpecialtySpecialtyId"></span>
         </div>
         <br>
-        <div class="box">
+        <div class="boxDrop">
             <label class="form_label">Квалификация</label><br />
-            <a asp-controller="Educational" asp-action="CreateQualification">Добавить квалификацию в справочник</a><br />
+            <a  asp-controller="Educational" asp-action="CreateQualification"  style="text-decoration: none; color: #FFCC00">Добавить квалификацию в справочник</a><br />
             <select asp-for="QualificationId">
                 @foreach (var item in Model.qualifications)
                 {
@@ -73,18 +77,17 @@
         <br />
         <div class="form_grup">
             <label asp-for="StartDate" class="form_label">Дата поступления</label><br />
-            <input asp-for="StartDate" class="form_input"/>
+            <input asp-for="StartDate" class="input"/>
             <span asp-validation-for="StartDate"></span>
         </div>
         <div class="form_grup">
             <label asp-for="EndDate" class="form_label">Дата окончания</label><br />
-            <input asp-for="EndDate" class="form_input" />
+            <input asp-for="EndDate" class="input" />
             <span asp-validation-for="EndDate"></span>
         </div>
-      
         <div>
-            <input type="submit" value="Регистрация" class="form_button" />
-            <a class="form_button" asp-controller="Educational" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
+            <input type="submit" value="Добавить" class="button" />
+            <a class="button" asp-controller="Educational" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
         </div>
     </form>
 </body>

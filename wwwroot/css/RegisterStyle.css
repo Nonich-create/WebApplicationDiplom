@@ -69,10 +69,10 @@
         height: 40px;
         border: none;
         border-radius: 5px;
-        background-color: #0071f0;
+        background-color: #333333;
         font-family: sans-serif;
         letter-spacing: 1px;
-        color: #fff;
+        color: #FFCC00;
         font-size: 16px;
         box-shadow: 0 5px 20px rgba(0,0,0,.3);
         outline: none;
@@ -83,9 +83,9 @@
 
 
         .box select option:hover {
-            background: #0071f0;
+            background: #333333;
         }
 
     .box:hover::before {
-        background: #0071f0;
+        background: #333333;
     }

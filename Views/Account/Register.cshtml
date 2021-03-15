@@ -7,42 +7,46 @@
 <head runat="server">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/RegisterStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleBox.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
 </head>
-<body>
+<body class="body">
     <form method="post" class="form" asp-controller="Account" asp-action="Register">
         <h1 class="form_title">Регистрация организцаии</h1>
         <div asp-validation-summary="ModelOnly"></div>
         <div class="form_grup">
             <label asp-for="Identifier" class="form_label">Идентификатор</label><br />
-            <input asp-for="Identifier" class="form_input" />
+            <input asp-for="Identifier" class="input" />
             <span asp-validation-for="Identifier"></span>
         </div>
         <div class="form_grup">
             <label asp-for="Password" class="form_label">Пароль</label><br />
-            <input asp-for="Password" class="form_input" />
+            <input asp-for="Password" class="input" />
             <span asp-validation-for="Password"></span>
         </div>
         <div class="form_grup">
             <label asp-for="PasswordConfirm" class="form_label">Повторный пароль</label><br />
-            <input asp-for="PasswordConfirm" class="form_input" />
+            <input asp-for="PasswordConfirm" class="input" />
             <span asp-validation-for="PasswordConfirm"></span>
         </div>
         <div class="form_grup">
             <label asp-for="OrganizationName" class="form_label">Название организации</label><br />
-            <input asp-for="OrganizationName" class="form_input" />
+            <input asp-for="OrganizationName" class="input" />
             <span asp-validation-for="OrganizationName"></span>
         </div>
         <div class="form_grup">
             <label asp-for="Email" class="form_label">Электронный адрес организации</label><br />
-            <input asp-for="Email" class="form_input" />
+            <input asp-for="Email" class="input" />
             <span asp-validation-for="Email"></span>
         </div>
-        <div class="box">
+        <div class="boxDrop">
             <label asp-for="Businesses" class="form_label">Тип организации</label><br />
             <select asp-for="Businesses" asp-items="Html.GetEnumSelectList<TypesOfBusinesses>()" class="box"></select>
             <span asp-validation-for="Businesses"></span>
         </div><br />
-        <div class="box">
+        <div class="boxDrop">
             <label class="form_label">Вышестощая организация</label><br />
             <select asp-for="TableOrganizationsId">
                 @foreach (var item in Model.organizations)
@@ -53,10 +57,10 @@
         </div>
         <br />
         <div class="form_grup">
-            <button type="submit" value="Регистрация" class="form_button">
+            <button type="submit" value="Регистрация" class="button">
                 Регистрация
             </button>
-            <a class="form_button" asp-area="" asp-controller="Home" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
+            <a class="button" asp-area="" asp-controller="Home" asp-action="Index" style=" text-decoration: none;">Назад</a><br />
         </div>
       
     </form>

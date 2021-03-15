@@ -5,14 +5,12 @@
 @{
     Layout = "";
 }
-
-
 <form method="get" asp-controller="Reports" asp-action="AllTheListOfPersonnelReserve">
     <div asp-validation-summary="ModelOnly"></div>
     <a asp-controller="Reports" asp-action="DownloadFileApplicationReport" asp-route-id="@Model.Id">Сохранить</a>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Reports" asp-action="Index">Назад</a><br />
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Назад</a><br />
     <div style="float:right">
-        Приложение № 2
+        Приложение № __
         <br />
         к постановлению правления
         <br />
@@ -20,7 +18,7 @@
             @if (item.TableOrganizationsId == Model.Id)
             {
                 {@item.NameOfOrganization}
-        }
+             }
             <br />
             @DateTime.Now.ToString().Remove(10)
         </div>

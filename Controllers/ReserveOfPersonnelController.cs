@@ -11,7 +11,6 @@ namespace WebApplicationDiplom.Controllers
     public class ReserveOfPersonnelController : Controller
     {
         public readonly ApplicationContext _context;
-
         public ReserveOfPersonnelController(ApplicationContext context)
         {
             _context = context;
@@ -147,19 +146,36 @@ namespace WebApplicationDiplom.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ReserveOfPersonnelViewModel model)
         {
-            ReserveOfPersonnel reserve =  await _context.reserveOfPersonnels.FirstOrDefaultAsync(p => p.ReserveId == model.ReserveId);
+            ReserveOfPersonnel reserve =  await _context.reserveOfPersonnels
+                .FirstOrDefaultAsync(p => p.ReserveId == model.ReserveId);
             var TablePosition = _context.TablePosition.Find(reserve.TablePositionId);
+
+          
             reserve.StatusReserve = "Назначен на должность";
             reserve.EndDateReserve = DateTime.Now;
-            TableHistoryOfAppointments his = await _context.TableHistoryOfAppointments
+            TableHistoryOfAppointments VacantPosition = await _context.TableHistoryOfAppointments
                 .Where(p => p.DateOfDismissal == null)
                 .FirstOrDefaultAsync(p => p.TablePositionId == model.TablePositionId);
-            if (TablePosition.CountPosition == 0 && his == null)
+            if (TablePosition.CountPosition == 0 && VacantPosition == null)
             {
                 return RedirectToAction("Index");
             }
             else
             {
+                var СurrentЗosition = await _context.TableHistoryOfAppointments
+             .Where(p => p.DateOfDismissal == null)
+             .FirstOrDefaultAsync(p => p.EmployeeRegistrationLogId == reserve.EmployeeRegistrationLogId)
+             ;
+                if (СurrentЗosition != null)
+                {
+                    var tableposition = await _context.TablePosition.FirstOrDefaultAsync(p => p.TablePositionId == СurrentЗosition.TablePositionId);
+                    tableposition.CountPosition = tableposition.CountPosition + 1;
+                    СurrentЗosition.TheReasonForTheDismissal = "Перевод на другую должность";
+                    СurrentЗosition.DateOfDismissal = DateTime.Now;
+                    _context.TableHistoryOfAppointments.Update(СurrentЗosition);
+                    _context.TablePosition.Update(tableposition);
+                    await _context.SaveChangesAsync();
+                }
                 TableHistoryOfAppointments historyofappointments = new TableHistoryOfAppointments
                 {
                     DateOfAppointment = DateTime.Now,

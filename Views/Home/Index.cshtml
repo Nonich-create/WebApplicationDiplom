@@ -1,55 +1,112 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model WebApplicationDiplom.ViewModels.AdminWindowsViewModel
+@{
+    ViewData["Title"] = "Главная страница";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
- 
-@if (User.Identity.IsAuthenticated)
-{
-    <p>@User.Identity.Name</p>
 
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/StyleTable.css" />
+    <link rel="stylesheet" href="~/css/ddott.css" />
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+</head>
+<body class="body">
+    @if (User.Identity.IsAuthenticated)
+    {
     <form method="post" asp-controller="Account" asp-action="Logout">
         <div asp-validation-summary="ModelOnly"></div>
-        <input type="submit" value="Выход" />
-        @if (User.IsInRole("admin")) {  
-        <a asp-controller="Account" asp-action="Register">Регистрация</a>
+        @if (User.IsInRole("admin"))
+        {
+            <div>
+                <div id="demotext">
+                    <p style="font-size: 44pt;">Администратор</p>
+                    <div class="ccd">
+                        <a asp-controller="Account" asp-action="Register" class="ddott">Регистрация</a>
+                    </div>
+                    <div class="ccd">
+                        <a asp-controller="Account" asp-action="Login" class="ddott">Выход</a>
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <table class="Table">
+                        <thead>
+                            <tr>
+                                <th>Название организации</th>
+                                <th>Главенствующая организация</th>
+                                <th>Идентификатор</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.tableOrganizations)
+                            {
+
+                                <tr>
+                                    <td>@item.NameOfOrganization</td>
+                                    <td>
+                                        @foreach (var itemSub in Model.tableOrganizations)
+                                        {
+                                            @if (item.SubordinationId == itemSub.TableOrganizationsId)
+                                            {
+                                                @itemSub.NameOfOrganization
+                                                break;
+                                            }
+                                        }
+                                    </td>
+                                    <td>@item.users.Identifier</td>
+                                    <td>
+                                        <a asp-controller="Home" asp-action="ChangePassword" asp-route-id="@item.users.Id" style="text-decoration: none; color: #FFCC00">Сменить пароль</a>
+                                        <br />
+                                        <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.TableOrganizationsId" style="text-decoration: none; color: #FFCC00">Удалить запись</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model.tableOrganizations)
+            {
+                if (item.users.UserName == User.Identity.Name)
+                {
+                    <p style="font-size: 44pt;">  @item.NameOfOrganization</p>
+                    <table class="Table">
+                        <thead>
+                            <tr>
+                                <th>ФИО</th>
+                                <th>Должность</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var itemInfo in Model.historyOfAppointments)
+                            {
+
+                                <tr>
+                                    <td>
+                                        @itemInfo.EmployeeRegistrationLog.Worker.Surname
+                                        @itemInfo.EmployeeRegistrationLog.Worker.Name
+                                        @itemInfo.EmployeeRegistrationLog.Worker.DoubleName
+                                    </td>
+                                    <td>
+                                        @itemInfo.Position.Position.JobTitle
+                                    </td>
+ 
+                                </tr>
+                            }
+                        </tbody>
+                    </table>    
+                }
+            }
         }
     </form>
-}
-else
-{
-    <a asp-controller="Account" asp-action="Login">Вход</a>
-    <a asp-controller="Account" asp-action="Register">Регистрация</a>
-    <br />
-
-}
-
-
-
-
-
-
-
-
-
-
-@*@section scripts{
-        <script type="text/javascript">
-        $(function () {
-
-            $('#areaes').change(function()
-            {
-                // получаем выбранный id
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetItems")/' + id,
-                    success: function (data) {
-
-                        // заменяем содержимое присланным частичным представлением
-                        $('#districtes').replaceWith(data);
-                    }
-                });
-            });
-        })
-        </script>
-    }*@
+    }
+    else
+    {
+        <a asp-controller="Account" asp-action="Login">Вход</a>
+    }
+</body>

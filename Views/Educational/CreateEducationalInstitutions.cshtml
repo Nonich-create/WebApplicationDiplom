@@ -1,5 +1,4 @@
 ﻿@model WebApplicationDiplom.ViewModels.EducationalInstitutionsViewModel
-
 @{
     ViewBag.Title = "Добавления в справочник";
     Layout = "";
@@ -7,25 +6,28 @@
 <head runat="server">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
 </head>
-<body>
+<body class="body">
     <form method="post" asp-controller="Educational" asp-action="CreateEducationalInstitutions" class="form">
         <div asp-validation-summary="ModelOnly"></div>
         <h2 class="form_title">Добавление  учреждения образования в справчоник</h2>
         <div class="form_grup">
             <label class="form_label" asp-for="NameEducationalInstitutions">Название учреждения образования</label><br />
-            <input class="form_input" asp-for="NameEducationalInstitutions" />
+            <input class="input" asp-for="NameEducationalInstitutions" />
             <span asp-validation-for="NameEducationalInstitutions"></span>
         </div>
         <div class="form_grup">
             <label class="form_label" asp-for="Abbreviation">Аббревиатура</label><br />
-            <input class="form_input" asp-for="Abbreviation" />
+            <input class="input" asp-for="Abbreviation" />
             <span asp-validation-for="Abbreviation"></span>
         </div>
         <br />
         <div>
-            <input type="submit" value="Сохранить" class="form_button" />
-            <a class="form_button" asp-controller="Educational" asp-action="Create" style=" text-decoration: none;">Назад</a><br />
+            <input type="submit" value="Сохранить" class="button" />
+            <a class="button" asp-controller="Educational" asp-action="Create" style=" text-decoration: none;">Назад</a><br />
         </div>
     </form>
 </body>

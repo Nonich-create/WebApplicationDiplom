@@ -2,29 +2,47 @@
 @{
     ViewData["Title"] = "Работники";
 }
-<a asp-action="Create">Добавить работника</a>
- 
-<table class="table">
-    <tr>
-        <th>Должность</th>
-        <th>Имя</th>
-        <th>Фамилия</th>
-        <th>Отчёство</th>
-        <th>Дата рождения</th>
-        <th>Дата регистрации работника</th>
-    </tr>
-    @foreach (EmployeeRegistrationLog worker in Model)
-    {
-<tr>
-    <td>@worker.Worker.Surname</td>
-    <td>@worker.Worker.Name</td>
-    <td>@worker.Worker.DoubleName</td>
-    <td>@worker.Worker.DateOfBirth.ToString().Remove(10)</td>
-    <td>@worker.EmployeeRegistrationDate.ToString().Remove(10)</td>
-    <td> <a asp-action="Edit" asp-controller="Worker" asp-route-id="@worker.WorkerId">Изменить</a></td>
-    <td> <a asp-action="Delete" asp-controller="Worker" asp-route-id="@worker.WorkerId">Удалить запись</a></td>
-</tr>
-        
-     
-    }
-</table>
+
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/ddott.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
+</head>
+    
+<div id="demotext">
+    <p style="font-size: 44pt;">Работники</p>
+         <div class="ccd">
+        <a class="ddott" asp-action="Create">Добавить</a>
+        </div>
+    </div>
+    <body class="body">
+        <table class="Table">
+            <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Отчёство</th>
+                    <th>Дата рождения</th>
+                    <th>Дата регистрации работника</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (EmployeeRegistrationLog worker in Model)
+                {
+                    <tr>
+                        <td>@worker.Worker.Surname</td>
+                        <td>@worker.Worker.Name</td>
+                        <td>@worker.Worker.DoubleName</td>
+                        <td>@worker.Worker.DateOfBirth.ToString().Remove(10)</td>
+                        <td>@worker.EmployeeRegistrationDate.ToString().Remove(10)</td>
+                        <td> <a asp-action="Edit" asp-controller="Worker" asp-route-id="@worker.WorkerId" style="text-decoration: none; color: #FFCC00">Изменить</a></td>
+                        <td> <a asp-action="Delete" asp-controller="Worker" asp-route-id="@worker.WorkerId" style="text-decoration: none; color: #FFCC00">Удалить запись</a></td>
+                    </tr>
+
+
+                }
+            </tbody>
+        </table>
+    </body>

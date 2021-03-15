@@ -2,38 +2,53 @@
 @{
     ViewData["Title"] = "Резерев кадров";
 }
-<a asp-action="Create">Добавить в резерв</a>
- 
-<table class="table">
-    <tr>
-        <th>ФИО</th>
-        <th>Должность работника</th>
-        <th>Статус в резерва</th>
-        <th>Назначенный на должность резерве</th>
-        <th>Дата назначения</th>
-        <th>Дата снятия с резерва</th>
 
-    </tr>
-    @foreach (ReserveOfPersonnel item in Model)
-    {
-<tr>
-    <td>@item.employeeRegistrationLog.Worker.Surname @item.employeeRegistrationLog.Worker.Name @item.employeeRegistrationLog.Worker.DoubleName</td>
-    <td></td>
-    <td>@item.StatusReserve</td>
-    <td>@item.tablePosition.Position.JobTitle</td>
-    <td>@item.StartDateReserve.ToString().Remove(10)</td>
-    @if (item.EndDateReserve != null)
-    {
-        <td>@item.EndDateReserve.ToString().Remove(10)</td>
-    }
-    else
-    {
-        <td>@item.EndDateReserve</td>
-    }
-    <td> <a asp-action="Edit" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId">Назначить на должность</a></td>
-    <td> <a asp-action="Remove" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId">Вывести с резерва </a></td>
-    <td> <a asp-action="Delete" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId">Удалить запись</a></td>
-</tr>
-    }
-</table>
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/ddott.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
+</head>
+ 
+<div id="demotext">
+    <p style="font-size: 44pt;">Резерв</p>
+    <div class="ccd">
+        <a class="ddott" asp-action="Create">Добавить</a>
+    </div>
+</div>
+    <table class="Table">
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Статус в резерва</th>
+                <th>Назначенный на должность резерве</th>
+                <th>Дата назначения</th>
+                <th>Дата снятия с резерва</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ReserveOfPersonnel item in Model)
+            {
+                <tr>
+                    <td>@item.employeeRegistrationLog.Worker.Surname @item.employeeRegistrationLog.Worker.Name @item.employeeRegistrationLog.Worker.DoubleName</td>
+                    <td>@item.StatusReserve</td>
+                    <td>@item.tablePosition.Position.JobTitle</td>
+                    <td>@item.StartDateReserve.ToString().Remove(10)</td>
+                    @if (item.EndDateReserve != null)
+                    {
+                        <td>@item.EndDateReserve.ToString().Remove(10)</td>
+                    }
+                    else
+                    {
+                        <td>@item.EndDateReserve</td>
+                    }
+                    <td> <a asp-action="Edit" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId" style="text-decoration: none; color: #FFCC00">Назначить на должность</a></td>
+                    <td> <a asp-action="Remove" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId" style="text-decoration: none; color: #FFCC00">Вывести с резерва </a></td>
+                    <td> <a asp-action="Delete" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId" style="text-decoration: none; color: #FFCC00">Удалить запись</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
 

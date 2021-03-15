@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using WebApplicationDiplom.Models;
-
 namespace WebApplicationDiplom.ViewModels
 {
     public class TheListOfPersonnelReserveViewModel
@@ -14,6 +13,5 @@ namespace WebApplicationDiplom.ViewModels
         public List<EmployeeRegistrationLog> employeeRegistrationLogs { get; set; }
         public List<TableOrganizations> Organizations { get; set; }
         public List<TablePosition> tablePositions { get; set; }
-
-    }
+            }
 }

@@ -7,19 +7,23 @@
 <head runat="server">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/ddott.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />\
+    <link rel="stylesheet" href="~/css/StyleBox.css" />
 </head>
-<body>
+<body class="body">
     <form asp-action="Layoffs" class="form" asp-controller="HistoryOfAppointments" asp-route-id="@Model.HistoryOfAppointmentsId">
         <input type="hidden" asp-for="HistoryOfAppointmentsId" class="form-control" />
-        <div class="box">
+        <div class="boxDrop">
             <label asp-for="GroundsForDismissal" class="form_label">Причина увольнения</label><br />
             <select asp-for="GroundsForDismissal" asp-items="Html.GetEnumSelectList<GroundsForDismissal>()"></select>
             <span asp-validation-for="GroundsForDismissal"></span>
         </div>
         <br />
         <div class="form-group">
-            <input type="submit" value="Уволить" class="form_button" />
-            <a class="form_button" asp-controller="HistoryOfAppointments" asp-action="Index" style=" text-decoration: none;">Назад</a>
+            <input type="submit" value="Уволить" class="button" />
+            <a class="button" asp-controller="HistoryOfAppointments" asp-action="Index" style=" text-decoration: none;">Назад</a>
         </div>
     </form>
 </body>

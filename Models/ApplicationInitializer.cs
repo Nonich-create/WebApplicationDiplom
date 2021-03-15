@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace WebApplicationDiplom.Models
 {
     public static class ApplicationInitializer
@@ -151,7 +148,7 @@ namespace WebApplicationDiplom.Models
                         Qualification = "Информационные системы и технологии"
                     },      new TableQualification
                     {
-                        Qualification = "Информационные системы и технологии (в экономике)	"
+                        Qualification = "Информационные системы и технологии (в экономике)"
                     },      new TableQualification
                     {
                         Qualification = "Экономика и организация производства"
@@ -161,6 +158,31 @@ namespace WebApplicationDiplom.Models
                     },      new TableQualification
                     {
                         Qualification = "Юриспруденция"
+                    }
+                });
+            }
+            if (!context.TableArea.Any())
+            {
+                await context.TableArea.AddRangeAsync(new List<TableArea>
+                {
+                    new TableArea
+                    {
+                        NameArea = "Бретская"
+                    },      new TableArea
+                    {
+                        NameArea = "Гомельская"
+                    },      new TableArea
+                    {
+                        NameArea = "Гродненская"
+                    },      new TableArea
+                    {
+                        NameArea = "Минская"
+                    },      new TableArea
+                    {
+                        NameArea = "Могилевская"
+                    },      new TableArea
+                    {
+                        NameArea = "Витебская"
                     }
                 });
             }
@@ -198,7 +220,6 @@ namespace WebApplicationDiplom.Models
                 IdentityResult result2 = await userManager.CreateAsync(admin, "dY2-AJX-mJd-zuL");
                 if (result2.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(admin, "user");
                     await userManager.AddToRoleAsync(admin, "admin");   
                 }
             }

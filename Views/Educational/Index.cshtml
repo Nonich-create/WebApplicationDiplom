@@ -2,33 +2,49 @@
 @{
     ViewData["Title"] = "Образования";
 }
-<a asp-action="Create">Добавить образования</a>
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/ddott.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
+</head>
  
-<table class="table">
-    <tr>
-        <th>ФИО</th>
-        <th>Тип образования</th>
-        <th>Образования</th>
-        <th>Учреждения образования</th>
-        <th>Специальность</th>
-        <th>Квалификация</th>
-        <th>Поступление</th>
-        <th>Окончание</th>
-</tr>
-    @foreach (TableEducational educational in Model)
-    {
-<tr>
-    <td>@educational.Worker.Worker.Surname @educational.Worker.Worker.Name @educational.Worker.Worker.DoubleName</td>
-    <td>@educational.EducationType.Replace("_"," ")</td>
-    <td>@educational.QualificationEducation.Replace("_", " ")</td>
-    <td>@educational.EducationalInstitutions.NameEducationalInstitutions</td>
-    <td>@educational.tableSpecialty.Specialty</td>
-    <td>@educational.Qualification.Qualification</td>
-    <td>@educational.StartDate.ToString().Remove(10)</td>
-    <td>@educational.EndDate.ToString().Remove(10)</td>
-    <td> <a asp-action="Delete" asp-controller="Educational" as p-route-id="@educational.EducationalId">Удалить</a></td>
-</tr>
-    }
-</table>
-
- 
+<div id="demotext">
+    <p style="font-size: 44pt;">Образования</p>
+    <div class="ccd">
+        <a class="ddott" asp-action="Create">Добавить</a>
+    </div>
+</div>
+    <body>
+        <table class="Table">
+            <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Тип образования</th>
+                    <th>Образования</th>
+                    <th>Учреждения образования</th>
+                    <th>Специальность</th>
+                    <th>Квалификация</th>
+                    <th>Поступление</th>
+                    <th>Окончание</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (TableEducational educational in Model)
+                {
+                    <tr>
+                        <td>@educational.Worker.Worker.Surname @educational.Worker.Worker.Name @educational.Worker.Worker.DoubleName</td>
+                        <td>@educational.EducationType.Replace("_", " ")</td>
+                        <td>@educational.QualificationEducation.Replace("_", " ")</td>
+                        <td>@educational.EducationalInstitutions.NameEducationalInstitutions</td>
+                        <td>@educational.tableSpecialty.Specialty</td>
+                        <td>@educational.Qualification.Qualification</td>
+                        <td>@educational.StartDate.ToString().Remove(10)</td>
+                        <td>@educational.EndDate.ToString().Remove(10)</td>
+                        <td> <a asp-action="Delete" asp-controller="Educational" as p-route-id="@educational.EducationalId" style="text-decoration: none; color: #FFCC00">Удалить</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </body>

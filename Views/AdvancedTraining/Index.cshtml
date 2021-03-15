@@ -2,31 +2,49 @@
 @{
     ViewData["Title"] = "Повышение квалификации";
 }
-<a asp-action="Create">Добавить работнику повышение квалификации</a>
- 
-<table class="table">
-    <tr>
-        <th>ФИО</th>
-        <th>Учреждения образования</th>
-        <th>Начала квалификации</th>
-        <th>Завершение квалификации</th>
-    </tr>
-    @foreach (AdvancedTraining item in Model)
-    {
-        <tr>
-            <td>@item.EmployeeRegistrationLog.Worker.Surname @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
-            <td>@item.EducationalInstitutions.NameEducationalInstitutions</td>
-            <td>@item.Start.ToString().Remove(10)</td>
-            @if (item.End != null)
-            {
-            <td>@item.End.ToString().Remove(10)</td>
-            }
-            else
-            {
-                <td></td>
-            }
-            <td> <a asp-action="Edit" asp-controller="AdvancedTraining" asp-route-id="@item.AdvancedTrainingId">Изменить</a></td>
-        </tr>
-    }
-</table>
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/ddott.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
+</head>
+<div id="demotext">
+    <p style="font-size: 44pt;">Квалификация</p>
+    <div class="ccd">
+                <a class="ddott" asp-action="Create">Добавить</a>
+    </div>
+</div>
+  
+    <body class="body">
+        <table class="Table">
+            <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Учреждения образования</th>
+                    <th>Начала квалификации</th>
+                    <th>Завершение квалификации</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AdvancedTraining item in Model)
+                {
+                    <tr>
+                        <td>@item.EmployeeRegistrationLog.Worker.Surname @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
+                        <td>@item.EducationalInstitutions.NameEducationalInstitutions</td>
+                        <td>@item.Start.ToString().Remove(10)</td>
+                        @if (item.End != null)
+                        {
+                            <td>@item.End.ToString().Remove(10)</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        @*<td> <a asp-action="Edit" asp-controller="AdvancedTraining" asp-route-id="@item.AdvancedTrainingId">Изменить</a></td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </body>
 

@@ -1,5 +1,4 @@
 ﻿@model WebApplicationDiplom.ViewModels.HistoryOfAppointmentsViewModel 
-
 @{
     ViewBag.Title = "Назначение на должность";
     Layout = "";
@@ -7,12 +6,16 @@
 <head runat="server">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/StyleBox.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
 </head>
-<body>
+<body class="body">
     <form method="post" asp-controller="HistoryOfAppointments" asp-action="Create" class="form">
         <div asp-validation-summary="ModelOnly"></div>
-        <h2 class="form_title">Назначения на должность</h2>
-        <div class="box">
+        <h2 class="form_title">Назначение на должность</h2>
+        <div class="boxDrop">
             <label class="form_label">Информация о работники</label><br />
             <select asp-for="EmployeeRegistrationLogId">
                 @foreach (var item in Model.employeeRegistrationLogs)
@@ -21,7 +24,7 @@
                 }
             </select>
         </div>
-        <div class="box">
+        <div class="boxDrop">
             <label class="form_label">Должность</label><br />
             <select asp-for="TablePositionId">
                 @foreach(var item in Model.positions)
@@ -32,8 +35,8 @@
         </div>
         <br />
         <div>
-            <input type="submit" value="Регистрация" class="form_button" />
-            <a class="form_button" asp-controller="HistoryOfAppointments" asp-action="Index" style=" text-decoration: none;">Назад</a>
+            <input type="submit" value="Добавить" class="button" />
+            <a class="button" asp-controller="HistoryOfAppointments" asp-action="Index" style=" text-decoration: none;">Назад</a>
         </div>
     </form>
 </body>

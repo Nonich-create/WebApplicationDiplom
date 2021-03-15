@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
-
 namespace WebApplicationDiplom.Models
 {
     public class ApplicationContext : IdentityDbContext<User> 
@@ -27,7 +25,7 @@ namespace WebApplicationDiplom.Models
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
          : base(options)
         {
-          // Database.EnsureDeleted();
+         //  Database.EnsureDeleted();
            Database.EnsureCreated();
         }
     }

@@ -3,24 +3,34 @@
     ViewBag.Title = "Организации работника";
     Layout = "";
 }
-<form asp-action="Edit" asp-controller="Account" asp-route-id="@Model.TableOrganizationsId">
-    <input type="hidden" asp-for="TableOrganizationsId" class="form-control" />
-    <input type="hidden" asp-for="SubordinationId" class="form-control" />
-    <input type="hidden" asp-for="UserId" class="form-control" />
-    <div class="form-group">
-        <label asp-for="NameOfOrganization" class="control-label">Название организации</label>
-        <input type="text" asp-for="NameOfOrganization" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="TypeOrganization" class="control-label">Тип организации</label>
-        <input type="text" asp-for="TypeOrganization" class="form-control" />
-    </div>  
-    <div class="form-group">
-        <label asp-for="Email" class="control-label">Электронный адрес</label>
-        <input type="text" asp-for="Email" class="form-control" />
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Сохранить" class="btn btn-default" />
-    </div>
-
-</form>
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
+</head>
+<body class="body">
+    <form class="form" asp-action="Edit" asp-controller="Account" asp-route-id="@Model.TableOrganizationsId">
+        <input type="hidden" asp-for="TableOrganizationsId" class="form-control" />
+        <input type="hidden" asp-for="SubordinationId" class="form-control" />
+        <input type="hidden" asp-for="UserId" class="form-control" />
+        <div class="form_grup">
+            <label asp-for="NameOfOrganization" class="form_label">Название организации</label>
+            <input type="text" asp-for="NameOfOrganization" class="input" />
+        </div>
+        <div class="form_grup">
+            <label asp-for="TypeOrganization" class="form_label">Тип организации</label>
+            <input type="text" asp-for="TypeOrganization" class="input" />
+        </div>
+        <div class="form_grup">
+            <label asp-for="Email" class="form_label">Электронный адрес</label>
+            <input type="text" asp-for="Email" class="input" />
+        </div>
+        <div>
+            <input type="submit" value="Сохранить" class="button" />
+            <a class="button" asp-controller="Account" asp-action="OrganizationInformation" style=" text-decoration: none;">Назад</a><br />
+        </div>
+    </form>
+</body>

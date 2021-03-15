@@ -7,14 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 using WebApplicationDiplom.ViewModels;
-
 namespace WebApplicationDiplom.Controllers
 {
-    
     public class WorkerController : Controller
     {
         public readonly ApplicationContext _context;
-       
         public WorkerController(ApplicationContext context)
         {
             _context = context;
@@ -36,7 +33,6 @@ namespace WebApplicationDiplom.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-
             return View();
         }
         #endregion

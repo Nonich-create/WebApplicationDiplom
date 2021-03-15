@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationDiplom.Models;
 using WebApplicationDiplom.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-
 namespace WebApplicationDiplom.Controllers
 {
     //[Authorize(Roles = "admin")]
@@ -51,7 +48,6 @@ namespace WebApplicationDiplom.Controllers
             EditUserViewModel model = new EditUserViewModel { Id = user.Id, Identifier = user.Identifier };
             return View(model);
         }
-
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
@@ -62,8 +58,6 @@ namespace WebApplicationDiplom.Controllers
                 {
                     user.Identifier = model.Identifier;
                     user.UserName = model.Identifier;
-
-
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
@@ -142,7 +136,5 @@ namespace WebApplicationDiplom.Controllers
             return View(model);
         }
         #endregion 
-
     }
-
 }

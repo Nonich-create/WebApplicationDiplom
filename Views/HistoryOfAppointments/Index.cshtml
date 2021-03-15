@@ -2,47 +2,62 @@
 @{
     ViewData["Title"] = "Назначения на должность";
 }
-<a asp-action="Create">Назначить на должность</a>
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/ddott.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
+</head>
  
-<table class="table">
-    <tr>
-        <th>ФИО</th>
-        <th>Дата назначения</th>
-        <th>Должность</th>
-        <th>Причина увольнения</th>
-        <th>Дата увольнения</th>
-    </tr>
-    @foreach (TableHistoryOfAppointments item in Model)
-    {
-<tr>
-    <td>
-    @item.EmployeeRegistrationLog.Worker.Surname
-    @item.EmployeeRegistrationLog.Worker.Name 
-    @item.EmployeeRegistrationLog.Worker.DoubleName
-    </td>
-    
-    <td>@item.DateOfAppointment.ToString().Remove(10)</td>
-    <td>@item.Position.Position.JobTitle</td>
-    @if (item.TheReasonForTheDismissal != null)
-    {
-        <td>@item.TheReasonForTheDismissal.Replace("_", " ")</td>
-    }
-    else
-    {
-        <td>@item.TheReasonForTheDismissal</td>
-    }
-    @if (item.DateOfDismissal != null)
-    {
-        <td> @item.DateOfDismissal.ToString().Remove(10)  </td>
-    }
-    else
-    {
-        <td>  @item.DateOfDismissal</td>
-    }
-    <td>
-        <a asp-action="Layoffs" asp-controller="HistoryOfAppointments" asp-route-id="@item.HistoryOfAppointmentsId">Уволить</a>
-    </td>
-</tr>
-    }
-</table>
+<div id="demotext">
+    <p style="font-size: 44pt;">Работники назначенные на должность</p>
+    <div class="ccd">
+        <a class="ddott" asp-action="Create">Добавить</a>
+    </div>
+</div>
+    <table class="Table">
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Дата назначения</th>
+                <th>Должность</th>
+                <th>Причина увольнения</th>
+                <th>Дата увольнения</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TableHistoryOfAppointments item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.EmployeeRegistrationLog.Worker.Surname
+                        @item.EmployeeRegistrationLog.Worker.Name
+                        @item.EmployeeRegistrationLog.Worker.DoubleName
+                    </td>
+                    <td>@item.DateOfAppointment.ToString().Remove(10)</td>
+                    <td>@item.Position.Position.JobTitle</td>
+                    @if (item.TheReasonForTheDismissal != null)
+                    {
+                        <td>@item.TheReasonForTheDismissal.Replace("_", " ")</td>
+                    }
+                    else
+                    {
+                        <td>@item.TheReasonForTheDismissal</td>
+                    }
+                    @if (item.DateOfDismissal != null)
+                    {
+                        <td> @item.DateOfDismissal.ToString().Remove(10)  </td>
+                    }
+                    else
+                    {
+                        <td>  @item.DateOfDismissal</td>
+                    }
+                    <td>
+                        <a asp-action="Layoffs" asp-controller="HistoryOfAppointments" asp-route-id="@item.HistoryOfAppointmentsId" style="text-decoration: none; color: #FFCC00">Уволить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
