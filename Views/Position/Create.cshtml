@@ -6,19 +6,18 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
-    <link rel="stylesheet" href="~/css/StyleBox.css" />
-    <link rel="stylesheet" href="~/css/BodyStyle.css" />
-    <link rel="stylesheet" href="~/css/StyleButton.css" />
-    <link rel="stylesheet" href="~/css/StyleInput.css" />
+    <link rel="stylesheet" href="~/css/StyleWindow.css" />
+    <link rel="stylesheet" href="~/css/Body.css" />
+    <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/Input.css" />
 </head>
-<body class="body">
+<body class="bodyWww">
     <form method="post" asp-controller="Position" asp-action="Create" class="form">
         <div asp-validation-summary="ModelOnly"></div>
         <h2 class="form_title">Добавление должности в организацию</h2>
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label">Должность</label><br />
-            <a asp-controller="Position" asp-action="CreateJob" style="text-decoration: none; color: #FFCC00">Добавить должность в справочник</a><br />
+            <a asp-controller="Position" asp-action="CreateJob" style="text-decoration: none;">Добавить должность в справочник</a><br />
             <select asp-for="PositionId">
                 @foreach (var item in Model.positions)
                 {

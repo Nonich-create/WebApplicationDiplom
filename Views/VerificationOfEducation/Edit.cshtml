@@ -6,22 +6,21 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
-    <link rel="stylesheet" href="~/css/StyleBox.css" />
+    <link rel="stylesheet" href="~/css/StyleWindow.css" />
     <link rel="stylesheet" href="~/css/BodyStyle.css" />
-    <link rel="stylesheet" href="~/css/StyleButton.css" />
-    <link rel="stylesheet" href="~/css/StyleInput.css" />
+    <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/Input.css" />
 </head>
-<body class="body">
+<body class="bodyWww">
     <form class="form" asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@Model.Id">
         <div asp-validation-summary="ModelOnly"></div>
         <input type="hidden" asp-for="Id" class="form-control" />
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label" asp-for="VerificationStatus">Статус аттестации</label><br />
             <select asp-for="EnumerationStatus" asp-items="Html.GetEnumSelectList<VerificationStatus>()"></select>
             <span asp-validation-for="VerificationStatus"></span>
         </div>
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label" asp-for="EnumerationRecommendations">Рекомендации</label><br />
             <select asp-for="EnumerationRecommendations" asp-items="Html.GetEnumSelectList<RecommendationsAfterCertification>()"></select>
             <span asp-validation-for="EnumerationRecommendations"></span>

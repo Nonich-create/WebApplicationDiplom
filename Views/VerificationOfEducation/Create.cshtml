@@ -5,17 +5,16 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
-    <link rel="stylesheet" href="~/css/StyleBox.css" />
-    <link rel="stylesheet" href="~/css/BodyStyle.css" />
-    <link rel="stylesheet" href="~/css/StyleButton.css" />
-    <link rel="stylesheet" href="~/css/StyleInput.css" />
+    <link rel="stylesheet" href="~/css/StyleWindow.css" />
+    <link rel="stylesheet" href="~/css/Body.css" />
+    <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/Input.css" />
 </head>
-<body class="body">
+<body class="bodyWww">
     <form method="post" asp-controller="VerificationOfEducation" asp-action="Create" class="form">
         <div asp-validation-summary="ModelOnly"></div>
         <h2 class="form_title">Аттестация</h2>
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label">Информация о работники</label><br />
             <select asp-for="EmployeeRegistrationLogId">
                 @foreach (var item in Model.employeeRegistrationLogs)
@@ -25,7 +24,7 @@
             </select>
         </div>
         <br />
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label">Аттестация на должность</label><br />
             <select asp-for="PositionId">
                 @foreach (var item in Model.positions)

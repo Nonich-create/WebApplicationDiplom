@@ -4,20 +4,20 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/StyleSheet.css" />
-    <link rel="stylesheet" href="~/css/BodyStyle.css" />
-    <link rel="stylesheet" href="~/css/ddott.css" />
-    <link rel="stylesheet" href="~/css/StyleInput.css" />
+    <link rel="stylesheet" href="~/css/StyleTable.css" />
+    <link rel="stylesheet" href="~/css/MyStyle.css" />
+    <link rel="stylesheet" href="~/css/Body.css" />
+    <link rel="stylesheet" href="~/css/Button.css" />
 </head>
  
 <div id="demotext">
-    <p style="font-size: 44pt;">Образования</p>
+    <p style="font-size: 44pt;">Образования работников</p>
     <div class="ccd">
         <a class="ddott" asp-action="Create">Добавить</a>
     </div>
 </div>
     <body>
-        <table class="Table">
+        <table class="blueTable">
             <thead>
                 <tr>
                     <th>ФИО</th>
@@ -42,7 +42,7 @@
                         <td>@educational.Qualification.Qualification</td>
                         <td>@educational.StartDate.ToString().Remove(10)</td>
                         <td>@educational.EndDate.ToString().Remove(10)</td>
-                        <td> <a asp-action="Delete" asp-controller="Educational" as p-route-id="@educational.EducationalId" style="text-decoration: none; color: #FFCC00">Удалить</a></td>
+                        <td> <a asp-action="Delete" asp-controller="Educational" as p-route-id="@educational.EducationalId" style="text-decoration: none;  ">Удалить</a></td>
                     </tr>
                 }
             </tbody>

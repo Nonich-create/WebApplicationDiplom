@@ -1,7 +1,6 @@
 ﻿.ccd {
     overflow: hidden;
-    text-align: justify 
-    
+    text-align: justify
 }
 
 a.ddott {
@@ -13,27 +12,27 @@ a.ddott {
     text-decoration: none;
     font-weight: bold;
     text-shadow: 0 100px 0 #FFCC00,1px 76px 10px #000;
-    color: #FFCC00;
-    background: #333333;
+    color: #000000;
+    background: #FCFFE8;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    border: 2px solid #FFCC00;
+    border: 2px solid #3D6AFF;
 }
 
     a.ddott:hover {
-        text-shadow: 0 50px 0 #FFCC00, 1px 51px 20px #FFCC00;
+        text-shadow: 0 50px 0 #3D6AFF, 1px 51px 20px #000000;
         margin-top: -50px;
         height: 100px;
-        background: #222;
+        background: #FCFFE8;
     }
 
 #demotext {
-    color: #FFCC00;
-    background: #333333;
+    color: #000000;
+    background: #FCFFE8;
     text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
-    color: #FFCC00;
-    background: #333333;
+    color: #000000;
+    background: #FCFFE8;
 }

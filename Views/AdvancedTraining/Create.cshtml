@@ -5,17 +5,16 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
-    <link rel="stylesheet" href="~/css/StyleBox.css" />
-    <link rel="stylesheet" href="~/css/BodyStyle.css" />
-    <link rel="stylesheet" href="~/css/StyleButton.css" />
-    <link rel="stylesheet" href="~/css/StyleInput.css" />
+    <link rel="stylesheet" href="~/css/StyleWindow.css" />
+    <link rel="stylesheet" href="~/css/Body.css" />
+    <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/Input.css" />
 </head>
-<body class="body">
+<body class="bodyWww">
     <form method="post" asp-controller="AdvancedTraining" asp-action="Create" class="form">
         <div asp-validation-summary="ModelOnly"></div>
         <h2 class="form_title">Добавление повышение квалификации</h2>
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label">ФИО работника</label><br />
             <select asp-for="employeesId">
                 @foreach (var item in Model.employees)
@@ -24,7 +23,7 @@
                 }
             </select>
         </div>
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label">Место повышения квалификации</label><br />
             <select asp-for="educationalsId">
                 @foreach (var item in Model.educationals)

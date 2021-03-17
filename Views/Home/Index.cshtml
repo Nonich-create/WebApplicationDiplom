@@ -7,63 +7,72 @@
 <head runat="server">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/StyleTable.css" />
-    <link rel="stylesheet" href="~/css/ddott.css" />
-    <link rel="stylesheet" href="~/css/StyleSheet.css" />
-    <link rel="stylesheet" href="~/css/BodyStyle.css" />
+    <link rel="stylesheet" href="~/css/MyStyle.css" />
+    <link rel="stylesheet" href="~/css/Body.css" />
+    <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/StyleInput.css" />
 </head>
-<body class="body">
+<body class="bodyWww">
     @if (User.Identity.IsAuthenticated)
     {
     <form method="post" asp-controller="Account" asp-action="Logout">
         <div asp-validation-summary="ModelOnly"></div>
         @if (User.IsInRole("admin"))
         {
-            <div>
-                <div id="demotext">
-                    <p style="font-size: 44pt;">Администратор</p>
-                    <div class="ccd">
-                        <a asp-controller="Account" asp-action="Register" class="ddott">Регистрация</a>
-                    </div>
-                    <div class="ccd">
-                        <a asp-controller="Account" asp-action="Login" class="ddott">Выход</a>
-                    </div>
-                </div>
-                <br />
-                <div>
-                    <table class="Table">
-                        <thead>
-                            <tr>
-                                <th>Название организации</th>
-                                <th>Главенствующая организация</th>
-                                <th>Идентификатор</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.tableOrganizations)
-                            {
+    <div>
+        <div id="demotext">
+            <p style="font-size: 44pt;">Администратор</p>
+            <div class="ccd">
+                <a asp-controller="Account" asp-action="Register" class="ddott">Регистрация</a>
+            </div>
+            <div class="ccd">
+                <a asp-controller="Account" asp-action="Login" class="ddott">Выход</a>
+            </div>
+        </div>
+        <br />
+        <div>
+            <table class="blueTable">
+                <thead>
+                    <tr>
+                        <th>Название организации</th>
+                        <th>Главенствующая организация</th>
+                        <th>Идентификатор</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.tableOrganizations)
+                    {
 
-                                <tr>
-                                    <td>@item.NameOfOrganization</td>
-                                    <td>
-                                        @foreach (var itemSub in Model.tableOrganizations)
-                                        {
-                                            @if (item.SubordinationId == itemSub.TableOrganizationsId)
-                                            {
-                                                @itemSub.NameOfOrganization
-                                                break;
-                                            }
-                                        }
-                                    </td>
-                                    <td>@item.users.Identifier</td>
-                                    <td>
-                                        <a asp-controller="Home" asp-action="ChangePassword" asp-route-id="@item.users.Id" style="text-decoration: none; color: #FFCC00">Сменить пароль</a>
-                                        <br />
-                                        <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.TableOrganizationsId" style="text-decoration: none; color: #FFCC00">Удалить запись</a>
-                                    </td>
-                                </tr>
+                    <tr>
+                        <td>@item.NameOfOrganization</td>
+                        <td>
+                            @foreach (var itemSub in Model.tableOrganizations)
+                            {
+                                @if (item.SubordinationId == itemSub.TableOrganizationsId)
+                                {
+                                    @itemSub.NameOfOrganization
+                                    break;
+                                }
                             }
-                        </tbody>
+                        </td>
+                        <td>@item.users.Identifier</td>
+                        <td>
+                            <div>
+                                <a  asp-controller="Home" asp-action="ChangePassword" asp-route-id="@item.users.Id" style="text-decoration: none;">Сменить пароль</a>
+                            </div>
+                        </td>
+                        <td>
+                      
+                            <div>
+                                <a  asp-action="Delete" asp-controller="Home" asp-route-id="@item.TableOrganizationsId" style="text-decoration: none;">Удалить запись</a>
+                            </div>
+                        </td>
+
+                    </tr>
+        }
+                    </tbody>
                     </table>
                 </div>
             </div>
@@ -75,7 +84,8 @@
                 if (item.users.UserName == User.Identity.Name)
                 {
                     <p style="font-size: 44pt;">  @item.NameOfOrganization</p>
-                    <table class="Table">
+                    <p style="font-size: 14pt;"> Работники в организации</p>
+                    <table class="blueTable">
                         <thead>
                             <tr>
                                 <th>ФИО</th>
@@ -95,11 +105,11 @@
                                     <td>
                                         @itemInfo.Position.Position.JobTitle
                                     </td>
- 
+
                                 </tr>
                             }
                         </tbody>
-                    </table>    
+                    </table>
                 }
             }
         }

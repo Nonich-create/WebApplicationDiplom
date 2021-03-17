@@ -56,7 +56,6 @@ namespace WebApplicationDiplom.Controllers
             var historyOfAppointments = await _context.TableHistoryOfAppointments
                 .Include(i =>i.EmployeeRegistrationLog)
                 .Include(i =>i.Position)
-                .Where(i => i.DateOfDismissal == null)
                 .Where(i => i.EmployeeRegistrationLog.TableOrganizationsId == TableOrganizations)
                 .ToListAsync();
 

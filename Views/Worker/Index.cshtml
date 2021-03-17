@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<EmployeeRegistrationLog>
 @{
     ViewData["Title"] = "Работники";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/StyleSheet.css" />
-    <link rel="stylesheet" href="~/css/BodyStyle.css" />
-    <link rel="stylesheet" href="~/css/ddott.css" />
-    <link rel="stylesheet" href="~/css/StyleInput.css" />
-</head>
-    
+    <link rel="stylesheet" href="~/css/StyleTable.css" />
+    <link rel="stylesheet" href="~/css/MyStyle.css" />
+    <link rel="stylesheet" href="~/css/Body.css" />
+    <link rel="stylesheet" href="~/css/Button.css" />
+</head>    
 <div id="demotext">
     <p style="font-size: 44pt;">Работники</p>
          <div class="ccd">
         <a class="ddott" asp-action="Create">Добавить</a>
         </div>
     </div>
-    <body class="body">
-        <table class="Table">
+    <body class="bodyWww">
+        <table class="blueTable">
             <thead>
                 <tr>
                     <th>Имя</th>
@@ -37,8 +37,8 @@
                         <td>@worker.Worker.DoubleName</td>
                         <td>@worker.Worker.DateOfBirth.ToString().Remove(10)</td>
                         <td>@worker.EmployeeRegistrationDate.ToString().Remove(10)</td>
-                        <td> <a asp-action="Edit" asp-controller="Worker" asp-route-id="@worker.WorkerId" style="text-decoration: none; color: #FFCC00">Изменить</a></td>
-                        <td> <a asp-action="Delete" asp-controller="Worker" asp-route-id="@worker.WorkerId" style="text-decoration: none; color: #FFCC00">Удалить запись</a></td>
+                        <td> <a asp-action="Edit" asp-controller="Worker" asp-route-id="@worker.WorkerId" style="text-decoration: none;">Изменить</a></td>
+                        <td> <a asp-action="Delete" asp-controller="Worker" asp-route-id="@worker.WorkerId" style="text-decoration: none;">Удалить запись</a></td>
                     </tr>
 
 

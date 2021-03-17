@@ -6,17 +6,16 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
-    <link rel="stylesheet" href="~/css/StyleBox.css" />
-    <link rel="stylesheet" href="~/css/BodyStyle.css" />
-    <link rel="stylesheet" href="~/css/StyleButton.css" />
-    <link rel="stylesheet" href="~/css/StyleInput.css" />
+    <link rel="stylesheet" href="~/css/StyleWindow.css" />
+    <link rel="stylesheet" href="~/css/Body.css" />
+    <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/Input.css" />
 </head>
-<body class="body">
+<body class="bodyWww">
     <form method="post" asp-controller="Educational" asp-action="Create" class="form">
         <div asp-validation-summary="ModelOnly"></div>
         <h2 class="form_title">Добавление образования</h2>
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label">Фамилия работника</label><br />
             <select asp-for="EmployeeRegistrationLogId">
                 @foreach (var item in Model.workers)
@@ -27,21 +26,21 @@
             <span asp-validation-for="EmployeeRegistrationLogId"></span>
         </div>
         <br />
-        <div class="boxDrop">
+        <div class="box">
             <label asp-for="EducationType" class="form_label">Образования</label><br />
             <select asp-for="EducationType" asp-items="Html.GetEnumSelectList<TypeOfEducation>()"></select>
             <span asp-validation-for="EducationType"></span>
         </div>
         <br />
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label" asp-for="QualificationEducation">Вид образования</label><br />
             <select asp-for="QualificationEducation" asp-items="Html.GetEnumSelectList<QualificationEducation>()"></select>
             <span asp-validation-for="QualificationEducation"></span>
         </div>
         <br />
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label">Учреждения образования</label><br />
-            <a asp-controller="Educational" asp-action="CreateEducationalInstitutions"  style="text-decoration: none; color: #FFCC00">Добавить учреждения образования в справочник</a><br />
+            <a asp-controller="Educational" asp-action="CreateEducationalInstitutions"  style="text-decoration: none; ">Добавить учреждения образования в справочник</a><br />
             <select asp-for="EducationalInstitutionsId">
                 @foreach (var item in Model.educationals)
                 {
@@ -51,9 +50,9 @@
             <span asp-validation-for="EducationalInstitutionsId"></span>
         </div>
         <br />
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label">Специальность</label><br />
-            <a asp-controller="Educational" asp-action="CreateSpecialty"  style="text-decoration: none; color: #FFCC00">Добавить специальность в справочник</a><br />
+            <a asp-controller="Educational" asp-action="CreateSpecialty"  style="text-decoration: none; ">Добавить специальность в справочник</a><br />
             <select asp-for="tableSpecialtySpecialtyId">
                 @foreach (var item in Model.tableSpecialties)
                 {
@@ -63,9 +62,9 @@
             <span asp-validation-for="tableSpecialtySpecialtyId"></span>
         </div>
         <br>
-        <div class="boxDrop">
+        <div class="box">
             <label class="form_label">Квалификация</label><br />
-            <a  asp-controller="Educational" asp-action="CreateQualification"  style="text-decoration: none; color: #FFCC00">Добавить квалификацию в справочник</a><br />
+            <a  asp-controller="Educational" asp-action="CreateQualification"  style="text-decoration: none; ">Добавить квалификацию в справочник</a><br />
             <select asp-for="QualificationId">
                 @foreach (var item in Model.qualifications)
                 {

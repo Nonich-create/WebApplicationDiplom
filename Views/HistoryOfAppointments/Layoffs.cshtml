@@ -6,16 +6,15 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/RegisterStyleEducationalWorkers.css" />
+    <link rel="stylesheet" href="~/css/StyleWindow.css" />
     <link rel="stylesheet" href="~/css/BodyStyle.css" />
-    <link rel="stylesheet" href="~/css/ddott.css" />
-    <link rel="stylesheet" href="~/css/StyleButton.css" />\
-    <link rel="stylesheet" href="~/css/StyleBox.css" />
+    <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/Input.css" />
 </head>
-<body class="body">
+<body class="bodyWww">
     <form asp-action="Layoffs" class="form" asp-controller="HistoryOfAppointments" asp-route-id="@Model.HistoryOfAppointmentsId">
         <input type="hidden" asp-for="HistoryOfAppointmentsId" class="form-control" />
-        <div class="boxDrop">
+        <div class="box">
             <label asp-for="GroundsForDismissal" class="form_label">Причина увольнения</label><br />
             <select asp-for="GroundsForDismissal" asp-items="Html.GetEnumSelectList<GroundsForDismissal>()"></select>
             <span asp-validation-for="GroundsForDismissal"></span>

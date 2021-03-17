@@ -4,10 +4,10 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/StyleSheet.css" />
-    <link rel="stylesheet" href="~/css/BodyStyle.css" />
-    <link rel="stylesheet" href="~/css/ddott.css" />
-    <link rel="stylesheet" href="~/css/StyleInput.css" />
+    <link rel="stylesheet" href="~/css/StyleTable.css" />
+    <link rel="stylesheet" href="~/css/MyStyle.css" />
+    <link rel="stylesheet" href="~/css/Body.css" />
+    <link rel="stylesheet" href="~/css/Button.css" />
 </head>
  
 <div id="demotext">
@@ -16,7 +16,7 @@
         <a class="ddott" asp-action="Create">Добавить</a>
     </div>
 </div>
-    <table class="Table">
+    <table class="blueTable">
         <thead>
             <tr>
                 <td>ФИО</td>
@@ -39,7 +39,7 @@
                     <td>@item.DateOfCertificationCompletion.ToString().Remove(10)</td>
                     <td>@item.Recommendations.Replace("_", " ")</td>
                     <td>@item.employeeRegistrationLog.Organizations.NameOfOrganization</td>
-                    <td> <a asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@item.VerificationOfEducationId" style="text-decoration: none; color: #FFCC00">Изменить</a></td>
+                    <td> <a asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@item.VerificationOfEducationId" style="text-decoration: none;">Изменить</a></td>
                 </tr>
             }
         </tbody>
