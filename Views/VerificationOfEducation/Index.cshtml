@@ -4,44 +4,54 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/StyleTable.css" />
+    <link rel="stylesheet" href="~/css/Table.css" />
     <link rel="stylesheet" href="~/css/MyStyle.css" />
     <link rel="stylesheet" href="~/css/Body.css" />
     <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/ButtonTable.css" />
 </head>
- 
+
 <div id="demotext">
-    <p style="font-size: 44pt;">Аттестация</p>
+    <p style="font-size: 44pt;">Аттестация работников</p>
+    @foreach (TableVerificationOfEducation item in Model)
+    {
+        <p style="font-size: 44pt;"> @item.employeeRegistrationLog.Organizations.NameOfOrganization</p>
+        break;
+    }
     <div class="ccd">
         <a class="ddott" asp-action="Create">Добавить</a>
     </div>
 </div>
-    <table class="blueTable">
-        <thead>
+
+<p>Аттестация работников которые числятся в организации  </p>
+   
+<table class="blueTable">
+    <thead>
+        <tr>
+            <td>ФИО</td>
+            <td>Статус аттестации</td>
+            <td>Должность</td>
+            <td>Дата регистрация аттестации</td>
+            <td>Дата прохождении аттестации</td>
+            <td>Рекомендации</td>
+            <td>Организация в который проходилась аттестация</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TableVerificationOfEducation item in Model)
+        {
             <tr>
-                <td>ФИО</td>
-                <td>Статус аттестации</td>
-                <td>Должность</td>
-                <td>Дата регистрация аттестации</td>
-                <td>Дата прохождении аттестации</td>
-                <td>Рекомендации</td>
-                <td>Организация в который проходилась аттестация</td>
+                <td>@item.employeeRegistrationLog.Worker.Name @item.employeeRegistrationLog.Worker.Name @item.employeeRegistrationLog.Worker.DoubleName</td>
+                <td>@item.VerificationStatus.Replace("_", " ")</td>
+                <td>@item.Position.JobTitle</td>
+                <td>@item.DateOfVerification.ToString().Remove(10)</td>
+                <td>@item.DateOfCertificationCompletion.ToString().Remove(10)</td>
+                <td>@item.Recommendations.Replace("_", " ")</td>
+                <td>@item.employeeRegistrationLog.Organizations.NameOfOrganization</td>
+                <td> <a class="buttonTable" asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@item.VerificationOfEducationId" style="text-decoration: none;">Изменить</a></td>
+                <td> <a class="buttonTableRed" asp-action="Delete" asp-controller="VerificationOfEducation" asp-route-id="@item.VerificationOfEducationId" style="text-decoration: none;">Удалить</a></td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (TableVerificationOfEducation item in Model)
-            {
-                <tr>
-                    <td>@item.employeeRegistrationLog.Worker.Name @item.employeeRegistrationLog.Worker.Name @item.employeeRegistrationLog.Worker.DoubleName</td>
-                    <td>@item.VerificationStatus.Replace("_", " ")</td>
-                    <td>@item.Position.JobTitle</td>
-                    <td>@item.DateOfVerification.ToString().Remove(10)</td>
-                    <td>@item.DateOfCertificationCompletion.ToString().Remove(10)</td>
-                    <td>@item.Recommendations.Replace("_", " ")</td>
-                    <td>@item.employeeRegistrationLog.Organizations.NameOfOrganization</td>
-                    <td> <a asp-action="Edit" asp-controller="VerificationOfEducation" asp-route-id="@item.VerificationOfEducationId" style="text-decoration: none;">Изменить</a></td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 

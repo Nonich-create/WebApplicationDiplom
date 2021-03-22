@@ -4,18 +4,27 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/StyleTable.css" />
+    <link rel="stylesheet" href="~/css/Table.css" />
     <link rel="stylesheet" href="~/css/MyStyle.css" />
     <link rel="stylesheet" href="~/css/Body.css" />
     <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/ButtonTable.css" />
 </head>
+ 
 <div id="demotext">
-    <p style="font-size: 44pt;">Квалификация</p>
+    <p style="font-size: 44pt;">Квалификация работников </p>
+    @foreach (AdvancedTraining item in Model)
+    {
+        <p style="font-size: 44pt;"> @item.EmployeeRegistrationLog.Organizations.NameOfOrganization</p>
+        break;
+    }
     <div class="ccd">
-                <a class="ddott" asp-action="Create">Добавить</a>
+        <a class="ddott" asp-action="Create">Добавить</a>
     </div>
 </div>
-  
+ 
+ 
+        <p>Квалификация работников которые числятся в организации</p>
     <body class="bodyWww">
         <table class="blueTable">
             <thead>
@@ -41,7 +50,7 @@
                         {
                             <td></td>
                         }
-                        @*<td> <a asp-action="Edit" asp-controller="AdvancedTraining" asp-route-id="@item.AdvancedTrainingId">Изменить</a></td>*@
+                        <td> <a asp-action="Delete" class="buttonTableRed" asp-controller="AdvancedTraining" asp-route-id="@item.AdvancedTrainingId" style="text-decoration: none;">Удалить</a></td>
                     </tr>
                 }
             </tbody>

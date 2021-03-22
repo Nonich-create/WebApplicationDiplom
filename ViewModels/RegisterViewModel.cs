@@ -11,6 +11,7 @@ namespace WebApplicationDiplom.ViewModels
         [Display(Name = "Идентификатор")]
         public string Identifier { get; set; }
         [Required]
+        [Compare("Password", ErrorMessage = "Праввильный формат пароля dY2-AJX-mJd-zuL")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }

@@ -4,47 +4,58 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/StyleTable.css" />
+    <link rel="stylesheet" href="~/css/Table.css" />
     <link rel="stylesheet" href="~/css/MyStyle.css" />
     <link rel="stylesheet" href="~/css/Body.css" />
     <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/ButtonTable.css" />
 </head>
- 
+
 <div id="demotext">
     <p style="font-size: 44pt;">Образования работников</p>
+    @foreach (TableEducational item in Model)
+    {
+        <p style="font-size: 44pt;"> @item.Worker.Organizations.NameOfOrganization</p>
+        break;
+    }
     <div class="ccd">
         <a class="ddott" asp-action="Create">Добавить</a>
     </div>
 </div>
-    <body>
-        <table class="blueTable">
-            <thead>
+<p>
+    Образования работников которые числятся в организации
+</p>
+
+<body>
+ 
+    <table class="blueTable">
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Тип образования</th>
+                <th>Образования</th>
+                <th>Учреждения образования</th>
+                <th>Специальность</th>
+                <th>Квалификация</th>
+                <th>Поступление</th>
+                <th>Окончание</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TableEducational educational in Model)
+            {
                 <tr>
-                    <th>ФИО</th>
-                    <th>Тип образования</th>
-                    <th>Образования</th>
-                    <th>Учреждения образования</th>
-                    <th>Специальность</th>
-                    <th>Квалификация</th>
-                    <th>Поступление</th>
-                    <th>Окончание</th>
+                    <td>@educational.Worker.Worker.Surname @educational.Worker.Worker.Name @educational.Worker.Worker.DoubleName</td>
+                    <td>@educational.EducationType.Replace("_", " ")</td>
+                    <td>@educational.QualificationEducation.Replace("_", " ")</td>
+                    <td>@educational.EducationalInstitutions.NameEducationalInstitutions</td>
+                    <td>@educational.tableSpecialty.Specialty</td>
+                    <td>@educational.Qualification.Qualification</td>
+                    <td>@educational.StartDate.ToString().Remove(10)</td>
+                    <td>@educational.EndDate.ToString().Remove(10)</td>
+                    <td> <a class="buttonTableRed" asp-action="Delete" asp-controller="Educational" as p-route-id="@educational.EducationalId" style="text-decoration: none;  ">Удалить</a></td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (TableEducational educational in Model)
-                {
-                    <tr>
-                        <td>@educational.Worker.Worker.Surname @educational.Worker.Worker.Name @educational.Worker.Worker.DoubleName</td>
-                        <td>@educational.EducationType.Replace("_", " ")</td>
-                        <td>@educational.QualificationEducation.Replace("_", " ")</td>
-                        <td>@educational.EducationalInstitutions.NameEducationalInstitutions</td>
-                        <td>@educational.tableSpecialty.Specialty</td>
-                        <td>@educational.Qualification.Qualification</td>
-                        <td>@educational.StartDate.ToString().Remove(10)</td>
-                        <td>@educational.EndDate.ToString().Remove(10)</td>
-                        <td> <a asp-action="Delete" asp-controller="Educational" as p-route-id="@educational.EducationalId" style="text-decoration: none;  ">Удалить</a></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </body>
+            }
+        </tbody>
+    </table>
+</body>

@@ -5,12 +5,20 @@
 @{
     Layout = "";
 }
-
- 
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/Button.css" />
+</head>
+<form method="post" action="DownloadReport">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="hidden" name="Url" value="SavingChairmenOfTheManagementBoards" />
+    <input type="hidden" name="FileType" value="text/doc" />
+    <input type="hidden" name="FileName" value="Председатели райпо - резерв @DateTime.Now.ToString().Remove(10).Remove(0, 6) .doc" />
+    <input class="button" type="submit" value="Сохранить" />
+    <a class="button"  style="text-decoration: none;" asp-controller="Home" asp-action="Index">Назад</a><br />
+</form>
 <form method="get" asp-controller="Reports" asp-action="AllTheListOfPersonnelReserve">
     <div asp-validation-summary="ModelOnly"></div>
-    <a asp-controller="Reports" asp-action="DownloadFileChairmenOfTheManagementBoards" asp-route-id="@Model.Id">Сохранить</a>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Назад</a><br />
     <div style="float:right">
         Приложение № __
         <br />
@@ -454,20 +462,9 @@
                                     }
                                 }
                             }
-
-
                         }
                     }
                 }
-
-
-
-
-
             }
-
-
-
         </table>
-
     </form>

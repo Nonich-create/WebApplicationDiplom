@@ -16,12 +16,13 @@
         <br />
         @foreach (var item in Model.Organizations)
             @if (item.TableOrganizationsId == Model.Id)
-            {
+             {
                 {@item.NameOfOrganization}
-        }
+                    break;
+             }
             <br />
             @DateTime.Now.ToString().Remove(10)
-        </div>
+    </div>
         <br />
         <br />
         <br />
@@ -447,11 +448,9 @@
                                     }
                                 }
                             }
-
-                        }
+                                                    }
                     }
                 }
             }
         </table>
-
-    </form>
+        </form>

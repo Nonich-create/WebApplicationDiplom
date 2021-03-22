@@ -14,27 +14,26 @@
     <form asp-action="Edit" asp-controller="Worker" asp-route-id="@Model.WorkerId" class="form">
         <input type="hidden" asp-for="WorkerId" class="form-control" />
         <div class="form_grup">
-            <label asp-for="Surname" class="form_label">Фамилия</label><br />
+            <label asp-for="Surname" class="form_label">Фамилия*</label><br />
             <input type="text" asp-for="Surname" class="input" />
         </div>
         <div class="form_grup">
-            <label asp-for="Name" class="form_label">Имя</label><br />
+            <label asp-for="Name" class="form_label">Имя*</label><br />
             <input type="text" asp-for="Name" class="input" />
         </div>
         <div class="form_grup">
-            <label asp-for="DoubleName" class="form_labell">Отчёство</label><br />
+            <label asp-for="DoubleName" class="form_labell">Отчёство*</label><br />
             <input type="text" asp-for="DoubleName" class="input" />
         </div>
         <div class="form_grup">
-            <label asp-for="DateOfBirth" class="form_label">Дата рождения</label><br />
+            <label asp-for="DateOfBirth" class="form_label">Дата рождения*</label><br />
             <input type="date" asp-for="DateOfBirth" class="input" />
         </div>
         <div>
             <input type="submit" value="Сохранить" class="button" />
             <a class="button" asp-area="" asp-controller="Worker" asp-action="Index"
                style=" text-decoration: none;
-
-            ">Назад</a><br />
+             ">Назад</a><br />
         </div>
     </form>
     </body>

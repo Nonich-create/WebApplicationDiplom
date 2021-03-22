@@ -7,6 +7,7 @@ namespace WebApplicationDiplom.Models
     {
         [Key]
         public int TablePositionId { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfJobRegistration { get; set; }
         public int CountPosition { get; set; }
         public string JobResponsibilities { get; set; }

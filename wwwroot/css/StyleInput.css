@@ -1,11 +1,6 @@
 ﻿.input {
     width: 100%;
-    /* padding: 0 0 10px 0;*/
-    border: 2px solid #3D6AFF;
-    border-bottom: 1px solid #3D6AFF;
-    background-color: transparent;
-    outline: none;
-    transition: 0.3s;
-    font-size: 16px;
-    color: #000000;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
 }

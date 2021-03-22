@@ -125,5 +125,21 @@ namespace WebApplicationDiplom.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+        #region удаления записи о квалификации работника
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                TableVerificationOfEducation verificationOfEducation = await _context.TableVerificationOfEducation.FirstOrDefaultAsync(p => p.VerificationOfEducationId == id);
+                if (verificationOfEducation != null)
+                {
+                    _context.TableVerificationOfEducation.Remove(verificationOfEducation);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
+        }
+        #endregion
     }
 }

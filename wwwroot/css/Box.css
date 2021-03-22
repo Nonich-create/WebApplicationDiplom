@@ -8,7 +8,7 @@
         height: 40px;
         border: none;
         border-radius: 5px;
-        background-color: #FCFFE8;
+        background-color: #FFFFFF;
         font-family: sans-serif;
         letter-spacing: 1px;
         color: #000000;
@@ -22,9 +22,9 @@
 
 
         .boxDrop select option:hover {
-            background: #FCFFE8;
+            background: #FFFFFF;
         }
 
     .boxDrop:hover::before {
-        background: #FCFFE8;
+        background: #FFFFFF;
     }

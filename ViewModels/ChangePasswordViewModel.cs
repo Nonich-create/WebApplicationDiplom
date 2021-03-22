@@ -1,4 +1,6 @@
-﻿namespace WebApplicationDiplom.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebApplicationDiplom.ViewModels
 {
     public class ChangePasswordViewModel
     {

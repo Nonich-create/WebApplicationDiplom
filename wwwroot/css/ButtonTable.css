@@ -1,14 +1,27 @@
 ﻿.buttonTable {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-family: sans-serif;
-    letter-spacing: 1px;
-    font-size: 12px;
-    outline: none;
+    background-color: #008CBA; /* Green */
+    border: 2px solid #008CBA;
+    border-radius: 2px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
-    transition: 0.3s;
-    color: #000000;
-    background-color: #3D6AFF;
-    border: 2px solid #3D6AFF;
+}
+
+.buttonTableRed {
+    background-color: #f44336; /* Green */
+    border: 2px solid #f44336;
+    border-radius: 2px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }

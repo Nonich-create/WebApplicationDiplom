@@ -8,7 +8,9 @@ namespace WebApplicationDiplom.Models
         public int EducationalId { get; set; }
         public string EducationType { get; set; }
         public string QualificationEducation { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }  
         public int tableSpecialtySpecialtyId { get; set; }
         public int WorkerEmployeeRegistrationId { get; set; }

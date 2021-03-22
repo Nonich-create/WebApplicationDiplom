@@ -6,11 +6,12 @@
 
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/StyleTable.css" />
+    <link rel="stylesheet" href="~/css/Table.css" />
     <link rel="stylesheet" href="~/css/MyStyle.css" />
     <link rel="stylesheet" href="~/css/Body.css" />
     <link rel="stylesheet" href="~/css/Button.css" />
     <link rel="stylesheet" href="~/css/StyleInput.css" />
+    <link rel="stylesheet" href="~/css/ButtonTable.css" />
 </head>
 <body class="bodyWww">
     @if (User.Identity.IsAuthenticated)
@@ -31,12 +32,14 @@
         </div>
         <br />
         <div>
+            <p>Организации</p>
             <table class="blueTable">
                 <thead>
                     <tr>
                         <th>Название организации</th>
                         <th>Главенствующая организация</th>
                         <th>Идентификатор</th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -60,13 +63,18 @@
                         <td>@item.users.Identifier</td>
                         <td>
                             <div>
-                                <a  asp-controller="Home" asp-action="ChangePassword" asp-route-id="@item.users.Id" style="text-decoration: none;">Сменить пароль</a>
+                                <a class="buttonTable" asp-action="Edit" asp-controller="Home" asp-route-id="@item.TableOrganizationsId" style="text-decoration: none;">Изменить</a>
                             </div>
                         </td>
                         <td>
-                      
                             <div>
-                                <a  asp-action="Delete" asp-controller="Home" asp-route-id="@item.TableOrganizationsId" style="text-decoration: none;">Удалить запись</a>
+                                <a class="buttonTable" asp-controller="Home" asp-action="ChangePassword" asp-route-id="@item.users.Id" style="text-decoration: none;">Сменить пароль</a>
+                            </div>
+                        </td>
+                        <td>
+
+                            <div>
+                                <a class="buttonTableRed" asp-action="Delete" asp-controller="Home" asp-route-id="@item.TableOrganizationsId" style="text-decoration: none;">Удалить запись</a>
                             </div>
                         </td>
 
@@ -90,23 +98,41 @@
                             <tr>
                                 <th>ФИО</th>
                                 <th>Должность</th>
+                                <th>Резерв</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var itemInfo in Model.historyOfAppointments)
                             {
 
-                                <tr>
-                                    <td>
-                                        @itemInfo.EmployeeRegistrationLog.Worker.Surname
-                                        @itemInfo.EmployeeRegistrationLog.Worker.Name
-                                        @itemInfo.EmployeeRegistrationLog.Worker.DoubleName
-                                    </td>
-                                    <td>
-                                        @itemInfo.Position.Position.JobTitle
-                                    </td>
-
-                                </tr>
+                            <tr>
+                                <td>
+                                    @itemInfo.EmployeeRegistrationLog.Worker.Surname
+                                    @itemInfo.EmployeeRegistrationLog.Worker.Name
+                                    @itemInfo.EmployeeRegistrationLog.Worker.DoubleName
+                                </td>
+                                <td>
+                                    @itemInfo.Position.Position.JobTitle
+                                </td>
+                                <td>
+                                    <a style="background: #FFFFFF; color:#000000;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Резерв
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background: #FFFFFF; color:#000000;">
+                                        @foreach (var itemreserve in Model.reserveOfPersonnels)
+                                        {
+                                            if (itemInfo.TablePositionId == itemreserve.TablePositionId)
+                                            {
+                                        <a class="dropdown-item" style="color:#000000;">
+                                            @itemreserve.employeeRegistrationLog.Worker.Surname
+                                            @itemreserve.employeeRegistrationLog.Worker.Name
+                                            @itemreserve.employeeRegistrationLog.Worker.DoubleName
+                                        </a>
+                                            }
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>

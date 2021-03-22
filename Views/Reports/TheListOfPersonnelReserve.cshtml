@@ -5,10 +5,19 @@
 @{
     Layout = "";
 }
-@*<a asp-controller="Reports" asp-action="SavingReport" asp-route-id="@Model.Id">Отчёт</a>*@
-<a asp-controller="Reports" asp-action="DownloadFile" asp-route-id="@Model.Id">Сохранить</a>
-<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Назад</a>
-<br />
+ 
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/Button.css" />
+</head>
+<form method="post" action="DownloadReport">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="hidden" name="Url" value="SavingReport" />
+    <input type="hidden" name="FileType" value="text/doc" />
+    <input type="hidden" name="FileName" value="Резерв кадров @DateTime.Now.ToString().Remove(10).Remove(0, 6) .doc" />
+    <input class="button" type="submit" value="Сохранить" />
+    <a class="button" style="text-decoration: none;" asp-controller="Home" asp-action="Index">Назад</a><br />
+</form>
 <form method="get" asp-controller="Reports" asp-action="TheListOfPersonnelReserve">
     <div asp-validation-summary="ModelOnly"></div>
     <div style="float:right">
@@ -18,7 +27,11 @@
         <br />
         @foreach (var item in Model.tableHistoryOfAppointments)
         {
-            @item.Position.Organizations.NameOfOrganization
+            @if (item.Position.TableOrganizationsId == Model.Id)
+            {
+                @item.Position.Organizations.NameOfOrganization
+                break;
+            }
         }
         <br />
         @DateTime.Now.ToString().Remove(10)
@@ -84,13 +97,10 @@
 
                 foreach (var itemReserve in Model.reserveOfPersonnels)
                 {
-
                     if (item.TablePositionId == itemReserve.TablePositionId)
                     {
                         <tr align="center">
                             <td>РЕЗЕРВ:</td>
-
-
                             <td align="center">
                                 @foreach (var itemIsResers in Model.tableHistoryOfAppointments)
                                 {
@@ -143,7 +153,6 @@
                                 }
                             </td>
                         </tr>
-
                     }
                 }
             }

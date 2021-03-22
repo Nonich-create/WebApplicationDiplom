@@ -16,12 +16,12 @@
         <div asp-validation-summary="ModelOnly"></div>
         <input type="hidden" asp-for="Id" class="form-control" />
         <div class="box">
-            <label class="form_label" asp-for="VerificationStatus">Статус аттестации</label><br />
+            <label class="form_label" asp-for="VerificationStatus">Статус аттестации*</label><br />
             <select asp-for="EnumerationStatus" asp-items="Html.GetEnumSelectList<VerificationStatus>()"></select>
             <span asp-validation-for="VerificationStatus"></span>
         </div>
         <div class="box">
-            <label class="form_label" asp-for="EnumerationRecommendations">Рекомендации</label><br />
+            <label class="form_label" asp-for="EnumerationRecommendations">Рекомендации*</label><br />
             <select asp-for="EnumerationRecommendations" asp-items="Html.GetEnumSelectList<RecommendationsAfterCertification>()"></select>
             <span asp-validation-for="EnumerationRecommendations"></span>
         </div>

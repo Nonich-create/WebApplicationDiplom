@@ -6,6 +6,7 @@ namespace WebApplicationDiplom.ViewModels
     {
         public int? OrganizationId { get; set; }
         public List<TableOrganizations> tableOrganizations { get; set; }
-        public List<TableHistoryOfAppointments>? historyOfAppointments { get; set; }
+        public List<TableHistoryOfAppointments> historyOfAppointments { get; set; }
+        public List<ReserveOfPersonnel> reserveOfPersonnels { get; set; }
     }
 }

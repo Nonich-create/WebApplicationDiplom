@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/BodyStyle.css" />
-    <link rel="stylesheet" href="~/css/StyleButton.css" />
+    <link rel="stylesheet" href="~/css/Button.css" />
 </head>
 <body style="        background: #FFFFFF;
         color: #000000">
@@ -27,9 +27,11 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="background: #FFFFFF; color: #000000">
                         <ul class="navbar-nav flex-grow-1">
 
-                            <li class="nav-item">
-                                <a style="color:#000000;" asp-area="" asp-controller="Home" asp-action="Index">На главную страницу</a><br />
-                                <a style="color:#000000;" asp-area="" asp-controller="Account" asp-action="OrganizationInformation">Кабинет организации</a><br />
+                            <li class="nav-item" style="border-right: 2px solid #008CBA;">
+                                <a style="color:#000000;" asp-area="" asp-controller="Home" asp-action="Index">На главную страницу</a>
+                               
+                            <li class="nav-item" style="border-right: 2px solid #008CBA;"> 
+                                <a style="color:#000000;" asp-area="" asp-controller="Account" asp-action="OrganizationInformation">Личный кабинет</a>
                             </li>
                             <li class="nav-item dropdown" style="background: #FFFFFF; color:#000000;">
                                 <a style="background: #FFFFFF; color:#000000;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,7 +51,7 @@
                                     Организация
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background: #FFFFFF; color:#000000;">
-                                    <a class="dropdown-item" style="color:#000000;" asp-area="" asp-controller="Position" asp-action="Index">Должности в организации</a>
+                                    <a class="dropdown-item" style="color:#000000;" asp-area="" asp-controller="Position" asp-action="Index">Резерв должностей</a>
 
                                 </div>
                             </li>
@@ -69,14 +71,14 @@
                                         Список
                                         лиц, включенных в кадровый резерв на должности руководителей предприятий и учреждений Белкоопсоюза
                                     </a>
-
-
+                                    <a class="dropdown-item" style="color:#000000;" asp-controller="Reports" asp-action="ApplicationReport5">
+                                        Список лиц, включенных в кадровый резерв руководящих кадров по аппарату управления
+                                    </a>
+                                    @*<a class="dropdown-item" style="color:#000000;" asp-controller="Reports" asp-action="ApplicationReport6">
+                                         Аттестация
+                                    </a>*@
                                 </div>
                             </li>
-                     
-
-
-
                         </ul>
                     </div>
                     <div style="margin-right:8em; margin-left: auto;  min-height: 2em;   max-width: 8em;">

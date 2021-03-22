@@ -15,7 +15,6 @@ namespace WebApplicationDiplom.ViewModels
         public string StatusReserve { get; set; }
         public DateTime StartDateReserve { get; set; }
         public DateTime? EndDateReserve { get; set; }
- 
-        public TablePosition tablePosition { get; set; }
+         public TablePosition tablePosition { get; set; }
     }
 }

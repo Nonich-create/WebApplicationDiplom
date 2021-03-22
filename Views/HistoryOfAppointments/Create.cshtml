@@ -15,7 +15,7 @@
         <div asp-validation-summary="ModelOnly"></div>
         <h2 class="form_title">Назначение на должность</h2>
         <div class="box">
-            <label class="form_label">Информация о работники</label><br />
+            <label class="form_label">Информация о работники*</label><br />
             <select asp-for="EmployeeRegistrationLogId">
                 @foreach (var item in Model.employeeRegistrationLogs)
                 {
@@ -24,7 +24,7 @@
             </select>
         </div>
         <div class="box">
-            <label class="form_label">Должность</label><br />
+            <label class="form_label">Должность*</label><br />
             <select asp-for="TablePositionId">
                 @foreach(var item in Model.positions)
                 {

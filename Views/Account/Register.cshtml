@@ -17,22 +17,22 @@
         <h1 class="form_title">Регистрация организцаии</h1>
         <div asp-validation-summary="ModelOnly"></div>
         <div class="form_grup">
-            <label asp-for="Identifier" class="form_label">Идентификатор</label><br />
+            <label asp-for="Identifier" class="form_label">Идентификатор*</label><br />
             <input asp-for="Identifier" class="input" />
             <span asp-validation-for="Identifier"></span>
         </div>
         <div class="form_grup">
-            <label asp-for="Password" class="form_label">Пароль</label><br />
+            <label asp-for="Password" class="form_label">Пароль ("Праввильный формат пароля пример dY2-AJX-mJd-zuL")*</label><br />
             <input asp-for="Password" class="input" />
             <span asp-validation-for="Password"></span>
         </div>
         <div class="form_grup">
-            <label asp-for="PasswordConfirm" class="form_label">Повторный пароль</label><br />
+            <label asp-for="PasswordConfirm" class="form_label">Повторный пароль*</label><br />
             <input asp-for="PasswordConfirm" class="input" />
             <span asp-validation-for="PasswordConfirm"></span>
         </div>
         <div class="form_grup">
-            <label asp-for="OrganizationName" class="form_label">Название организации</label><br />
+            <label asp-for="OrganizationName" class="form_label">Название организации*</label><br />
             <input asp-for="OrganizationName" class="input" />
             <span asp-validation-for="OrganizationName"></span>
         </div>
@@ -42,12 +42,12 @@
             <span asp-validation-for="Email"></span>
         </div>
         <div class="boxDrop">
-            <label asp-for="Businesses" class="form_label">Тип организации</label><br />
+            <label asp-for="Businesses" class="form_label">Тип организации*</label><br />
             <select asp-for="Businesses" asp-items="Html.GetEnumSelectList<TypesOfBusinesses>()" class="box"></select>
             <span asp-validation-for="Businesses"></span>
         </div><br />
         <div class="boxDrop">
-            <label class="form_label">Вышестощая организация</label><br />
+            <label class="form_label">Вышестощая организация*</label><br />
             <select asp-for="TableOrganizationsId">
                 @foreach (var item in Model.organizations)
                 {

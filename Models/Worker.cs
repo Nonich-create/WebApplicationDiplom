@@ -10,6 +10,8 @@ namespace WebApplicationDiplom.Models
         public string Surname { get; set; }
         public string Name { get; set; }
         public string DoubleName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Дата рождения")]
         public DateTime DateOfBirth { get; set; }
         public List<EmployeeRegistrationLog> employeeRegistrationLogs { get; set; }
         public Worker()

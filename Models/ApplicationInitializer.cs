@@ -35,7 +35,7 @@ namespace WebApplicationDiplom.Models
                            ,Abbreviation ="УОРИПО"
                     },  new EducationalInstitutions
                     {
-                        NameEducationalInstitutions = "Учреждение образования БГИПК по стандартизации, метрологии и у3правлению качеством"
+                        NameEducationalInstitutions = "Учреждение образования БГИПК по стандартизации, метрологии и управлению качеством"
                            ,Abbreviation ="УОБГИПК"
                     },  new EducationalInstitutions
                     {

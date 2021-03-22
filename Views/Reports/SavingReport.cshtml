@@ -5,20 +5,26 @@
 @{
     Layout = "";
 }
-
-<form asp-action="SavingChairmenOfTheManagementBoards" asp-controller="Reports" asp-route-id="@Model.Id">
-    <div style="text-align: right;">
+ 
+ 
+<form method="get" asp-controller="Reports" asp-action="TheListOfPersonnelReserve">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div style="float:right">
         Приложение № __
         <br />
         к постановлению правления
         <br />
         @foreach (var item in Model.tableHistoryOfAppointments)
         {
-            @item.Position.Organizations.NameOfOrganization
-        }
-        <br />
-        № ___ от @DateTime.Now.ToString().Remove(10)
-    </div>
+            @if (item.Position.TableOrganizationsId == Model.Id)
+            {
+                @item.Position.Organizations.NameOfOrganization
+                break;
+            }
+            }
+            <br />
+            @DateTime.Now.ToString().Remove(10)
+        </div>
     <br />
     <br />
     <br />
@@ -38,7 +44,7 @@
             @foreach (var item in Model.tableHistoryOfAppointments)
             {
 
-                <tr align="center">
+                <tr>
                     <th width="100">Наименование организации</th>
                     <th width="200">Занимаемая должность, фамилия, имя, отчество</th>
                     <th width="100">Число, месяц, год рождения</th>
@@ -46,11 +52,11 @@
                     <th width="100">С какого времени работает в должности</th>
                     <th width="100">Последнее повышение квалификации (год, УО)</th>
                 </tr>
-                <tr align="center">
-                    <td> @item.Position.Organizations.NameOfOrganization</td>
-                    <td>@item.Position.Position.JobTitle @item.EmployeeRegistrationLog.Worker.Surname @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
-                    <td>@item.EmployeeRegistrationLog.Worker.DateOfBirth.ToString().Remove(10)</td>
-                    <td>
+                <tr>
+                    <td align="center"> @item.Position.Organizations.NameOfOrganization</td>
+                    <td align="center">@item.Position.Position.JobTitle @item.EmployeeRegistrationLog.Worker.Surname @item.EmployeeRegistrationLog.Worker.Name @item.EmployeeRegistrationLog.Worker.DoubleName</td>
+                    <td align="center">@item.EmployeeRegistrationLog.Worker.DateOfBirth.ToString().Remove(10)</td>
+                    <td align="center">
                         @foreach (var itemEducation in Model.tableEducationals)
                         {
                             if (itemEducation.WorkerEmployeeRegistrationId == item.EmployeeRegistrationLog.WorkerId)
@@ -80,13 +86,10 @@
 
                 foreach (var itemReserve in Model.reserveOfPersonnels)
                 {
-
                     if (item.TablePositionId == itemReserve.TablePositionId)
                     {
                         <tr align="center">
                             <td>РЕЗЕРВ:</td>
-
-
                             <td align="center">
                                 @foreach (var itemIsResers in Model.tableHistoryOfAppointments)
                                 {
@@ -139,7 +142,6 @@
                                 }
                             </td>
                         </tr>
-
                     }
                 }
             }

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TableHistoryOfAppointments>
+@{
+    ViewData["Title"] = "Информация о должности";
+}
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/Table.css" />
+    <link rel="stylesheet" href="~/css/MyStyle.css" />
+    <link rel="stylesheet" href="~/css/Body.css" />
+    <link rel="stylesheet" href="~/css/ButtonTable.css" />
+</head>
+
+
+<table class="blueTable">
+    <thead>
+        <tr>
+            <th>ФИО</th>
+            <th>Дата назначения</th>
+            <th>Должность</th>
+            <th>Причина увольнения</th>
+            <th>Дата увольнения</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TableHistoryOfAppointments item in Model)
+        {
+            <tr>
+                <td>
+                    @item.EmployeeRegistrationLog.Worker.Surname
+                    @item.EmployeeRegistrationLog.Worker.Name
+                    @item.EmployeeRegistrationLog.Worker.DoubleName
+                </td>
+                <td>@item.DateOfAppointment.ToString().Remove(10)</td>
+                <td>@item.Position.Position.JobTitle</td>
+                @if (item.TheReasonForTheDismissal != null)
+                {
+                    <td>@item.TheReasonForTheDismissal.Replace("_", " ")</td>
+                }
+                else
+                {
+                    <td>@item.TheReasonForTheDismissal</td>
+                }
+                @if (item.DateOfDismissal != null)
+                {
+                    <td> @item.DateOfDismissal.ToString().Remove(10)  </td>
+                }
+                else
+                {
+                    <td>  @item.DateOfDismissal</td>
+                }
+            </tr>
+        }
+    </tbody>
+
+</table>
+<br />
+<a class="button" asp-controller="Position" asp-action="Index" style=" text-decoration: none;">Назад</a>
+ 

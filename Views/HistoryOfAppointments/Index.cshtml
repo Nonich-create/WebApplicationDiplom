@@ -4,18 +4,24 @@
 }
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/StyleTable.css" />
+    <link rel="stylesheet" href="~/css/Table.css" />
     <link rel="stylesheet" href="~/css/MyStyle.css" />
     <link rel="stylesheet" href="~/css/Body.css" />
-    <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/ButtonTable.css" />
 </head>
  
 <div id="demotext">
     <p style="font-size: 44pt;">Работники назначенные на должность</p>
-    <div class="ccd">
-        <a class="ddott" asp-action="Create">Добавить</a>
-    </div>
+    @foreach (TableHistoryOfAppointments item in Model)
+    {
+        <p  style="font-size: 44pt;">@item.EmployeeRegistrationLog.Organizations.NameOfOrganization</p>
+        break;
+    }
+        <div class="ccd">
+            <a class="ddott" asp-action="Create">Добавить</a>
+        </div>
 </div>
+<p>Работники зачисленные на должность в организации</p>
     <table class="blueTable">
         <thead>
             <tr>
@@ -54,7 +60,7 @@
                         <td>  @item.DateOfDismissal</td>
                     }
                     <td>
-                        <a asp-action="Layoffs" asp-controller="HistoryOfAppointments" asp-route-id="@item.HistoryOfAppointmentsId" style="text-decoration: none;">Уволить</a>
+                        <a class="buttonTableRed" asp-action="Layoffs" asp-controller="HistoryOfAppointments" asp-route-id="@item.HistoryOfAppointmentsId" style="text-decoration: none;">Уволить</a>
                     </td>
                 </tr>
             }

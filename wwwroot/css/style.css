@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: #FCFFE8;
+    background: #FFFFFF;
     color: #000000;
 }
 
@@ -14,7 +14,7 @@
     box-shadow: 0 4px 16px #ccc;
     font-family: sans-serif;
     letter-spacing: 1px;
-    background: #FCFFE8;
+    background: #FFFFFF;
     color: #000000;
 }
 
@@ -35,7 +35,7 @@
     cursor: pointer;
     transition: 0.3s;
     color: #000000;
-    background-color: #FCFFE8;
+    background-color: #FFFFFF;
     border: 2px solid #3D6AFF;
 }
 
@@ -75,7 +75,7 @@
         height: 40px;
         border: none;
         border-radius: 5px;
-        background-color: #0071f0;
+        background-color: #FFFFFF;
         font-family: sans-serif;
         letter-spacing: 1px;
         color: #000000;
@@ -89,9 +89,9 @@
 
 
         .box select option:hover {
-            background: #0071f0;
+            background: #FFFFFF;
         }
 
     .box:hover::before {
-        background: #0071f0;
+        background: #FFFFFF;
     }

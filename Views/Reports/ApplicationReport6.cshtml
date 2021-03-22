@@ -1,0 +1,145 @@
+﻿@model WebApplicationDiplom.ViewModels.CertificationoOfEmployeesViewModel
+@{
+    ViewBag.Title = "";
+}
+@{
+    Layout = "";
+}
+
+<head runat="server">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/Button.css" />
+</head>
+<form method="post" action="DownloadReport">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="hidden" name="Url" value="SavingApplicationReport5" />
+    <input type="hidden" name="FileType" value="text/doc" />
+    <input type="hidden" name="FileName" value="Резерв по аппарату БКС на @DateTime.Now.ToString().Remove(10).Remove(0, 6) .doc" />
+    <input class="button" type="submit" value="Сохранить" />
+    <a class="button" style="text-decoration: none;" asp-controller="Home" asp-action="Index">Назад</a><br />
+</form>
+<div style="text-align: center;">
+    С В Е Д Е Н И Я
+    <br />
+    об аттестации  руководящих кадров системы Белкоопсоюза
+    <br />
+    за  @(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-3) - @(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-1)  (по состоянию на  @DateTime.Now.ToString().Remove(10) года)
+    <br />
+</div>
+<br />
+<table class="table" border="1" align="center" style="border-collapse:collapse; text-align: center;">
+    <tr>
+        <td rowspan="2">
+            Наименование должностей
+        </td>
+        <td colspan="3" rowspan="2">
+            Всего подлежало аттестации
+        </td>
+        <td colspan="9">
+            Из них:
+        </td>
+        <td colspan="15">
+            Из числа прошедших аттестацию рекомендовано:
+        </td>
+        <td rowspan="3">
+            Будет аттестовано в @DateTime.Now.ToString().Remove(10).Remove(0, 6) году
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            Аттестовано
+        </td>
+        <td colspan="3">
+            Условно аттестовано
+        </td>
+        <td colspan="3">
+            Не аттестовано
+        </td>
+        <td colspan="3">
+            для зачисления в резерв
+        </td>
+        <td colspan="3">
+            для занятия вышестоящей должности
+        </td>
+        <td colspan="3">
+            повысить квалификационную категорию
+        </td>
+        <td colspan="3">
+            пройти переподготовку
+        </td>
+        <td colspan="3">
+            получить профильное образование
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-3)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-2)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-1)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-3)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-2)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-1)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-3)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-2)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-1)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-3)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-2)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-1)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-3)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-2)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-1)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-3)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-2)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-1)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-3)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-2)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-1)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-3)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-2)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-1)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-3)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-2)</td>
+        <td>@(@Convert.ToInt32(@DateTime.Now.ToString().Remove(10).Remove(0, 6))-1)</td>
+    </tr>
+    @foreach (var item in Model.historyOfAppointments)
+    {
+        <tr>
+
+            <td>
+                @item.Position.Position.JobTitle 
+                <br />
+                Организация
+                @item.Position.Organizations.NameOfOrganization
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    }
+    </table>
+ 
+ 

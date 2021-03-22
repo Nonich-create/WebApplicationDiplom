@@ -5,18 +5,25 @@
 
 <head runat="server">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/StyleTable.css" />
+    <link rel="stylesheet" href="~/css/Table.css" />
     <link rel="stylesheet" href="~/css/MyStyle.css" />
     <link rel="stylesheet" href="~/css/Body.css" />
     <link rel="stylesheet" href="~/css/Button.css" />
+    <link rel="stylesheet" href="~/css/ButtonTable.css" />
 </head>
  
 <div id="demotext">
-    <p style="font-size: 44pt;">Резерв</p>
+    <p style="font-size: 44pt;">Резерв кадров</p>
+    @foreach (ReserveOfPersonnel item in Model)
+    {
+        <p style="font-size: 44pt;"> @item.employeeRegistrationLog.Organizations.NameOfOrganization</p>
+        break;
+    }
     <div class="ccd">
         <a class="ddott" asp-action="Create">Добавить</a>
     </div>
 </div>
+<p>Работники состоящие в резерве</p>
     <table class="blueTable">
         <thead>
             <tr>
@@ -44,9 +51,9 @@
                     {
                         <td>@item.EndDateReserve</td>
                     }
-                    <td> <a asp-action="Edit" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId" style="text-decoration: none; ">Назначить на должность</a></td>
-                    <td> <a asp-action="Remove" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId" style="text-decoration: none; ">Вывести с резерва </a></td>
-                    <td> <a asp-action="Delete" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId" style="text-decoration: none; ">Удалить запись</a></td>
+                    <td> <a class="buttonTable" asp-action="Edit" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId" style="text-decoration: none; ">Назначить на должность</a></td>
+                    <td> <a class="buttonTable" asp-action="Remove" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId" style="text-decoration: none; ">Вывести с резерва </a></td>
+                    <td> <a class="buttonTableRed" asp-action="Delete" asp-controller="ReserveOfPersonnel" asp-route-id="@item.ReserveId" style="text-decoration: none; ">Удалить запись</a></td>
                 </tr>
             }
         </tbody>

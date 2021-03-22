@@ -117,6 +117,24 @@ namespace WebApplicationDiplom.Controllers
             return NotFound();
         }
         #endregion
+        #region отображения должностей в организации
+        [HttpGet]
+        public async Task<IActionResult> ShowTheEmployeeInThePosition(int id)
+        {
+            int TableOrganizations =  _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+              (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+            var historyOfAppointments = await _context.TableHistoryOfAppointments
+                .Include(i => i.Position)
+                .Include(i => i.Position.Position)
+                .Include(i => i.EmployeeRegistrationLog)
+                .Include(i => i.EmployeeRegistrationLog.Worker)
+                .Where(i => i.TablePositionId == id && i.EmployeeRegistrationLog.TableOrganizationsId == TableOrganizations)
+                .ToListAsync();
+            
+            
+            return View(historyOfAppointments);
+        }
+        #endregion
     }
 }
     

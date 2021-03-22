@@ -28,6 +28,7 @@ namespace WebApplicationDiplom.Controllers
         public async Task<IActionResult> IndexAsync()
         {
             List<TableHistoryOfAppointments> historyofappointments = new List<TableHistoryOfAppointments>();
+            List<ReserveOfPersonnel> reserve = new List<ReserveOfPersonnel>();
             var organizations = await _context.TableOrganizations
                 .Include(i => i.users)
                 .ToListAsync();
@@ -42,11 +43,16 @@ namespace WebApplicationDiplom.Controllers
                     .Include(p => p.EmployeeRegistrationLog.Worker)
                     .Include(p => p.Position.Position)
                     .Where(p => p.EmployeeRegistrationLog.TableOrganizationsId == TableOrganizations && p.DateOfDismissal == null).ToListAsync();
+                     reserve = await _context.reserveOfPersonnels
+                    .Include(i => i.employeeRegistrationLog)
+                    .Where(i => i.employeeRegistrationLog.TableOrganizationsId == TableOrganizations).ToListAsync();
             }
+         
             AdminWindowsViewModel model = new AdminWindowsViewModel
             {
                 tableOrganizations = organizations,
                 historyOfAppointments = historyofappointments,  
+                reserveOfPersonnels = reserve,
             };
             return View(model);
         }
@@ -143,6 +149,32 @@ namespace WebApplicationDiplom.Controllers
                 }
             }
             return NotFound();
+        }
+        #endregion
+        #region отображения редактирования информации о организации
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id != null)
+            {
+                TableOrganizations organizations = await _context.TableOrganizations.FirstOrDefaultAsync(p => p.TableOrganizationsId == id);
+                if (organizations != null)
+                {
+                    return View(organizations);
+                }
+            }
+            return NotFound();
+        }
+        #endregion
+        #region редактирования организации
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(TableOrganizations organizations)
+        {
+            _context.TableOrganizations.Update(organizations);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
         #endregion
     }

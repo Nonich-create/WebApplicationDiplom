@@ -15,7 +15,7 @@
     <form asp-action="Layoffs" class="form" asp-controller="HistoryOfAppointments" asp-route-id="@Model.HistoryOfAppointmentsId">
         <input type="hidden" asp-for="HistoryOfAppointmentsId" class="form-control" />
         <div class="box">
-            <label asp-for="GroundsForDismissal" class="form_label">Причина увольнения</label><br />
+            <label asp-for="GroundsForDismissal" class="form_label">Причина увольнения*</label><br />
             <select asp-for="GroundsForDismissal" asp-items="Html.GetEnumSelectList<GroundsForDismissal>()"></select>
             <span asp-validation-for="GroundsForDismissal"></span>
         </div>

@@ -103,5 +103,21 @@ namespace WebApplicationDiplom.Controllers
             }
         }
         #endregion
+        #region удаления записи о квалификации работника
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                AdvancedTraining advancedTraining = await _context.advancedTrainings.FirstOrDefaultAsync(p => p.AdvancedTrainingId == id);
+                if (advancedTraining != null)
+                {
+                    _context.advancedTrainings.Remove(advancedTraining);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
+        }
+        #endregion
     }
 }

@@ -92,42 +92,17 @@ namespace WebApplicationDiplom.Controllers
             return model;
         }
         #endregion
-        [HttpGet]
-        public FileResult DownloadFile(int id)
-        {
-            Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Reports/SavingReport/{id}");
-            using (WebClient client = new WebClient())
-            {
-                string file_type = "text/doc";
-                string file_name = $"Председатели райпо - резерв {DateTime.Now.ToString()}.doc";
-                return File(client.DownloadData(location), file_type, file_name);
-            }
-        }
-        [HttpGet]
-        public FileResult DownloadFileChairmenOfTheManagementBoards(int id)
-        {
-            Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Reports/SavingChairmenOfTheManagementBoards/{id}");
-            using (WebClient client = new WebClient())
-            {
-                string file_type = "text/doc";
-                string file_name = $"Председатели райпо - резерв {DateTime.Now.ToString().Remove(10).Remove(0, 6)}.doc";
-                return File(client.DownloadData(location), file_type, file_name);
-            }
-        }
-        [HttpGet]
-        public FileResult DownloadApplicationReport4(int id)
-        {
-            Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Reports/SavingApplicationReport4/{id}");
-            using (WebClient client = new WebClient())
-            {
-                string file_type = "text/doc";
-                string file_name = $"Резерв на директоров УП, УО на 2020 (приложение 4) УП все {DateTime.Now.ToString().Remove(10).Remove(0, 6)}.doc";
-                return File(client.DownloadData(location), file_type, file_name);
-            }
-        }
         public async Task<IActionResult> SavingChairmenOfTheManagementBoards(int id)
         {
             return View(await TheModelIsFilledWithAllTheData(id));
+        }
+        public FileResult DownloadReport(int id,string Url,string FileType,string FileName)
+        {
+            Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Reports/{Url}/{id}");
+            using (WebClient client = new WebClient())
+            {
+                return File(client.DownloadData(location), FileType, FileName);
+            }
         }
         [Authorize]
         public async Task<IActionResult> ChairmenOfTheManagementBoards()
@@ -302,20 +277,7 @@ namespace WebApplicationDiplom.Controllers
         {
             return View(await CreateApplicationReport(id));
         }
-        #endregion
-        #region Загрузка  списка резерва на должности председателей правлений облпотребсоюзов, облпотребобществ
-        [HttpGet]
-        public FileResult DownloadFileApplicationReport(int id)
-        {
-            Uri location = new Uri($"{Request.Scheme}://{Request.Host}/Reports/SavingApplicationReport/{id}");
-            using (WebClient client = new WebClient())
-            {
-                string file_type = "text/doc";
-                string file_name = $"Резерв на пред. правлений ОПС на 2020 (приложение 2) {DateTime.Now.ToString().Remove(10).Remove(0, 6)}.doc";
-                return File(client.DownloadData(location), file_type, file_name);
-            }
-        }
-        #endregion
+        #endregion 
         #region список лиц, включенных в кадровый резерв на должности руководителей предприятий и учреждений Белкоопсоюза 
         private async Task<TheListOfPersonnelReserveViewModel> Reports4(int TableOrganizations)
         {
@@ -396,5 +358,134 @@ namespace WebApplicationDiplom.Controllers
             return View(await Reports4(id));
         }
         #endregion
+        #region список лиц, включенных в кадровый резерв руководящих кадров по аппарату управления Белкоопсоюза
+        private async Task<TheListOfPersonnelReserveViewModel> Reports5(int TableOrganizations)
+        {
+            var historyOfAppointments = await _context.TableHistoryOfAppointments
+            .Include(i => i.Position)
+            .Include(i => i.Position.Position)
+            .Include(i => i.EmployeeRegistrationLog)
+            .Include(i => i.EmployeeRegistrationLog.Worker)
+            .Include(i => i.Position.Organizations)
+            .Where(i => i.DateOfDismissal == null)
+            .Where(i => i.Position.Position.JobTitle.Contains("Начальник"))
+            .ToListAsync();
+
+            var tablePositions = await _context.TablePosition
+              .Include(i => i.Organizations)
+              .Include(i => i.Position)
+            .Where(i => i.Position.JobTitle.Contains("Начальник"))
+          .ToListAsync();
+
+            var AllhistoryOfAppointments = await _context.TableHistoryOfAppointments
+            .Include(i => i.Position)
+            .Include(i => i.Position.Position)
+            .Include(i => i.EmployeeRegistrationLog)
+            .Include(i => i.EmployeeRegistrationLog.Worker)
+            .Include(i => i.Position.Organizations)
+            .Where(i => i.DateOfDismissal == null)
+            .ToListAsync();
+
+
+            var educationals = await _context.TableEducational
+                .Include(i => i.EducationalInstitutions)
+                .Include(i => i.tableSpecialty)
+                .Include(i => i.Worker)
+                .Include(i => i.Qualification)
+                .ToListAsync();
+
+            var reserveOfPersonnels = await _context.reserveOfPersonnels
+                .Include(i => i.tablePosition)
+                .Include(i => i.employeeRegistrationLog)
+                .Include(i => i.tablePosition.Position)
+                .Include(i => i.employeeRegistrationLog.Worker)
+                .Where(i => i.EndDateReserve == null)
+                .ToListAsync();
+
+            var advancedTrainings = await _context.advancedTrainings
+                .Include(i => i.EducationalInstitutions)
+                .Include(i => i.EmployeeRegistrationLog)
+                .ToListAsync();
+
+            var organizations = await _context.TableOrganizations
+                .ToListAsync();
+            TheListOfPersonnelReserveViewModel model = new TheListOfPersonnelReserveViewModel
+            {
+                Id = TableOrganizations,
+                tableHistoryOfAppointments = historyOfAppointments,
+                tableEducationals = educationals,
+                reserveOfPersonnels = reserveOfPersonnels,
+                advancedTrainingViewModels = advancedTrainings,
+                Organizations = organizations,
+                AllHistoryOfAppointments = AllhistoryOfAppointments,
+                tablePositions = tablePositions
+            };
+            return model;
+        }
+        #endregion
+        #region Формирования резерва лиц, включенных в кадровый резерв руководящих кадров по аппарату управления Белкоопсоюза
+        [Authorize]
+        public async Task<IActionResult> ApplicationReport5()
+        {
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+            (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+            return View(await Reports5(TableOrganizations));
+        }
+        #endregion
+        #region на сохранения формирования резерва лиц, включенных в кадровый резерв руководящих кадров по аппарату управления Белкоопсоюза
+        public async Task<IActionResult> SavingApplicationReport5(int id)
+        {
+            return View(await Reports5(id));
+        }
+        #endregion
+        #region метод для заполнения модели
+        private async Task<CertificationoOfEmployeesViewModel> Report6(int TableOrganizations)
+        {
+            var Organizations = await _context.TableOrganizations
+                .Where(i => i.TableOrganizationsId == TableOrganizations).ToListAsync();
+
+            var historyOfAppointments = await _context.TableHistoryOfAppointments
+                .Include(i =>i.Position)
+                .Include(i =>i.Position.Position)
+                .Include(i =>i.Position.Organizations)
+                .ToListAsync();
+            var verificationOfEducations = await _context.TableVerificationOfEducation
+                .ToListAsync();
+            var SubjectToCertification = await _context.TableHistoryOfAppointments
+               .Include(i => i.Position)
+               .Include(i => i.Position.Position)
+               .Include(i => i.Position.Organizations)
+               .ToListAsync();
+            for (int i = 0;i < SubjectToCertification.Count;i++)
+            {
+                foreach (var item in verificationOfEducations)
+                {
+                    SubjectToCertification[i].EmployeeRegistrationLogId = 1;
+                }
+            }
+            
+
+            CertificationoOfEmployeesViewModel model = new CertificationoOfEmployeesViewModel
+            {
+                Id = TableOrganizations,
+                Organizations = Organizations,
+                historyOfAppointments = historyOfAppointments,
+                verificationOfEducations = verificationOfEducations
+            };
+            return model;
+        }
+        #endregion
+        #region Аттестация
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> ApplicationReport6()
+        {
+            int TableOrganizations = _context.TableOrganizations.Include(i => i.users).FirstOrDefault
+           (i => User.Identity.Name == i.users.UserName).TableOrganizationsId;
+            return View(await Report6(TableOrganizations));
+        }
+        #endregion
+
+
     }
 }   
